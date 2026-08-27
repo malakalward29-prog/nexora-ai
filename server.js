@@ -214,6 +214,17 @@ checkAuth();
 });
 
 const PORT = process.env.PORT || 5003;
+// مسار تسجيل الدخول
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
+
+    // هنا يمكنك إضافة التحقق من بيانات المستخدم من قاعدة البيانات
+    if (username === "admin" && password === "123456") {
+        return res.json({ success: true, message: "تم تسجيل الدخول بنجاح!" });
+    } else {
+        return res.status(401).json({ success: false, message: "بيانات الدخول غير صحيحة" });
+    }
+});
 app.listen(PORT, async () => {
   console.log('');
   console.log('  ============================================');
