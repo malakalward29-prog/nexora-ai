@@ -238,3 +238,36 @@ app.listen(PORT, async () => {
   console.log('');
 });
 app.get('/favicon.ico', (req, res) => res.status(204).end());
+// 1. تفعيل استقبال البيانات
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// 2. مسار تسجيل الدخول
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
+
+    console.log("تم استقبال طلب دخول:", username);
+
+    if (username === "admin" && password === "123456") {
+        return res.json({ 
+            success: true, 
+            message: "تم تسجيل الدخول بنجاح!",
+            user: { username: "admin", role: "admin" }
+        });
+    } else {
+        return res.status(401).json({ 
+            success: false, 
+            message: "اسم المستخدم أو كلمة المرور غير صحيحة" 
+        });
+    }
+});
+
+// 3. مسار تسجيل مستخدم جديد
+app.post('/api/register', (req, res) => {
+    const { username, password } = req.body;
+
+    return res.json({ 
+        success: true, 
+        message: "تم إنشاء الحساب بنجاح!" 
+    });
+});
