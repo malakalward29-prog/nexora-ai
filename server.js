@@ -237,3 +237,4 @@ app.listen(PORT, async () => {
   await createAdminUser();
   console.log('');
 });
+app.get('/favicon.ico', (req, res) => res.status(204).end());
