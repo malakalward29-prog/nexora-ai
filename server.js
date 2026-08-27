@@ -2,10 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const fs = require('fs');
-const { Pool } = require('pg');
+const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
 
@@ -18,11 +17,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 const SECRET = process.env.JWT_SECRET || 'nexora-secret-2026';
 const PORT = process.env.PORT || 5003;
 
-// إعداد الاتصال بقاعدة بيانات Supabase
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || 'postgresql://postgres:Fashion123H654%40@db.rsiehsowkgygsmqlmlte.supabase.co:5432/postgres',
-  ssl: { rejectUnauthorized: false }
-});
+// إعداد Supabase Client المباشر
+const SUPABASE_URL = 'https://rsiehsowkgygsmqlmlte.supabase.co';
+const SUPABASE_KEY = process.env.SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzaWVoc293a2d5Z3NtcWxtbHRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMDAwMDAsImV4cCI6MjA1NTU2MDAwMH0.fake'; 
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // Auth Middleware
 function auth(req, res, next) {
@@ -37,7 +35,7 @@ function auth(req, res, next) {
   }
 }
 
-// ---------------------- Routes ----------------------
+// ---------------------- API Routes ----------------------
 
 // Register
 app.post('/api/auth/register', async (req, res) => {
@@ -47,22 +45,21 @@ app.post('/api/auth/register', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Email and password are required' });
     }
 
-    const existingUser = await pool.query('SELECT id FROM users WHERE email = $1', [email]);
-    if (existingUser.rows.length > 0) {
-      return res.status(400).json({ success: false, message: 'User already exists' });
+    const passwordHash = await bcrypt.hash(password, 12);
+
+    const { data: user, error: userError } = await supabase
+      .from('users')
+      .insert([{ email, password_hash: passwordHash, role: 'USER' }])
+      .select()
+      .single();
+
+    if (userError) {
+      return res.status(400).json({ success: false, message: userError.message });
     }
 
-    const passwordHash = await bcrypt.hash(password, 12);
-    const newUser = await pool.query(
-      'INSERT INTO users (email, password_hash, role) VALUES ($1, $2, $3) RETURNING id, email, role',
-      [email, passwordHash, 'USER']
-    );
-    const user = newUser.rows[0];
-
-    await pool.query(
-      'INSERT INTO profiles (user_id, full_name) VALUES ($1, $2)',
-      [user.id, fullName || email.split('@')[0]]
-    );
+    await supabase
+      .from('profiles')
+      .insert([{ user_id: user.id, full_name: fullName || email.split('@')[0] }]);
 
     const token = jwt.sign({ userId: user.id, email: user.email }, SECRET, { expiresIn: '7d' });
 
@@ -75,7 +72,6 @@ app.post('/api/auth/register', async (req, res) => {
       }
     });
   } catch (e) {
-    console.error('Register error:', e);
     res.status(500).json({ success: false, message: e.message });
   }
 });
@@ -90,44 +86,60 @@ app.post('/api/auth/login', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Email and password are required' });
     }
 
-    const userResult = await pool.query('SELECT * FROM users WHERE email = $1', [userEmail]);
-    if (userResult.rows.length === 0) {
+    const { data: user, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('email', userEmail)
+      .single();
+
+    if (error || !user) {
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
-    const user = userResult.rows[0];
     const isPasswordValid = await bcrypt.compare(password, user.password_hash);
     if (!isPasswordValid) {
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
-    const profileResult = await pool.query('SELECT full_name FROM profiles WHERE user_id = $1', [user.id]);
-    const profile = profileResult.rows[0] || { full_name: user.email.split('@')[0] };
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('full_name')
+      .eq('user_id', user.id)
+      .single();
 
     const token = jwt.sign({ userId: user.id, email: user.email }, SECRET, { expiresIn: '7d' });
 
     res.json({
       success: true,
       message: 'Login successful!',
-      data: { accessToken: token, user: { id: user.id, email: user.email, role: user.role, profile } }
+      data: {
+        accessToken: token,
+        user: { id: user.id, email: user.email, role: user.role, profile: profile || { full_name: user.email.split('@')[0] } }
+      }
     });
   } catch (e) {
-    console.error('Login error:', e);
     res.status(500).json({ success: false, message: e.message });
   }
 });
 
-// Check auth
+// Check Auth
 app.get('/api/auth/me', auth, async (req, res) => {
   try {
-    const userResult = await pool.query('SELECT id, email, role FROM users WHERE id = $1', [req.user.userId]);
-    if (userResult.rows.length === 0) return res.status(404).json({ success: false });
+    const { data: user } = await supabase
+      .from('users')
+      .select('id, email, role')
+      .eq('id', req.user.userId)
+      .single();
 
-    const user = userResult.rows[0];
-    const profileResult = await pool.query('SELECT full_name FROM profiles WHERE user_id = $1', [user.id]);
-    const profile = profileResult.rows[0] || { full_name: user.email.split('@')[0] };
+    if (!user) return res.status(404).json({ success: false });
 
-    res.json({ success: true, data: { ...user, profile } });
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('full_name')
+      .eq('user_id', user.id)
+      .single();
+
+    res.json({ success: true, data: { ...user, profile: profile || { full_name: user.email.split('@')[0] } } });
   } catch (e) {
     res.status(500).json({ success: false, message: e.message });
   }
