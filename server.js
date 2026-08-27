@@ -238,27 +238,55 @@ app.listen(PORT, async () => {
   console.log('');
 });
 app.get('/favicon.ico', (req, res) => res.status(204).end());
-// تفعيل استقبال البيانات
+// تفعيل استقبال الـ JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 1. مسار تسجيل الدخول المطابق للواجهة
+// 1. مسار تسجيل الدخول المطابق لملف index.html
 app.post('/api/auth/login', (req, res) => {
-    const { username, password, email } = req.body;
+    const { email, username, password } = req.body;
+    const userIdentifier = email || username;
 
+    console.log("طلب دخول للمستخدم:", userIdentifier);
+
+    // استجابة بنجاح لتجربة الدخول
     return res.json({ 
         success: true, 
         message: "تم تسجيل الدخول بنجاح!",
-        user: { username: username || "User", role: "admin" }
+        data: {
+            accessToken: "fake-jwt-token-12345",
+            user: { 
+                email: userIdentifier, 
+                profile: { full_name: userIdentifier.split('@')[0] } 
+            }
+        }
     });
 });
 
-// 2. مسار تسجيل مستخدم جديد المطابق للواجهة
+// 2. مسار إنشاء حساب جديد المطابق لملف index.html
 app.post('/api/auth/register', (req, res) => {
-    const { username, password, email } = req.body;
+    const { email, password, fullName } = req.body;
 
     return res.json({ 
         success: true, 
-        message: "تم إنشاء الحساب بنجاح!" 
+        message: "تم إنشاء الحساب بنجاح!",
+        data: {
+            accessToken: "fake-jwt-token-12345",
+            user: { 
+                email: email, 
+                profile: { full_name: fullName } 
+            }
+        }
+    });
+});
+
+// 3. مسار التحقق من الجلسة (Check Auth)
+app.get('/api/auth/me', (req, res) => {
+    return res.json({
+        success: true,
+        data: {
+            email: "admin@nexora.ai",
+            profile: { full_name: "Admin User" }
+        }
     });
 });
