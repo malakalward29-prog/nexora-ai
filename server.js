@@ -8,11 +8,15 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
+
+// Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-const SECRET = 'nexora-secret-2026';
+const SECRET = process.env.JWT_SECRET || 'nexora-secret-2026';
+const PORT = process.env.PORT || 5003;
 
 // Create default admin user if not exists
 async function createAdminUser() {
@@ -34,12 +38,15 @@ async function createAdminUser() {
   }
 }
 
+// Auth Middlewares
 function auth(req, res, next) {
   try {
     const token = req.headers.authorization.split(' ')[1];
     req.user = jwt.verify(token, SECRET);
     next();
-  } catch { res.status(401).json({ success: false, message: 'Unauthorized' }); }
+  } catch { 
+    res.status(401).json({ success: false, message: 'Unauthorized' }); 
+  }
 }
 
 function optAuth(req, res, next) {
@@ -50,46 +57,79 @@ function optAuth(req, res, next) {
   next();
 }
 
-// API Routes
+// ---------------------- API Routes ----------------------
+
+// Register Route
 app.post('/api/auth/register', async (req, res) => {
   try {
     const { email, password, fullName } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: 'Email and password are required' });
+    }
+    
+    const existingUser = await get('SELECT id FROM users WHERE email = ?', [email]);
+    if (existingUser) {
+      return res.status(400).json({ success: false, message: 'User already exists' });
+    }
+
     const id = uuidv4();
     const hash = await bcrypt.hash(password, 12);
     await run('INSERT INTO users (id, email, password_hash) VALUES (?, ?, ?)', [id, email, hash]);
     await run('INSERT INTO profiles (id, user_id, full_name) VALUES (?, ?, ?)', [uuidv4(), id, fullName || '']);
+    
     const token = jwt.sign({ userId: id }, SECRET, { expiresIn: '15m' });
-    res.json({ success: true, data: { user: { id, email }, accessToken: token } });
-  } catch(e) { res.status(500).json({ success: false, message: e.message }); }
+    res.json({ success: true, data: { user: { id, email, profile: { full_name: fullName } }, accessToken: token } });
+  } catch(e) { 
+    res.status(500).json({ success: false, message: e.message }); 
+  }
 });
 
+// Login Route
 app.post('/api/auth/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const u = await get('SELECT * FROM users WHERE email = ?', [email]);
-    if (!u || !(await bcrypt.compare(password, u.password_hash)))
+    const { email, username, password } = req.body;
+    const userEmail = email || username;
+
+    const u = await get('SELECT * FROM users WHERE email = ?', [userEmail]);
+    if (!u || !(await bcrypt.compare(password, u.password_hash))) {
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
+    
     const token = jwt.sign({ userId: u.id }, SECRET, { expiresIn: '15m' });
     const profile = await get('SELECT * FROM profiles WHERE user_id = ?', [u.id]);
     res.json({ success: true, data: { user: { id: u.id, email: u.email, role: u.role, profile }, accessToken: token } });
-  } catch(e) { res.status(500).json({ success: false }); }
+  } catch(e) { 
+    res.status(500).json({ success: false, message: e.message }); 
+  }
 });
 
+// Current User Route
 app.get('/api/auth/me', auth, async (req, res) => {
-  const u = await get('SELECT id, email, role, status, email_verified FROM users WHERE id = ?', [req.user.userId]);
-  const p = await get('SELECT * FROM profiles WHERE user_id = ?', [req.user.userId]);
-  res.json({ success: true, data: { ...u, profile: p } });
+  try {
+    const u = await get('SELECT id, email, role, status, email_verified FROM users WHERE id = ?', [req.user.userId]);
+    const p = await get('SELECT * FROM profiles WHERE user_id = ?', [req.user.userId]);
+    res.json({ success: true, data: { ...u, profile: p } });
+  } catch(e) {
+    res.status(500).json({ success: false, message: e.message });
+  }
 });
 
+// AI Tools Routes
 app.get('/api/tools', async (req, res) => {
   const lang = req.headers['accept-language']?.startsWith('ar') ? 'ar' : 'en';
   const tools = await all('SELECT t.*, c.name_en, c.name_ar, c.slug, c.icon FROM ai_tools t JOIN categories c ON t.category_id = c.id WHERE t.is_active = 1 ORDER BY t.click_count DESC', []);
-  res.json({ success: true, data: tools.map(t => ({
-    id: t.id, name: lang === 'ar' && t.name_ar ? t.name_ar : t.name,
-    description: lang === 'ar' && t.description_ar ? t.description_ar : t.description,
-    url: t.url, icon: t.icon, isPremium: !!t.is_premium,
-    category: { name: lang === 'ar' && t.name_ar ? t.name_ar : t.name_en, slug: t.slug, icon: t.icon }
-  })) });
+  res.json({ 
+    success: true, 
+    data: tools.map(t => ({
+      id: t.id, 
+      name: lang === 'ar' && t.name_ar ? t.name_ar : t.name,
+      description: lang === 'ar' && t.description_ar ? t.description_ar : t.description,
+      url: t.url, 
+      icon: t.icon, 
+      isPremium: !!t.is_premium,
+      category: { name: lang === 'ar' && t.name_ar ? t.name_ar : t.name_en, slug: t.slug, icon: t.icon }
+    })) 
+  });
 });
 
 app.get('/api/tools/:id', optAuth, async (req, res) => {
@@ -107,6 +147,7 @@ app.post('/api/tools/:id/click', optAuth, async (req, res) => {
   res.json({ success: true, data: { url: t.url } });
 });
 
+// Categories & Favorites Routes
 app.get('/api/categories', async (req, res) => {
   const cats = await all('SELECT c.*, (SELECT COUNT(*) FROM ai_tools WHERE category_id = c.id) as count FROM categories c WHERE is_active = 1', []);
   res.json({ success: true, data: cats });
@@ -129,6 +170,7 @@ app.delete('/api/favorites/:toolId', auth, async (req, res) => {
   res.json({ success: true });
 });
 
+// User Profile Routes
 app.get('/api/user/profile', auth, async (req, res) => {
   const u = await get('SELECT id, email, role FROM users WHERE id = ?', [req.user.userId]);
   const p = await get('SELECT * FROM profiles WHERE user_id = ?', [req.user.userId]);
@@ -142,6 +184,7 @@ app.put('/api/user/profile', auth, async (req, res) => {
   res.json({ success: true });
 });
 
+// Admin Dashboard Route
 app.get('/api/admin/dashboard', auth, async (req, res) => {
   const u = await get('SELECT role FROM users WHERE id = ?', [req.user.userId]);
   if (u.role !== 'ADMIN') return res.status(403).json({ success: false });
@@ -152,6 +195,7 @@ app.get('/api/admin/dashboard', auth, async (req, res) => {
 });
 
 app.get('/api/health', (req, res) => res.json({ success: true, message: 'Running' }));
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 // Serve HTML with embedded API script
 app.get('/', (req, res) => {
@@ -184,7 +228,7 @@ function updateUIForUser(){
 }
 function updateUIForGuest(){
   const nav=document.querySelector('.nav-actions');
-  if(nav)nav.innerHTML='<button class="btn btn-dark" onclick="toggleLanguage()">EN</button><button class="btn btn-dark login" onclick="openModal(\'login\')">Log in</button><button class="btn btn-purple" onclick="openModal(\'signup\')">Start Free</button>';
+  if(nav)nav.innerHTML='<button class="btn btn-dark" onclick="toggleLanguage()">EN</button><button class="btn btn-dark login" onclick="openModal(\\'login\\')">Log in</button><button class="btn btn-purple" onclick="openModal(\\'signup\\')">Start Free</button>';
 }
 async function loginUser(email,password){
   const data=await api('/auth/login',{method:'POST',body:{email:email,password:password}});
@@ -213,22 +257,11 @@ checkAuth();
   res.send(html);
 });
 
-const PORT = process.env.PORT || 5003;
-// مسار تسجيل الدخول
-app.post('/api/login', (req, res) => {
-    const { username, password } = req.body;
-
-    // هنا يمكنك إضافة التحقق من بيانات المستخدم من قاعدة البيانات
-    if (username === "admin" && password === "123456") {
-        return res.json({ success: true, message: "تم تسجيل الدخول بنجاح!" });
-    } else {
-        return res.status(401).json({ success: false, message: "بيانات الدخول غير صحيحة" });
-    }
-});
+// Start Server
 app.listen(PORT, async () => {
   console.log('');
   console.log('  ============================================');
-  console.log('       NEXORA AI SERVER RUNNING');
+  console.log('        NEXORA AI SERVER RUNNING');
   console.log('  ============================================');
   console.log('   Website: http://localhost:' + PORT);
   console.log('   Admin:   admin@nexora.ai');
@@ -236,57 +269,4 @@ app.listen(PORT, async () => {
   console.log('  ============================================');
   await createAdminUser();
   console.log('');
-});
-app.get('/favicon.ico', (req, res) => res.status(204).end());
-// تفعيل استقبال الـ JSON
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// 1. مسار تسجيل الدخول المطابق لملف index.html
-app.post('/api/auth/login', (req, res) => {
-    const { email, username, password } = req.body;
-    const userIdentifier = email || username;
-
-    console.log("طلب دخول للمستخدم:", userIdentifier);
-
-    // استجابة بنجاح لتجربة الدخول
-    return res.json({ 
-        success: true, 
-        message: "تم تسجيل الدخول بنجاح!",
-        data: {
-            accessToken: "fake-jwt-token-12345",
-            user: { 
-                email: userIdentifier, 
-                profile: { full_name: userIdentifier.split('@')[0] } 
-            }
-        }
-    });
-});
-
-// 2. مسار إنشاء حساب جديد المطابق لملف index.html
-app.post('/api/auth/register', (req, res) => {
-    const { email, password, fullName } = req.body;
-
-    return res.json({ 
-        success: true, 
-        message: "تم إنشاء الحساب بنجاح!",
-        data: {
-            accessToken: "fake-jwt-token-12345",
-            user: { 
-                email: email, 
-                profile: { full_name: fullName } 
-            }
-        }
-    });
-});
-
-// 3. مسار التحقق من الجلسة (Check Auth)
-app.get('/api/auth/me', (req, res) => {
-    return res.json({
-        success: true,
-        data: {
-            email: "admin@nexora.ai",
-            profile: { full_name: "Admin User" }
-        }
-    });
 });
