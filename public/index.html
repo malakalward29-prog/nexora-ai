@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nexora AI</title>
-<!-- مكتبة Paddle.js لتفعيل بوابة الدفع -->
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -100,14 +99,14 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 <h2 class="section-title">Popular AI Tools</h2>
 <p class="section-subtitle">Carefully selected tools to help you work smarter.</p>
 <div class="tools-grid" id="toolsGrid">
-<div class="tool-card"><div class="tool-icon">✍️</div><h3>ChatGPT</h3><p>AI assistant for writing, research, brainstorming, learning and programming.</p><span class="category">Writing & Productivity</span><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button></div>
-<div class="tool-card"><div class="tool-icon">🎨</div><h3>Canva AI</h3><p>Create presentations, designs, social media content and visual materials with AI.</p><span class="category">Design</span><button class="tool-button" onclick="openTool('https://www.canva.com')">Use Tool →</button></div>
-<div class="tool-card"><div class="tool-icon">🖼️</div><h3>Midjourney</h3><p>Generate creative AI images and visual concepts from simple text prompts.</p><span class="category">Images</span><button class="tool-button" onclick="openTool('https://www.midjourney.com')">Use Tool →</button></div>
-<div class="tool-card"><div class="tool-icon">🎙️</div><h3>TopMediai</h3><p>AI voice, text-to-speech and audio tools for content creators and businesses.</p><span class="category">Audio</span><button class="tool-button" onclick="openTool('https://www.topmediai.com')">Use Tool →</button></div>
-<div class="tool-card"><div class="tool-icon">🎬</div><h3>Runway Gen-2</h3><p>Transform text and images into cinematic AI videos and professional motion graphics.</p><span class="category">Video</span><button class="tool-button" onclick="openTool('https://research.runwayml.com')">Use Tool →</button></div>
-<div class="tool-card"><div class="tool-icon">💻</div><h3>GitHub Copilot</h3><p>AI pair programmer that helps developers write, debug and complete code faster.</p><span class="category">Programming</span><button class="tool-button" onclick="openTool('https://github.com/features/copilot')">Use Tool →</button></div>
-<div class="tool-card"><div class="tool-icon">📄</div><h3>Claude AI</h3><p>Analyze long PDF documents, summarize reports, and extract deep insights using AI.</p><span class="category">Documents</span><button class="tool-button" onclick="openTool('https://claude.ai')">Use Tool →</button></div>
-<div class="tool-card"><div class="tool-icon">📈</div><h3>AI Business</h3><p>Tools for marketing, sales, analytics, productivity and modern business workflows.</p><span class="category">Business</span><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button></div>
+<div class="tool-card"><div class="tool-icon">✍️</div><h3>ChatGPT</h3><p>AI assistant for writing, research, brainstorming, learning and programming.</p><span class="category">Writing & Productivity</span><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('ChatGPT', 'Writing & Productivity', 'https://chatgpt.com')">⭐ Save to Favorites</button></div>
+<div class="tool-card"><div class="tool-icon">🎨</div><h3>Canva AI</h3><p>Create presentations, designs, social media content and visual materials with AI.</p><span class="category">Design</span><button class="tool-button" onclick="openTool('https://www.canva.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Canva AI', 'Design', 'https://www.canva.com')">⭐ Save to Favorites</button></div>
+<div class="tool-card"><div class="tool-icon">🖼️</div><h3>Midjourney</h3><p>Generate creative AI images and visual concepts from simple text prompts.</p><span class="category">Images</span><button class="tool-button" onclick="openTool('https://www.midjourney.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Midjourney', 'Images', 'https://www.midjourney.com')">⭐ Save to Favorites</button></div>
+<div class="tool-card"><div class="tool-icon">🎙️</div><h3>TopMediai</h3><p>AI voice, text-to-speech and audio tools for content creators and businesses.</p><span class="category">Audio</span><button class="tool-button" onclick="openTool('https://www.topmediai.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('TopMediai', 'Audio', 'https://www.topmediai.com')">⭐ Save to Favorites</button></div>
+<div class="tool-card"><div class="tool-icon">🎬</div><h3>Runway Gen-2</h3><p>Transform text and images into cinematic AI videos and professional motion graphics.</p><span class="category">Video</span><button class="tool-button" onclick="openTool('https://research.runwayml.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Runway Gen-2', 'Video', 'https://research.runwayml.com')">⭐ Save to Favorites</button></div>
+<div class="tool-card"><div class="tool-icon">💻</div><h3>GitHub Copilot</h3><p>AI pair programmer that helps developers write, debug and complete code faster.</p><span class="category">Programming</span><button class="tool-button" onclick="openTool('https://github.com/features/copilot')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('GitHub Copilot', 'Programming', 'https://github.com/features/copilot')">⭐ Save to Favorites</button></div>
+<div class="tool-card"><div class="tool-icon">📄</div><h3>Claude AI</h3><p>Analyze long PDF documents, summarize reports, and extract deep insights using AI.</p><span class="category">Documents</span><button class="tool-button" onclick="openTool('https://claude.ai')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Claude AI', 'Documents', 'https://claude.ai')">⭐ Save to Favorites</button></div>
+<div class="tool-card"><div class="tool-icon">📈</div><h3>AI Business</h3><p>Tools for marketing, sales, analytics, productivity and modern business workflows.</p><span class="category">Business</span><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('AI Business', 'Business', 'https://chatgpt.com')">⭐ Save to Favorites</button></div>
 </div>
 </section>
 <div class="pricing"><div class="pricing-inner" id="pricing">
@@ -231,6 +230,32 @@ async function registerUser(email, password, fullName) {
       closeModal(); updateUIForUser(); alert('Account created! Welcome, ' + fullName);
     } else { alert(data && data.message ? data.message : 'Error creating account'); }
   } catch (e) { alert('Connection error or backend endpoint missing.'); }
+}
+
+async function saveBookmark(name, category, url) {
+  if (!authToken) {
+    alert('Please log in first to save favorites!');
+    openModal('login');
+    return;
+  }
+  try {
+    const res = await fetch(API_BASE + '/user/bookmarks', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authToken 
+      },
+      body: JSON.stringify({ name, category, url })
+    });
+    const data = await res.json();
+    if (data && data.success) {
+      alert(name + ' added to your favorites successfully! ⭐');
+    } else {
+      alert('Failed to save bookmark.');
+    }
+  } catch (err) {
+    alert('Connection error.');
+  }
 }
 
 function logout() {
