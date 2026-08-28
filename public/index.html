@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=0.85, maximum-scale=1.0">
   <title>Nexora AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,24 +25,25 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    body {
+    html, body {
+      font-size: 14px;
       background-color: var(--bg-color);
       color: var(--text);
-      line-height: 1.5;
-      padding-bottom: 60px;
+      line-height: 1.4;
+      padding-bottom: 40px;
     }
 
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 40px;
+      padding: 12px 30px;
       border-bottom: 1px solid var(--border);
       background-color: rgba(11, 13, 20, 0.9);
     }
 
     .logo {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       color: #a855f7;
     }
@@ -50,8 +51,8 @@
     nav a {
       color: var(--text-muted);
       text-decoration: none;
-      margin-left: 24px;
-      font-size: 14px;
+      margin-left: 20px;
+      font-size: 13px;
       font-weight: 500;
     }
 
@@ -61,37 +62,37 @@
 
     .hero {
       text-align: center;
-      padding: 60px 20px 30px;
-      max-width: 700px;
+      padding: 40px 15px 20px;
+      max-width: 600px;
       margin: 0 auto;
     }
 
     .hero h1 {
-      font-size: 36px;
+      font-size: 26px;
       font-weight: 700;
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
     }
 
     .hero p {
       color: var(--text-muted);
-      font-size: 15px;
-      margin-bottom: 24px;
+      font-size: 13px;
+      margin-bottom: 20px;
     }
 
     .search-bar {
-      max-width: 420px;
-      margin: 0 auto 40px;
+      max-width: 360px;
+      margin: 0 auto 30px;
     }
 
     .search-bar input {
       width: 100%;
-      padding: 10px 16px;
+      padding: 8px 14px;
       border-radius: 6px;
       border: 1px solid var(--border);
       background-color: #171d2d;
       color: var(--text);
-      font-size: 14px;
+      font-size: 13px;
       outline: none;
     }
 
@@ -100,29 +101,29 @@
     }
 
     .pricing-section {
-      max-width: 960px;
-      margin: 40px auto 0;
-      padding: 0 20px;
+      max-width: 850px;
+      margin: 20px auto 0;
+      padding: 0 15px;
     }
 
     .pricing-title {
       text-align: center;
-      font-size: 28px;
+      font-size: 22px;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .pricing-subtitle {
       text-align: center;
       color: var(--text-muted);
-      font-size: 14px;
-      margin-bottom: 32px;
+      font-size: 12px;
+      margin-bottom: 24px;
     }
 
     .plans-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 16px;
     }
 
     @media (max-width: 768px) {
@@ -134,8 +135,8 @@
     .plan-card {
       background-color: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
+      border-radius: 10px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -146,32 +147,32 @@
     }
 
     .plan-name {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .plan-price {
-      font-size: 32px;
+      font-size: 26px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .plan-desc {
       color: var(--text-muted);
-      margin-bottom: 24px;
-      font-size: 13px;
-      min-height: 40px;
+      margin-bottom: 18px;
+      font-size: 12px;
+      min-height: 36px;
     }
 
     .plan-btn {
       width: 100%;
-      padding: 10px;
+      padding: 8px;
       border-radius: 6px;
       border: 1px solid var(--border);
       background-color: transparent;
       color: var(--text);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       transition: background-color 0.2s;
