@@ -125,7 +125,15 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 <p>Our next stages will introduce user accounts, personalized AI recommendations, AI workflows, subscriptions, analytics and a professional administration system.</p>
 </section>
 </main>
-<footer>© 2026 Nexora AI. All rights reserved.</footer>
+
+<footer>
+    <p>© 2026 Nexora AI. All rights reserved.</p>
+    <div style="margin-top: 10px;">
+        <a href="/privacy.html" style="color: #a855f7; margin: 0 10px; text-decoration: none;">سياسة الخصوصية</a> | 
+        <a href="/terms.html" style="color: #a855f7; margin: 0 10px; text-decoration: none;">شروط الخدمة</a>
+    </div>
+</footer>
+
 <div class="modal" id="modal"><div class="modal-box"><div class="modal-header"><h2 id="modalTitle">Create Account</h2><button class="close" onclick="closeModal()">×</button></div>
 <div id="nameGroup" class="form-group"><input type="text" id="userName" placeholder="Your name"></div>
 <div class="form-group"><input type="email" id="userEmail" placeholder="Email address"></div>
@@ -300,11 +308,7 @@ function toggleLanguage() {
 }
 
 window.onclick = function (event) { if (event.target === document.getElementById("modal")) closeModal(); };
-<div style="text-align: center; margin-top: 40px; padding: 20px; color: #9ca3af;">
-    <p>© 2026 Nexora AI. جميع الحقوق محفوظة.</p>
-    <a href="/privacy.html" style="color: #a855f7; margin: 0 10px; text-decoration: none;">سياسة الخصوصية</a> | 
-    <a href="/terms.html" style="color: #a855f7; margin: 0 10px; text-decoration: none;">شروط الخدمة</a>
-</div>
+
 checkAuth();
 </script>
 </body>
