@@ -144,17 +144,22 @@ if (window.Paddle) {
   });
 }
 
-// دالة فتح نافذة الدفع المباشر عبر Paddle
+// دالة فتح نافذة الدفع المباشر عبر Paddle مع تفادي الأخطاء
 function openCheckout() {
   if (window.Paddle) {
-    Paddle.Checkout.open({
-      items: [
-        {
-          priceId: PADDLE_PRICE_ID,
-          quantity: 1
-        }
-      ]
-    });
+    try {
+      Paddle.Checkout.open({
+        items: [
+          {
+            priceId: PADDLE_PRICE_ID,
+            quantity: 1
+          }
+        ]
+      });
+    } catch (err) {
+      console.error(err);
+      alert('حدث خطأ في فتح نافذة الدفع، يرجى التأكد من صحة معرف السعر (Price ID) في لوحة تحكم Paddle.');
+    }
   } else {
     alert('جاري تحميل بوابة الدفع، يرجى المحاولة بعد لحظات...');
   }
@@ -179,7 +184,7 @@ async function checkAuth() {
   if (!authToken) return;
   try {
     const data = await api('/auth/me');
-    if (data.success) { currentUser = data.data; updateUIForUser(); }
+    if (data && data.success) { currentUser = data.data; updateUIForUser(); }
   } catch (e) { localStorage.removeItem('nexora_token'); authToken = null; }
 }
 
@@ -195,21 +200,25 @@ function updateUIForGuest() {
 }
 
 async function loginUser(email, password) {
-  const data = await api('/auth/login', { method: 'POST', body: { email: email, password: password } });
-  if (data.success) {
-    authToken = data.data.accessToken; currentUser = data.data.user;
-    localStorage.setItem('nexora_token', authToken);
-    closeModal(); updateUIForUser(); alert('Login successful! Welcome, ' + (currentUser.profile && currentUser.profile.full_name ? currentUser.profile.full_name : currentUser.email));
-  } else { alert(data.message || 'Invalid credentials'); }
+  try {
+    const data = await api('/auth/login', { method: 'POST', body: { email: email, password: password } });
+    if (data && data.success) {
+      authToken = data.data.accessToken; currentUser = data.data.user;
+      localStorage.setItem('nexora_token', authToken);
+      closeModal(); updateUIForUser(); alert('Login successful! Welcome, ' + (currentUser.profile && currentUser.profile.full_name ? currentUser.profile.full_name : currentUser.email));
+    } else { alert(data && data.message ? data.message : 'Invalid credentials'); }
+  } catch (e) { alert('Connection error or backend endpoint missing.'); }
 }
 
 async function registerUser(email, password, fullName) {
-  const data = await api('/auth/register', { method: 'POST', body: { email: email, password: password, fullName: fullName } });
-  if (data.success) {
-    authToken = data.data.accessToken; currentUser = data.data.user;
-    localStorage.setItem('nexora_token', authToken);
-    closeModal(); updateUIForUser(); alert('Account created! Welcome, ' + fullName);
-  } else { alert(data.message || 'Error creating account'); }
+  try {
+    const data = await api('/auth/register', { method: 'POST', body: { email: email, password: password, fullName: fullName } });
+    if (data && data.success) {
+      authToken = data.data.accessToken; currentUser = data.data.user;
+      localStorage.setItem('nexora_token', authToken);
+      closeModal(); updateUIForUser(); alert('Account created! Welcome, ' + fullName);
+    } else { alert(data && data.message ? data.message : 'Error creating account'); }
+  } catch (e) { alert('Connection error or backend endpoint missing.'); }
 }
 
 function logout() {
