@@ -104,10 +104,10 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 <div class="tool-card"><div class="tool-icon">🎨</div><h3>Canva AI</h3><p>Create presentations, designs, social media content and visual materials with AI.</p><span class="category">Design</span><button class="tool-button" onclick="openTool('https://www.canva.com')">Use Tool →</button></div>
 <div class="tool-card"><div class="tool-icon">🖼️</div><h3>Midjourney</h3><p>Generate creative AI images and visual concepts from simple text prompts.</p><span class="category">Images</span><button class="tool-button" onclick="openTool('https://www.midjourney.com')">Use Tool →</button></div>
 <div class="tool-card"><div class="tool-icon">🎙️</div><h3>TopMediai</h3><p>AI voice, text-to-speech and audio tools for content creators and businesses.</p><span class="category">Audio</span><button class="tool-button" onclick="openTool('https://www.topmediai.com')">Use Tool →</button></div>
-<div class="tool-card"><div class="tool-icon">🎬</div><h3>AI Video</h3><p>Explore the future of AI-powered video creation, editing and content generation.</p><span class="category">Video</span><button class="tool-button" onclick="showMessage('AI Video tools will be added to Nexora soon.')">Coming Soon</button></div>
-<div class="tool-card"><div class="tool-icon">💻</div><h3>AI Coding</h3><p>Discover tools that help developers write, debug and understand code faster.</p><span class="category">Programming</span><button class="tool-button" onclick="showMessage('AI Coding tools will be added soon.')">Coming Soon</button></div>
-<div class="tool-card"><div class="tool-icon">📄</div><h3>AI PDF</h3><p>Summarize documents, extract information and work with PDF files using AI.</p><span class="category">Documents</span><button class="tool-button" onclick="showMessage('AI PDF tools will be added soon.')">Coming Soon</button></div>
-<div class="tool-card"><div class="tool-icon">📈</div><h3>AI Business</h3><p>Tools for marketing, sales, analytics, productivity and modern business workflows.</p><span class="category">Business</span><button class="tool-button" onclick="showMessage('Business AI tools will be added soon.')">Coming Soon</button></div>
+<div class="tool-card"><div class="tool-icon">🎬</div><h3>Runway Gen-2</h3><p>Transform text and images into cinematic AI videos and professional motion graphics.</p><span class="category">Video</span><button class="tool-button" onclick="openTool('https://research.runwayml.com')">Use Tool →</button></div>
+<div class="tool-card"><div class="tool-icon">💻</div><h3>GitHub Copilot</h3><p>AI pair programmer that helps developers write, debug and complete code faster.</p><span class="category">Programming</span><button class="tool-button" onclick="openTool('https://github.com/features/copilot')">Use Tool →</button></div>
+<div class="tool-card"><div class="tool-icon">📄</div><h3>Claude AI</h3><p>Analyze long PDF documents, summarize reports, and extract deep insights using AI.</p><span class="category">Documents</span><button class="tool-button" onclick="openTool('https://claude.ai')">Use Tool →</button></div>
+<div class="tool-card"><div class="tool-icon">📈</div><h3>AI Business</h3><p>Tools for marketing, sales, analytics, productivity and modern business workflows.</p><span class="category">Business</span><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button></div>
 </div>
 </section>
 <div class="pricing"><div class="pricing-inner" id="pricing">
@@ -271,9 +271,9 @@ function recommendTool() {
   if (input.includes("write") || input.includes("writing") || input.includes("article") || input.includes("content") || input.includes("كتابة") || input.includes("مقال") || input.includes("محتوى")) { result = "✨ Recommended: AI Writing & Productivity — Start with ChatGPT."; }
   else if (input.includes("image") || input.includes("photo") || input.includes("design") || input.includes("صورة") || input.includes("تصميم")) { result = "🎨 Recommended: AI Images & Design — Explore Canva AI and Midjourney."; }
   else if (input.includes("voice") || input.includes("audio") || input.includes("صوت") || input.includes("بودكاست")) { result = "🎙️ Recommended: AI Audio — Explore TopMediai."; }
-  else if (input.includes("video") || input.includes("فيديو")) { result = "🎬 Recommended: AI Video — coming soon."; }
-  else if (input.includes("code") || input.includes("coding") || input.includes("برمجة") || input.includes("كود")) { result = "💻 Recommended: AI Coding — coming soon."; }
-  else if (input.includes("pdf") || input.includes("document") || input.includes("ملف") || input.includes("وثيقة")) { result = "📄 Recommended: AI Documents & PDF — coming soon."; }
+  else if (input.includes("video") || input.includes("فيديو")) { result = "🎬 Recommended: AI Video — Try Runway Gen-2."; }
+  else if (input.includes("code") || input.includes("coding") || input.includes("برمجة") || input.includes("كود")) { result = "💻 Recommended: AI Coding — Try GitHub Copilot."; }
+  else if (input.includes("pdf") || input.includes("document") || input.includes("ملف") || input.includes("وثيقة")) { result = "📄 Recommended: AI Documents & PDF — Try Claude AI."; }
   else { result = "✨ Try describing your goal, for example: Create a presentation, generate an image, write an article."; }
   box.textContent = result; box.style.display = "block";
 }
