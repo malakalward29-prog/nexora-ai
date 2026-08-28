@@ -2,97 +2,58 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=0.85, maximum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nexora AI</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-color: #0b0d14;
-      --card-bg: #121624;
-      --accent: #9333ea;
-      --accent-hover: #7e22ce;
-      --text: #ffffff;
-      --text-muted: #94a3b8;
-      --border: #1e293b;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    html, body {
-      font-size: 14px;
-      background-color: var(--bg-color);
-      color: var(--text);
-      line-height: 1.4;
-      padding-bottom: 40px;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 30px;
-      border-bottom: 1px solid var(--border);
-      background-color: rgba(11, 13, 20, 0.9);
-    }
-
-    .logo {
-      font-size: 18px;
-      font-weight: 700;
-      color: #a855f7;
-    }
-
-    nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    nav a:hover {
-      color: var(--text);
+    body {
+      background-color: #0d0f17;
+      color: #ffffff;
+      padding-bottom: 80px;
     }
 
     .hero {
       text-align: center;
-      padding: 40px 15px 20px;
-      max-width: 600px;
+      padding: 80px 20px 40px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
     .hero h1 {
-      font-size: 26px;
+      font-size: 44px;
       font-weight: 700;
-      margin-bottom: 10px;
-      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
     }
 
     .hero p {
-      color: var(--text-muted);
-      font-size: 13px;
-      margin-bottom: 20px;
+      color: #94a3b8;
+      font-size: 18px;
+      margin-bottom: 36px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .search-bar {
-      max-width: 360px;
-      margin: 0 auto 30px;
+      max-width: 480px;
+      margin: 0 auto 60px;
     }
 
     .search-bar input {
       width: 100%;
-      padding: 8px 14px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background-color: #171d2d;
-      color: var(--text);
-      font-size: 13px;
+      padding: 14px 20px;
+      border-radius: 8px;
+      border: 1px solid #1e293b;
+      background-color: #161b26;
+      color: #ffffff;
+      font-size: 15px;
       outline: none;
     }
 
@@ -101,94 +62,97 @@
     }
 
     .pricing-section {
-      max-width: 850px;
-      margin: 20px auto 0;
-      padding: 0 15px;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
     .pricing-title {
       text-align: center;
-      font-size: 22px;
+      font-size: 38px;
       font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 10px;
     }
 
     .pricing-subtitle {
       text-align: center;
-      color: var(--text-muted);
-      font-size: 12px;
-      margin-bottom: 24px;
+      color: #94a3b8;
+      font-size: 16px;
+      margin-bottom: 48px;
     }
 
     .plans-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 24px;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       .plans-grid {
         grid-template-columns: 1fr;
       }
     }
 
     .plan-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 18px;
+      background-color: #131722;
+      border: 1px solid #1e2638;
+      border-radius: 16px;
+      padding: 36px 30px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      min-height: 380px;
     }
 
     .plan-card.featured {
-      border-color: #a855f7;
+      border: 1px solid #8b5cf6;
+      box-shadow: 0 0 25px rgba(139, 92, 246, 0.15);
     }
 
     .plan-name {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
     }
 
     .plan-price {
-      font-size: 26px;
-      font-weight: 700;
-      margin-bottom: 8px;
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      line-height: 1;
     }
 
     .plan-desc {
-      color: var(--text-muted);
-      margin-bottom: 18px;
-      font-size: 12px;
-      min-height: 36px;
+      color: #94a3b8;
+      margin-bottom: 36px;
+      font-size: 15px;
+      line-height: 1.5;
     }
 
     .plan-btn {
       width: 100%;
-      padding: 8px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid #2a3447;
       background-color: transparent;
-      color: var(--text);
-      font-size: 13px;
+      color: #ffffff;
+      font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.2s;
+      transition: all 0.2s ease;
     }
 
     .plan-btn.primary {
-      background-color: var(--accent);
+      background: linear-gradient(135deg, #a855f7, #9333ea);
       border: none;
     }
 
     .plan-btn.primary:hover {
-      background-color: var(--accent-hover);
+      opacity: 0.9;
     }
 
     .plan-btn:hover:not(.primary) {
-      background-color: #1e293b;
+      background-color: #1e2638;
     }
   </style>
 
@@ -214,14 +178,6 @@
 </head>
 <body>
 
-  <header>
-    <div class="logo">Nexora AI</div>
-    <nav>
-      <a href="#pricing">Pricing</a>
-      <a href="#">Tools</a>
-    </nav>
-  </header>
-
   <section class="hero">
     <h1>Supercharge Your Workflow with Nexora AI</h1>
     <p>Access cutting-edge AI models, automated recommendations, and custom features in one unified platform.</p>
@@ -231,11 +187,12 @@
     </div>
   </section>
 
-  <section class="pricing-section" id="pricing">
+  <section class="pricing-section">
     <h2 class="pricing-title">Flexible Plans</h2>
     <p class="pricing-subtitle">Upgrade when Nexora becomes part of your workflow.</p>
 
     <div class="plans-grid">
+      <!-- Free Plan -->
       <div class="plan-card">
         <div>
           <div class="plan-name">Free</div>
@@ -245,6 +202,7 @@
         <button class="plan-btn">Start Free</button>
       </div>
 
+      <!-- Pro Plan -->
       <div class="plan-card featured">
         <div>
           <div class="plan-name">Pro</div>
@@ -254,6 +212,7 @@
         <button onclick="openCheckout()" class="plan-btn primary">Upgrade to Pro 🚀</button>
       </div>
 
+      <!-- Business Plan -->
       <div class="plan-card">
         <div>
           <div class="plan-name">Business</div>
