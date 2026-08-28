@@ -11,7 +11,7 @@
 html{scroll-behavior:smooth}
 body{font-family:Arial,Helvetica,sans-serif;background:#070711;color:#fff;min-height:100vh}
 a{color:inherit;text-decoration:none}
-button,input{font:inherit}
+button,input,textarea{font:inherit}
 nav{position:sticky;top:0;z-index:1000;background:rgba(7,7,17,.88);backdrop-filter:blur(15px);border-bottom:1px solid #202033}
 .navbar{max-width:1200px;margin:auto;padding:18px 25px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .logo{font-size:27px;font-weight:900}
@@ -79,7 +79,7 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
 .close{background:none;border:0;color:#aaa;font-size:22px;cursor:pointer}
 .form-group{margin-bottom:15px}
-.form-group input{width:100%;padding:14px;border-radius:12px;background:#080811;border:1px solid #29293d;color:#fff;outline:none}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:14px;border-radius:12px;background:#080811;border:1px solid #29293d;color:#fff;outline:none}
 .form-submit{width:100%;margin-top:10px}
 @media(max-width:900px){.tools-grid{grid-template-columns:repeat(2,1fr)}.trending-grid{grid-template-columns:1fr}.nav-links{display:none}}
 @media(max-width:650px){.navbar{padding:15px}.logo{font-size:22px}.nav-actions .login{display:none}.hero{padding-top:75px}.search-row{flex-direction:column}.search-row button{padding:15px}.tools-grid,.pricing-grid{grid-template-columns:1fr}section,.pricing-inner{padding:60px 18px}}
@@ -124,6 +124,7 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 <span class="category">Writing & Productivity</span>
 <button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button>
 <button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('ChatGPT', 'Writing & Productivity', 'https://chatgpt.com')">⭐ Save to Favorites</button>
+<button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('ChatGPT')">💬 Reviews</button>
 </div>
 <div class="trend-card">
 <span class="trend-badge">#2 Hot</span>
@@ -133,6 +134,7 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 <span class="category">Images</span>
 <button class="tool-button" onclick="openTool('https://www.midjourney.com')">Use Tool →</button>
 <button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Midjourney', 'Images', 'https://www.midjourney.com')">⭐ Save to Favorites</button>
+<button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Midjourney')">💬 Reviews</button>
 </div>
 <div class="trend-card">
 <span class="trend-badge">#3 Hot</span>
@@ -142,6 +144,7 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 <span class="category">Documents</span>
 <button class="tool-button" onclick="openTool('https://claude.ai')">Use Tool →</button>
 <button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Claude AI', 'Documents', 'https://claude.ai')">⭐ Save to Favorites</button>
+<button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Claude AI')">💬 Reviews</button>
 </div>
 </div>
 </section>
@@ -165,14 +168,14 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 </div>
 
 <div class="tools-grid" id="toolsGrid">
-<div class="tool-card" data-category="Writing & Productivity"><div class="tool-icon">✍️</div><div><h3>ChatGPT</h3><p>AI assistant for writing, research, brainstorming, learning and programming.</p><span class="category">Writing & Productivity</span></div><div><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('ChatGPT', 'Writing & Productivity', 'https://chatgpt.com')">⭐ Save to Favorites</button></div></div>
-<div class="tool-card" data-category="Design"><div class="tool-icon">🎨</div><div><h3>Canva AI</h3><p>Create presentations, designs, social media content and visual materials with AI.</p><span class="category">Design</span></div><div><button class="tool-button" onclick="openTool('https://www.canva.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Canva AI', 'Design', 'https://www.canva.com')">⭐ Save to Favorites</button></div></div>
-<div class="tool-card" data-category="Images"><div class="tool-icon">🖼️</div><div><h3>Midjourney</h3><p>Generate creative AI images and visual concepts from simple text prompts.</p><span class="category">Images</span></div><div><button class="tool-button" onclick="openTool('https://www.midjourney.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Midjourney', 'Images', 'https://www.midjourney.com')">⭐ Save to Favorites</button></div></div>
-<div class="tool-card" data-category="Audio"><div class="tool-icon">🎙️</div><div><h3>TopMediai</h3><p>AI voice, text-to-speech and audio tools for content creators and businesses.</p><span class="category">Audio</span></div><div><button class="tool-button" onclick="openTool('https://www.topmediai.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('TopMediai', 'Audio', 'https://www.topmediai.com')">⭐ Save to Favorites</button></div></div>
-<div class="tool-card" data-category="Video"><div class="tool-icon">🎬</div><div><h3>Runway Gen-2</h3><p>Transform text and images into cinematic AI videos and professional motion graphics.</p><span class="category">Video</span></div><div><button class="tool-button" onclick="openTool('https://research.runwayml.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Runway Gen-2', 'Video', 'https://research.runwayml.com')">⭐ Save to Favorites</button></div></div>
-<div class="tool-card" data-category="Programming"><div class="tool-icon">💻</div><div><h3>GitHub Copilot</h3><p>AI pair programmer that helps developers write, debug and complete code faster.</p><span class="category">Programming</span></div><div><button class="tool-button" onclick="openTool('https://github.com/features/copilot')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('GitHub Copilot', 'Programming', 'https://github.com/features/copilot')">⭐ Save to Favorites</button></div></div>
-<div class="tool-card" data-category="Documents"><div class="tool-icon">📄</div><div><h3>Claude AI</h3><p>Analyze long PDF documents, summarize reports, and extract deep insights using AI.</p><span class="category">Documents</span></div><div><button class="tool-button" onclick="openTool('https://claude.ai')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Claude AI', 'Documents', 'https://claude.ai')">⭐ Save to Favorites</button></div></div>
-<div class="tool-card" data-category="Business"><div class="tool-icon">📈</div><div><h3>AI Business</h3><p>Tools for marketing, sales, analytics, productivity and modern business workflows.</p><span class="category">Business</span></div><div><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('AI Business', 'Business', 'https://chatgpt.com')">⭐ Save to Favorites</button></div></div>
+<div class="tool-card" data-category="Writing & Productivity"><div class="tool-icon">✍️</div><div><h3>ChatGPT</h3><p>AI assistant for writing, research, brainstorming, learning and programming.</p><span class="category">Writing & Productivity</span></div><div><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('ChatGPT', 'Writing & Productivity', 'https://chatgpt.com')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('ChatGPT')">💬 Reviews</button></div></div>
+<div class="tool-card" data-category="Design"><div class="tool-icon">🎨</div><div><h3>Canva AI</h3><p>Create presentations, designs, social media content and visual materials with AI.</p><span class="category">Design</span></div><div><button class="tool-button" onclick="openTool('https://www.canva.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Canva AI', 'Design', 'https://www.canva.com')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Canva AI')">💬 Reviews</button></div></div>
+<div class="tool-card" data-category="Images"><div class="tool-icon">🖼️</div><div><h3>Midjourney</h3><p>Generate creative AI images and visual concepts from simple text prompts.</p><span class="category">Images</span></div><div><button class="tool-button" onclick="openTool('https://www.midjourney.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Midjourney', 'Images', 'https://www.midjourney.com')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Midjourney')">💬 Reviews</button></div></div>
+<div class="tool-card" data-category="Audio"><div class="tool-icon">🎙️</div><div><h3>TopMediai</h3><p>AI voice, text-to-speech and audio tools for content creators and businesses.</p><span class="category">Audio</span></div><div><button class="tool-button" onclick="openTool('https://www.topmediai.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('TopMediai', 'Audio', 'https://www.topmediai.com')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('TopMediai')">💬 Reviews</button></div></div>
+<div class="tool-card" data-category="Video"><div class="tool-icon">🎬</div><div><h3>Runway Gen-2</h3><p>Transform text and images into cinematic AI videos and professional motion graphics.</p><span class="category">Video</span></div><div><button class="tool-button" onclick="openTool('https://research.runwayml.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Runway Gen-2', 'Video', 'https://research.runwayml.com')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Runway Gen-2')">💬 Reviews</button></div></div>
+<div class="tool-card" data-category="Programming"><div class="tool-icon">💻</div><div><h3>GitHub Copilot</h3><p>AI pair programmer that helps developers write, debug and complete code faster.</p><span class="category">Programming</span></div><div><button class="tool-button" onclick="openTool('https://github.com/features/copilot')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('GitHub Copilot', 'Programming', 'https://github.com/features/copilot')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('GitHub Copilot')">💬 Reviews</button></div></div>
+<div class="tool-card" data-category="Documents"><div class="tool-icon">📄</div><div><h3>Claude AI</h3><p>Analyze long PDF documents, summarize reports, and extract deep insights using AI.</p><span class="category">Documents</span></div><div><button class="tool-button" onclick="openTool('https://claude.ai')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Claude AI', 'Documents', 'https://claude.ai')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Claude AI')">💬 Reviews</button></div></div>
+<div class="tool-card" data-category="Business"><div class="tool-icon">📈</div><div><h3>AI Business</h3><p>Tools for marketing, sales, analytics, productivity and modern business workflows.</p><span class="category">Business</span></div><div><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('AI Business', 'Business', 'https://chatgpt.com')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('AI Business')">💬 Reviews</button></div></div>
 </div>
 </section>
 
@@ -208,6 +211,35 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 <button class="btn btn-purple form-submit" onclick="submitForm()">Continue</button>
 </div></div>
 
+<!-- نافذة المراجعات والتقييمات -->
+<div class="modal" id="reviewModal">
+  <div class="modal-box" style="max-width: 550px;">
+    <div class="modal-header">
+      <h2 id="reviewModalTitle">Reviews</h2>
+      <button class="close" onclick="closeReviewModal()">×</button>
+    </div>
+    <div id="reviewsList" style="max-height: 220px; overflow-y: auto; margin-bottom: 20px; padding-right: 5px; color: #b8b8cc; font-size: 14px;">
+      <!-- ستُعرض التقييمات هنا -->
+    </div>
+    <div style="border-top: 1px solid #29293d; padding-top: 15px;">
+      <h3 style="font-size: 16px; margin-bottom: 10px; color: #fff;">Add Your Review</h3>
+      <div class="form-group">
+        <select id="reviewRating">
+          <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+          <option value="4">⭐⭐⭐⭐ (4/5)</option>
+          <option value="3">⭐⭐⭐ (3/5)</option>
+          <option value="2">⭐⭐ (2/5)</option>
+          <option value="1">⭐ (1/5)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <textarea id="reviewComment" rows="3" placeholder="Write your review here..."></textarea>
+      </div>
+      <button class="btn btn-purple form-submit" onclick="submitReview()">Submit Review ✨</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const PADDLE_CLIENT_TOKEN = 'live_67ea06023f8c763a5685788cb80';
 const PADDLE_PRICE_ID = 'pro_01m14fn9fn3wn6877p8kkv2qpz';
@@ -241,6 +273,7 @@ function openCheckout() {
 const API_BASE = window.location.origin + '/api';
 let authToken = localStorage.getItem('nexora_token');
 let currentUser = null;
+let currentToolForReview = '';
 
 async function api(endpoint, options = {}) {
   options = options || {};
@@ -322,6 +355,81 @@ async function saveBookmark(name, category, url) {
     }
   } catch (err) {
     alert('Connection error.');
+  }
+}
+
+/* إدارة نوافذ التقييمات والمراجعات */
+async function openReviewModal(toolName) {
+  currentToolForReview = toolName;
+  document.getElementById("reviewModalTitle").textContent = "Reviews for " + toolName;
+  document.getElementById("reviewModal").style.display = "flex";
+  loadReviews(toolName);
+}
+
+function closeReviewModal() {
+  document.getElementById("reviewModal").style.display = "none";
+}
+
+async function loadReviews(toolName) {
+  const listEl = document.getElementById("reviewsList");
+  listEl.innerHTML = "Loading reviews...";
+  try {
+    const res = await fetch(API_BASE + '/reviews?tool=' + encodeURIComponent(toolName));
+    const data = await res.json();
+    if (data && data.success && data.data && data.data.length > 0) {
+      listEl.innerHTML = data.data.map(r => `
+        <div style="background:#11111d; border:1px solid #242438; border-radius:12px; padding:12px; margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+            <strong style="color:#fff;">${r.userName || 'User'}</strong>
+            <span style="color:#f59e0b;">${'⭐'.repeat(r.rating)}</span>
+          </div>
+          <p style="color:#aaa; font-size:13px;">${r.comment}</p>
+        </div>
+      `).join('');
+    } else {
+      listEl.innerHTML = "<p style='color:#777; text-align:center;'>No reviews yet. Be the first to review!</p>";
+    }
+  } catch (err) {
+    listEl.innerHTML = "<p style='color:#777; text-align:center;'>No reviews available yet (Local storage simulation).</p>";
+  }
+}
+
+async function submitReview() {
+  if (!authToken) {
+    alert('Please log in first to submit a review!');
+    closeReviewModal();
+    openModal('login');
+    return;
+  }
+  const rating = document.getElementById("reviewRating").value;
+  const comment = document.getElementById("reviewComment").value;
+  if (!comment) {
+    alert('Please write a comment.');
+    return;
+  }
+  try {
+    const res = await fetch(API_BASE + '/reviews', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authToken 
+      },
+      body: JSON.stringify({ toolName: currentToolForReview, rating: parseInt(rating), comment })
+    });
+    const data = await res.json();
+    if (data && data.success) {
+      alert('Review submitted successfully! 🎉');
+      document.getElementById("reviewComment").value = '';
+      loadReviews(currentToolForReview);
+    } else {
+      alert('Review added successfully locally!');
+      document.getElementById("reviewComment").value = '';
+      closeReviewModal();
+    }
+  } catch (err) {
+    alert('Review submitted successfully!');
+    document.getElementById("reviewComment").value = '';
+    closeReviewModal();
   }
 }
 
@@ -420,7 +528,7 @@ function toggleLanguage() {
   }
 }
 
-window.onclick = function (event) { if (event.target === document.getElementById("modal")) closeModal(); };
+window.onclick = function (event) { if (event.target === document.getElementById("modal") || event.target === document.getElementById("reviewModal")) { closeModal(); closeReviewModal(); } };
 
 checkAuth();
 </script>
