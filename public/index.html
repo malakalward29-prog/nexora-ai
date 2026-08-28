@@ -143,7 +143,6 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 </div></div>
 
 <script>
-// تهيئة مكتبة Paddle بالشكل الصحيح والسليم للـ V2
 const PADDLE_CLIENT_TOKEN = 'live_67ea06023f8c763a5685788cb80';
 const PADDLE_PRICE_ID = 'pro_01m14fn9fn3wn6877p8kkv2qpz';
 
@@ -153,7 +152,6 @@ if (window.Paddle) {
   });
 }
 
-// دالة فتح نافذة الدفع المباشر عبر Paddle مع تفادي الأخطاء
 function openCheckout() {
   if (window.Paddle) {
     try {
@@ -167,7 +165,7 @@ function openCheckout() {
       });
     } catch (err) {
       console.error(err);
-      alert('حدث خطأ في فتح نافذة الدفع، يرجى التأكد من صحة معرف السعر (Price ID) في لوحة تحكم Paddle.');
+      alert('حدث خطأ في فتح نافذة الدفع، يرجى التأكد من صحة معرف السعر (Price ID).');
     }
   } else {
     alert('جاري تحميل بوابة الدفع، يرجى المحاولة بعد لحظات...');
@@ -200,7 +198,12 @@ async function checkAuth() {
 function updateUIForUser() {
   if (!currentUser) return;
   const nav = document.querySelector('.nav-actions');
-  if (nav) nav.innerHTML = '<button class="btn btn-dark" onclick="toggleLanguage()">EN</button><button class="btn btn-dark" onclick="showProfile()">' + (currentUser.profile && currentUser.profile.full_name ? currentUser.profile.full_name : currentUser.email) + '</button><button class="btn btn-purple" onclick="logout()">Logout</button>';
+  if (nav) {
+    const displayName = currentUser.profile && currentUser.profile.full_name ? currentUser.profile.full_name : currentUser.email;
+    nav.innerHTML = '<button class="btn btn-dark" onclick="toggleLanguage()">EN</button>' +
+                    '<button class="btn btn-dark" onclick="location.href=\'dashboard.html\'">' + displayName + '</button>' +
+                    '<button class="btn btn-purple" onclick="logout()">Logout</button>';
+  }
 }
 
 function updateUIForGuest() {
