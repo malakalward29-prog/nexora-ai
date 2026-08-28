@@ -11,7 +11,7 @@
 html{scroll-behavior:smooth}
 body{font-family:Arial,Helvetica,sans-serif;background:#070711;color:#fff;min-height:100vh}
 a{color:inherit;text-decoration:none}
-button,input,textarea{font:inherit}
+button,input,textarea,select{font:inherit}
 nav{position:sticky;top:0;z-index:1000;background:rgba(7,7,17,.88);backdrop-filter:blur(15px);border-bottom:1px solid #202033}
 .navbar{max-width:1200px;margin:auto;padding:18px 25px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .logo{font-size:27px;font-weight:900}
@@ -99,7 +99,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <body>
 <nav><div class="navbar">
 <a href="#" class="logo">Nexora <span>AI</span></a>
-<div class="nav-links"><a href="#home">Home</a><a href="#trending">Trending</a><a href="#tools">AI Tools</a><a href="#pricing">Pricing</a><a href="#about">About</a></div>
+<div class="nav-links"><a href="#home">Home</a><a href="#trending">Trending</a><a href="#tools">AI Tools</a><a href="#comparison">Compare</a><a href="#pricing">Pricing</a><a href="#about">About</a></div>
 <div class="nav-actions">
 <button class="btn btn-dark" onclick="toggleLanguage()" id="languageButton">AR</button>
 <button class="btn btn-dark login" onclick="openModal('login')">Log in</button>
@@ -187,6 +187,64 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <div class="tool-card" data-category="Programming"><div class="tool-icon">💻</div><div><h3>GitHub Copilot</h3><p>AI pair programmer that helps developers write, debug and complete code faster.</p><span class="category">Programming</span></div><div><button class="tool-button" onclick="openTool('https://github.com/features/copilot')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('GitHub Copilot', 'Programming', 'https://github.com/features/copilot')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('GitHub Copilot')">💬 Reviews</button></div></div>
 <div class="tool-card" data-category="Documents"><div class="tool-icon">📄</div><div><h3>Claude AI</h3><p>Analyze long PDF documents, summarize reports, and extract deep insights using AI.</p><span class="category">Documents</span></div><div><button class="tool-button" onclick="openTool('https://claude.ai')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Claude AI', 'Documents', 'https://claude.ai')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Claude AI')">💬 Reviews</button></div></div>
 <div class="tool-card" data-category="Business"><div class="tool-icon">📈</div><div><h3>AI Business</h3><p>Tools for marketing, sales, analytics, productivity and modern business workflows.</p><span class="category">Business</span></div><div><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('AI Business', 'Business', 'https://chatgpt.com')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('AI Business')">💬 Reviews</button></div></div>
+</div>
+</section>
+
+<!-- قسم المقارنة المباشرة للأدوات -->
+<section id="comparison" style="background:#0d0d18; border-top:1px solid #202033; border-bottom:1px solid #202033;">
+<div style="max-width:1200px; margin:auto;">
+<h2 class="section-title">⚖️ Compare AI Tools</h2>
+<p class="section-subtitle">Select two or three AI tools to compare their features, pricing, and ratings side-by-side.</p>
+
+<div style="background:#10101b; border:1px solid #242438; border-radius:22px; padding:25px; margin-bottom:30px;">
+  <div style="display:flex; gap:15px; flex-wrap:wrap; align-items:center; margin-bottom:20px;">
+    <div style="flex:1; min-width:200px;">
+      <label style="display:block; color:#858596; font-size:13px; margin-bottom:8px;">Tool 1</label>
+      <select id="compareTool1" style="width:100%; padding:12px; border-radius:12px; background:#080811; border:1px solid #29293d; color:#fff; outline:none;" onchange="updateComparison()">
+        <option value="chatgpt">ChatGPT (Writing & Productivity)</option>
+        <option value="claude">Claude AI (Documents & Research)</option>
+        <option value="midjourney">Midjourney (Images)</option>
+        <option value="canva">Canva AI (Design)</option>
+      </select>
+    </div>
+    <div style="flex:1; min-width:200px;">
+      <label style="display:block; color:#858596; font-size:13px; margin-bottom:8px;">Tool 2</label>
+      <select id="compareTool2" style="width:100%; padding:12px; border-radius:12px; background:#080811; border:1px solid #29293d; color:#fff; outline:none;" onchange="updateComparison()">
+        <option value="claude" selected>Claude AI (Documents & Research)</option>
+        <option value="chatgpt">ChatGPT (Writing & Productivity)</option>
+        <option value="midjourney">Midjourney (Images)</option>
+        <option value="canva">Canva AI (Design)</option>
+      </select>
+    </div>
+    <div style="flex:1; min-width:200px;">
+      <label style="display:block; color:#858596; font-size:13px; margin-bottom:8px;">Tool 3 (Optional)</label>
+      <select id="compareTool3" style="width:100%; padding:12px; border-radius:12px; background:#080811; border:1px solid #29293d; color:#fff; outline:none;" onchange="updateComparison()">
+        <option value="none">-- None --</option>
+        <option value="midjourney">Midjourney (Images)</option>
+        <option value="chatgpt">ChatGPT (Writing & Productivity)</option>
+        <option value="claude">Claude AI (Documents & Research)</option>
+        <option value="canva">Canva AI (Design)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- جدول المقارنة التفاعلي -->
+  <div style="overflow-x:auto;">
+    <table id="comparisonTable" style="width:100%; border-collapse:collapse; text-align:left; font-size:14px;">
+      <thead>
+        <tr style="border-bottom:1px solid #2a2a40; color:#858596;">
+          <th style="padding:15px; width:20%;">Feature</th>
+          <th style="padding:15px;" id="thTool1">ChatGPT</th>
+          <th style="padding:15px;" id="thTool2">Claude AI</th>
+          <th style="padding:15px; display:none;" id="thTool3">--</th>
+        </tr>
+      </thead>
+      <tbody id="comparisonBody" style="color:#ddd;">
+        <!-- سيتم تعبئة البيانات تلقائياً عبر الجافاسكريبت -->
+      </tbody>
+    </table>
+  </div>
+</div>
 </div>
 </section>
 
@@ -547,6 +605,89 @@ function recommendTool() {
   box.textContent = result; box.style.display = "block";
 }
 
+/* منطق المقارنة بين الأدوات */
+const toolDataStore = {
+  chatgpt: {
+    name: "ChatGPT",
+    category: "Writing & Productivity",
+    pricing: "Free / $20 per month (Plus)",
+    bestFor: "General writing, coding, brainstorming, and daily tasks.",
+    rating: "⭐⭐⭐⭐⭐ (4.9/5)",
+    speed: "Very Fast",
+    platform: "Web, iOS, Android, Desktop"
+  },
+  claude: {
+    name: "Claude AI",
+    category: "Documents & Research",
+    pricing: "Free / $20 per month (Pro)",
+    bestFor: "Long-form research, data analysis, and deep document review.",
+    rating: "⭐⭐⭐⭐⭐ (4.8/5)",
+    speed: "Fast",
+    platform: "Web"
+  },
+  midjourney: {
+    name: "Midjourney",
+    category: "Images",
+    pricing: "$10 - $60 per month (No Free Tier)",
+    bestFor: "Hyper-realistic cinematic images and visual art concepts.",
+    rating: "⭐⭐⭐⭐⭐ (4.9/5)",
+    speed: "Moderate",
+    platform: "Discord / Web"
+  },
+  canva: {
+    name: "Canva AI",
+    category: "Design",
+    pricing: "Free / $15 per month (Pro)",
+    bestFor: "Social media designs, presentations, and graphic assets.",
+    rating: "⭐⭐⭐⭐ (4.7/5)",
+    speed: "Fast",
+    platform: "Web, Mobile Apps"
+  }
+};
+
+function updateComparison() {
+  const t1Key = document.getElementById("compareTool1").value;
+  const t2Key = document.getElementById("compareTool2").value;
+  const t3Key = document.getElementById("compareTool3").value;
+
+  const t1 = toolDataStore[t1Key];
+  const t2 = toolDataStore[t2Key];
+  const t3 = t3Key !== "none" ? toolDataStore[t3Key] : null;
+
+  document.getElementById("thTool1").textContent = t1.name;
+  document.getElementById("thTool2").textContent = t2.name;
+
+  const th3 = document.getElementById("thTool3");
+  if (t3) {
+    th3.style.display = "table-cell";
+    th3.textContent = t3.name;
+  } else {
+    th3.style.display = "none";
+  }
+
+  const tbody = document.getElementById("comparisonBody");
+  
+  const rows = [
+    { label: "Category", k: "category" },
+    { label: "Pricing", k: "pricing" },
+    { label: "Best For", k: "bestFor" },
+    { label: "Rating", k: "rating" },
+    { label: "Response Speed", k: "speed" },
+    { label: "Platform", k: "platform" }
+  ];
+
+  tbody.innerHTML = rows.map(r => `
+    <tr style="border-bottom:1px solid #1a1a2e;">
+      <td style="padding:15px; color:#858596; font-weight:bold;">${r.label}</td>
+      <td style="padding:15px;">${t1[r.k]}</td>
+      <td style="padding:15px;">${t2[r.k]}</td>
+      <td style="padding:15px; display:${t3 ? 'table-cell' : 'none'};">${t3 ? t3[r.k] : ''}</td>
+    </tr>
+  `).join('');
+}
+
+updateComparison();
+
 let arabic = false;
 function toggleLanguage() {
   arabic = !arabic;
@@ -561,8 +702,9 @@ function toggleLanguage() {
     document.querySelectorAll(".nav-links a")[0].textContent = "الرئيسية";
     document.querySelectorAll(".nav-links a")[1].textContent = "الرائجة";
     document.querySelectorAll(".nav-links a")[2].textContent = "أدوات AI";
-    document.querySelectorAll(".nav-links a")[3].textContent = "الأسعار";
-    document.querySelectorAll(".nav-links a")[4].textContent = "عن Nexora";
+    document.querySelectorAll(".nav-links a")[3].textContent = "مقارنة";
+    document.querySelectorAll(".nav-links a")[4].textContent = "الأسعار";
+    document.querySelectorAll(".nav-links a")[5].textContent = "عن Nexora";
     document.querySelector(".search-row input").placeholder = "ماذا تريد أن تنجز؟";
     if (proBtn) proBtn.textContent = "الترقية إلى Pro 🚀";
   } else {
@@ -572,8 +714,9 @@ function toggleLanguage() {
     document.querySelectorAll(".nav-links a")[0].textContent = "Home";
     document.querySelectorAll(".nav-links a")[1].textContent = "Trending";
     document.querySelectorAll(".nav-links a")[2].textContent = "AI Tools";
-    document.querySelectorAll(".nav-links a")[3].textContent = "Pricing";
-    document.querySelectorAll(".nav-links a")[4].textContent = "About";
+    document.querySelectorAll(".nav-links a")[3].textContent = "Compare";
+    document.querySelectorAll(".nav-links a")[4].textContent = "Pricing";
+    document.querySelectorAll(".nav-links a")[5].textContent = "About";
     document.querySelector(".search-row input").placeholder = "What do you want to accomplish?";
     if (proBtn) proBtn.textContent = "Upgrade to Pro 🚀";
   }
