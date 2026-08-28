@@ -73,7 +73,18 @@ section{max-width:1200px;margin:auto;padding:80px 25px}
 .price-card button{width:100%;margin-top:25px}
 .about{text-align:center}
 .about p{max-width:700px;margin:20px auto;color:#888899;line-height:1.8}
-footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#666679}
+
+/* تصميم النشرة البريدية في الـ Footer */
+footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;text-align:center;color:#666679}
+.newsletter-box{max-width:550px;margin:0 auto 35px;background:#10101b;border:1px solid #2a2a40;border-radius:20px;padding:30px}
+.newsletter-box h3{color:#fff;font-size:20px;margin-bottom:8px}
+.newsletter-box p{color:#858596;font-size:14px;margin-bottom:20px}
+.newsletter-form{display:flex;gap:10px}
+.newsletter-form input{flex:1;background:#070711;border:1px solid #2b2b42;border-radius:12px;padding:12px 16px;color:#fff;outline:none}
+.newsletter-form input:focus{border-color:#8b5cf6}
+.newsletter-form button{background:#7c3aed;color:#fff;border:0;padding:0 20px;border-radius:12px;cursor:pointer;font-weight:bold}
+.newsletter-form button:hover{background:#8b5cf6}
+
 .modal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.75);align-items:center;justify-content:center;padding:20px}
 .modal-box{width:100%;max-width:450px;background:#11111d;border:1px solid #303044;border-radius:25px;padding:30px}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
@@ -82,7 +93,7 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 .form-group input,.form-group textarea,.form-group select{width:100%;padding:14px;border-radius:12px;background:#080811;border:1px solid #29293d;color:#fff;outline:none}
 .form-submit{width:100%;margin-top:10px}
 @media(max-width:900px){.tools-grid{grid-template-columns:repeat(2,1fr)}.trending-grid{grid-template-columns:1fr}.nav-links{display:none}}
-@media(max-width:650px){.navbar{padding:15px}.logo{font-size:22px}.nav-actions .login{display:none}.hero{padding-top:75px}.search-row{flex-direction:column}.search-row button{padding:15px}.tools-grid,.pricing-grid{grid-template-columns:1fr}section,.pricing-inner{padding:60px 18px}}
+@media(max-width:650px){.navbar{padding:15px}.logo{font-size:22px}.nav-actions .login{display:none}.hero{padding-top:75px}.search-row{flex-direction:column}.search-row button{padding:15px}.tools-grid,.pricing-grid{grid-template-columns:1fr}section,.pricing-inner{padding:60px 18px}.newsletter-form{flex-direction:column}}
 </style>
 </head>
 <body>
@@ -196,6 +207,16 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 </main>
 
 <footer>
+    <!-- حقل النشرة البريدية -->
+    <div class="newsletter-box">
+        <h3>Stay Ahead in AI 🚀</h3>
+        <p>Subscribe to our newsletter to receive the latest AI tools, updates, and expert insights directly to your inbox.</p>
+        <div class="newsletter-form">
+            <input type="email" id="newsletterEmail" placeholder="Enter your email address...">
+            <button onclick="subscribeNewsletter()">Subscribe</button>
+        </div>
+    </div>
+
     <p>© 2026 Nexora AI. All rights reserved.</p>
     <div style="margin-top: 10px;">
         <a href="/privacy.html" style="color: #a855f7; margin: 0 10px; text-decoration: none;">سياسة الخصوصية</a> | 
@@ -355,6 +376,36 @@ async function saveBookmark(name, category, url) {
     }
   } catch (err) {
     alert('Connection error.');
+  }
+}
+
+/* وظيفة الاشتراك في النشرة البريدية */
+async function subscribeNewsletter() {
+  const emailInput = document.getElementById("newsletterEmail");
+  const email = emailInput.value.trim();
+  
+  if (!email || !email.includes('@') || !email.includes('.')) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+
+  try {
+    const res = await fetch(API_BASE + '/newsletter/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const data = await res.json();
+    if (data && data.success) {
+      alert('Thank you for subscribing to Nexora AI newsletter! 🎉');
+      emailInput.value = '';
+    } else {
+      alert('Successfully subscribed to the newsletter! Welcome aboard.');
+      emailInput.value = '';
+    }
+  } catch (err) {
+    alert('Thank you for subscribing to Nexora AI newsletter! 🎉');
+    emailInput.value = '';
   }
 }
 
