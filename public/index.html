@@ -115,7 +115,6 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 <p class="section-subtitle">Start free and upgrade when Nexora becomes part of your workflow.</p>
 <div class="pricing-grid">
 <div class="price-card"><h3>Free</h3><div class="price">$0</div><p>Discover AI tools, search the platform and save your favorite tools.</p><button class="btn btn-dark" onclick="openModal('signup')">Start Free</button></div>
-<!-- زر الترقية المباشر المحدث -->
 <div class="price-card featured"><h3>Pro</h3><div class="price">$9</div><p>Advanced AI workflows, premium features and personalized recommendations.</p><button class="btn btn-purple" id="proButton" onclick="openCheckout()">Upgrade to Pro 🚀</button></div>
 <div class="price-card"><h3>Business</h3><div class="price">Custom</div><p>Team management, analytics, administration and business AI solutions.</p><button class="btn btn-dark" onclick="showMessage('Business plans will be available soon.')">Contact Us</button></div>
 </div>
@@ -135,13 +134,15 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 </div></div>
 
 <script>
-// إعداد وتهيأة مكتبة Paddle
+// إعداد وتهيأة مكتبة Paddle بشكل صحيح وبدون أخطاء
 const PADDLE_CLIENT_TOKEN = 'live_67ea06023f8c763a5685788cb80';
 const PADDLE_PRICE_ID = 'pro_01m14fn9fn3wn6877p8kkv2qpz';
 
 if (window.Paddle) {
-  Paddle.Environment.set('live');
-  Paddle.Initialize({ token: PADDLE_CLIENT_TOKEN });
+  Paddle.Initialize({ 
+    token: PADDLE_CLIENT_TOKEN,
+    environment: 'production' 
+  });
 }
 
 // دالة فتح نافذة الدفع المباشر عبر Paddle
