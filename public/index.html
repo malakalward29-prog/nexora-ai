@@ -3,58 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexora AI - Next-Gen AI Workflows</title>
+  <title>Nexora AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #0b0f19;
-      --card-bg: #161b26;
-      --accent: #8b5cf6;
-      --accent-hover: #7c3aed;
-      --text: #f3f4f6;
-      --text-muted: #9ca3af;
-      --border: #262d3d;
+      --bg-color: #0b0d14;
+      --card-bg: #121624;
+      --accent: #9333ea;
+      --accent-hover: #7e22ce;
+      --text: #ffffff;
+      --text-muted: #94a3b8;
+      --border: #1e293b;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     body {
       background-color: var(--bg-color);
       color: var(--text);
-      line-height: 1.6;
-      padding-bottom: 50px;
+      line-height: 1.5;
+      padding-bottom: 60px;
     }
 
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 8%;
+      padding: 16px 40px;
       border-bottom: 1px solid var(--border);
-      background-color: rgba(11, 15, 25, 0.8);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      background-color: rgba(11, 13, 20, 0.9);
     }
 
     .logo {
-      font-size: 24px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #a855f7, #6366f1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 20px;
+      font-weight: 700;
+      color: #a855f7;
     }
 
     nav a {
       color: var(--text-muted);
       text-decoration: none;
-      margin-left: 20px;
-      transition: color 0.3s;
+      margin-left: 24px;
+      font-size: 14px;
+      font-weight: 500;
     }
 
     nav a:hover {
@@ -63,117 +61,125 @@
 
     .hero {
       text-align: center;
-      padding: 80px 20px 40px;
-      max-width: 800px;
+      padding: 60px 20px 30px;
+      max-width: 700px;
       margin: 0 auto;
     }
 
     .hero h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-      line-height: 1.2;
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
     }
 
     .hero p {
       color: var(--text-muted);
-      font-size: 18px;
-      margin-bottom: 30px;
+      font-size: 15px;
+      margin-bottom: 24px;
     }
 
     .search-bar {
-      max-width: 500px;
-      margin: 0 auto 50px;
-      display: flex;
-      gap: 10px;
+      max-width: 420px;
+      margin: 0 auto 40px;
     }
 
     .search-bar input {
-      flex: 1;
-      padding: 12px 20px;
-      border-radius: 8px;
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: 6px;
       border: 1px solid var(--border);
-      background-color: var(--card-bg);
+      background-color: #171d2d;
       color: var(--text);
+      font-size: 14px;
       outline: none;
     }
 
+    .search-bar input::placeholder {
+      color: #64748b;
+    }
+
     .pricing-section {
-      max-width: 1100px;
-      margin: 60px auto 0;
+      max-width: 960px;
+      margin: 40px auto 0;
       padding: 0 20px;
     }
 
     .pricing-title {
       text-align: center;
-      font-size: 36px;
-      margin-bottom: 10px;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 6px;
     }
 
     .pricing-subtitle {
       text-align: center;
       color: var(--text-muted);
-      margin-bottom: 40px;
+      font-size: 14px;
+      margin-bottom: 32px;
     }
 
     .plans-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .plans-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .plan-card {
       background-color: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 30px;
+      border-radius: 12px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.3s, border-color 0.3s;
-    }
-
-    .plan-card:hover {
-      transform: translateY(-5px);
     }
 
     .plan-card.featured {
-      border-color: var(--accent);
-      box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+      border-color: #a855f7;
     }
 
     .plan-name {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 15px;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
     }
 
     .plan-price {
-      font-size: 42px;
-      font-weight: bold;
-      margin-bottom: 15px;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
     }
 
     .plan-desc {
       color: var(--text-muted);
-      margin-bottom: 25px;
-      font-size: 14px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      min-height: 40px;
     }
 
     .plan-btn {
       width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      background-color: var(--border);
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background-color: transparent;
       color: var(--text);
-      font-size: 16px;
-      font-weight: bold;
+      font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.2s;
     }
 
     .plan-btn.primary {
       background-color: var(--accent);
+      border: none;
     }
 
     .plan-btn.primary:hover {
@@ -181,20 +187,18 @@
     }
 
     .plan-btn:hover:not(.primary) {
-      background-color: #374151;
+      background-color: #1e293b;
     }
   </style>
 
-  <!-- 1. مكتبة Paddle SDK -->
+  <!-- Paddle SDK -->
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
   <script>
-    // تهيئة Paddle بالـ Token الخاص بكِ
     Paddle.Environment.set('live');
     Paddle.Initialize({ 
       token: "live_67ea06023f8c763a5685788cb80" 
     });
 
-    // دالة فتح نافذة الدفع
     function openCheckout() {
       Paddle.Checkout.open({
         items: [
@@ -212,9 +216,8 @@
   <header>
     <div class="logo">Nexora AI</div>
     <nav>
-      <a href="#features">Tools</a>
       <a href="#pricing">Pricing</a>
-      <a href="#contact">Contact</a>
+      <a href="#">Tools</a>
     </nav>
   </header>
 
@@ -232,27 +235,24 @@
     <p class="pricing-subtitle">Upgrade when Nexora becomes part of your workflow.</p>
 
     <div class="plans-grid">
-      <!-- Free Plan -->
       <div class="plan-card">
         <div>
           <div class="plan-name">Free</div>
           <div class="plan-price">$0</div>
-          <p class="plan-desc">Access standard AI tools, search the platform, and organize your favorite tools.</p>
+          <p class="plan-desc">Access standard AI tools, search the platform and save your favorite tools.</p>
         </div>
         <button class="plan-btn">Start Free</button>
       </div>
 
-      <!-- Pro Plan (Paddle Integrated) -->
       <div class="plan-card featured">
         <div>
           <div class="plan-name">Pro</div>
           <div class="plan-price">$9</div>
-          <p class="plan-desc">Advanced AI workflows, premium features, and personalized recommendations.</p>
+          <p class="plan-desc">Advanced AI workflows, premium features and personalized recommendations.</p>
         </div>
         <button onclick="openCheckout()" class="plan-btn primary">Upgrade to Pro 🚀</button>
       </div>
 
-      <!-- Business Plan -->
       <div class="plan-card">
         <div>
           <div class="plan-name">Business</div>
