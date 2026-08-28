@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nexora AI</title>
+<!-- مكتبة Paddle.js لتفعيل بوابة الدفع -->
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -38,15 +39,21 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(7,7,17,.88);backdrop-filt
 .recommendation{display:none;text-align:left;margin-top:10px;padding:15px;background:#181329;border:1px solid #49307b;border-radius:14px;color:#ddd6fe}
 section{max-width:1200px;margin:auto;padding:80px 25px}
 .section-title{font-size:38px;font-weight:900;margin-bottom:10px}
-.section-subtitle{color:#77778a;margin-bottom:35px}
+.section-subtitle{color:#77778a;margin-bottom:25px}
+
+/* أزرار التصفية السريعة */
+.filter-buttons{display:flex;gap:10px;margin-bottom:30px;flex-wrap:wrap}
+.filter-btn{background:#10101b;border:1px solid #242438;color:#9999aa;padding:10px 18px;border-radius:12px;cursor:pointer;font-weight:bold;transition:.2s}
+.filter-btn:hover,.filter-btn.active{background:#7c3aed;color:#fff;border-color:#8b5cf6}
+
 .tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.tool-card{background:#10101b;border:1px solid #242438;border-radius:22px;padding:25px;transition:.25s}
+.tool-card{background:#10101b;border:1px solid #242438;border-radius:22px;padding:25px;transition:.25s;display:flex;flex-direction:column;justify-content:space-between}
 .tool-card:hover{transform:translateY(-5px);border-color:#7047c7}
 .tool-icon{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;background:#191526;font-size:25px;margin-bottom:20px}
 .tool-card h3{font-size:20px;margin-bottom:10px}
 .tool-card p{color:#858596;line-height:1.6;font-size:14px;min-height:70px}
 .category{display:inline-block;color:#b9a2ff;font-size:12px;margin-top:15px}
-.tool-button{width:100%;margin-top:20px;border:0;padding:12px;border-radius:12px;background:#7c3aed;color:#fff;cursor:pointer;font-weight:bold}
+.tool-button{width:100%;margin-top:15px;border:0;padding:12px;border-radius:12px;background:#7c3aed;color:#fff;cursor:pointer;font-weight:bold}
 .tool-button:hover{background:#8b5cf6}
 .pricing{max-width:none;background:#0d0d18;border-top:1px solid #202033;border-bottom:1px solid #202033}
 .pricing-inner{max-width:1200px;margin:auto;padding:80px 25px}
@@ -95,20 +102,36 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 <button onclick="recommendTool()">Find My Tool ✨</button>
 </div><div id="recommendation" class="recommendation"></div></div>
 </section>
+
 <section id="tools">
 <h2 class="section-title">Popular AI Tools</h2>
 <p class="section-subtitle">Carefully selected tools to help you work smarter.</p>
+
+<!-- أزرار التصنيف السريعة -->
+<div class="filter-buttons">
+<button class="filter-btn active" onclick="filterTools('all', this)">All</button>
+<button class="filter-btn" onclick="filterTools('Writing & Productivity', this)">Writing</button>
+<button class="filter-btn" onclick="filterTools('Design', this)">Design</button>
+<button class="filter-btn" onclick="filterTools('Images', this)">Images</button>
+<button class="filter-btn" onclick="filterTools('Audio', this)">Audio</button>
+<button class="filter-btn" onclick="filterTools('Video', this)">Video</button>
+<button class="filter-btn" onclick="filterTools('Programming', this)">Programming</button>
+<button class="filter-btn" onclick="filterTools('Documents', this)">Documents</button>
+<button class="filter-btn" onclick="filterTools('Business', this)">Business</button>
+</div>
+
 <div class="tools-grid" id="toolsGrid">
-<div class="tool-card"><div class="tool-icon">✍️</div><h3>ChatGPT</h3><p>AI assistant for writing, research, brainstorming, learning and programming.</p><span class="category">Writing & Productivity</span><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('ChatGPT', 'Writing & Productivity', 'https://chatgpt.com')">⭐ Save to Favorites</button></div>
-<div class="tool-card"><div class="tool-icon">🎨</div><h3>Canva AI</h3><p>Create presentations, designs, social media content and visual materials with AI.</p><span class="category">Design</span><button class="tool-button" onclick="openTool('https://www.canva.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Canva AI', 'Design', 'https://www.canva.com')">⭐ Save to Favorites</button></div>
-<div class="tool-card"><div class="tool-icon">🖼️</div><h3>Midjourney</h3><p>Generate creative AI images and visual concepts from simple text prompts.</p><span class="category">Images</span><button class="tool-button" onclick="openTool('https://www.midjourney.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Midjourney', 'Images', 'https://www.midjourney.com')">⭐ Save to Favorites</button></div>
-<div class="tool-card"><div class="tool-icon">🎙️</div><h3>TopMediai</h3><p>AI voice, text-to-speech and audio tools for content creators and businesses.</p><span class="category">Audio</span><button class="tool-button" onclick="openTool('https://www.topmediai.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('TopMediai', 'Audio', 'https://www.topmediai.com')">⭐ Save to Favorites</button></div>
-<div class="tool-card"><div class="tool-icon">🎬</div><h3>Runway Gen-2</h3><p>Transform text and images into cinematic AI videos and professional motion graphics.</p><span class="category">Video</span><button class="tool-button" onclick="openTool('https://research.runwayml.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Runway Gen-2', 'Video', 'https://research.runwayml.com')">⭐ Save to Favorites</button></div>
-<div class="tool-card"><div class="tool-icon">💻</div><h3>GitHub Copilot</h3><p>AI pair programmer that helps developers write, debug and complete code faster.</p><span class="category">Programming</span><button class="tool-button" onclick="openTool('https://github.com/features/copilot')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('GitHub Copilot', 'Programming', 'https://github.com/features/copilot')">⭐ Save to Favorites</button></div>
-<div class="tool-card"><div class="tool-icon">📄</div><h3>Claude AI</h3><p>Analyze long PDF documents, summarize reports, and extract deep insights using AI.</p><span class="category">Documents</span><button class="tool-button" onclick="openTool('https://claude.ai')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Claude AI', 'Documents', 'https://claude.ai')">⭐ Save to Favorites</button></div>
-<div class="tool-card"><div class="tool-icon">📈</div><h3>AI Business</h3><p>Tools for marketing, sales, analytics, productivity and modern business workflows.</p><span class="category">Business</span><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('AI Business', 'Business', 'https://chatgpt.com')">⭐ Save to Favorites</button></div>
+<div class="tool-card" data-category="Writing & Productivity"><div class="tool-icon">✍️</div><div><h3>ChatGPT</h3><p>AI assistant for writing, research, brainstorming, learning and programming.</p><span class="category">Writing & Productivity</span></div><div><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('ChatGPT', 'Writing & Productivity', 'https://chatgpt.com')">⭐ Save to Favorites</button></div></div>
+<div class="tool-card" data-category="Design"><div class="tool-icon">🎨</div><div><h3>Canva AI</h3><p>Create presentations, designs, social media content and visual materials with AI.</p><span class="category">Design</span></div><div><button class="tool-button" onclick="openTool('https://www.canva.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Canva AI', 'Design', 'https://www.canva.com')">⭐ Save to Favorites</button></div></div>
+<div class="tool-card" data-category="Images"><div class="tool-icon">🖼️</div><div><h3>Midjourney</h3><p>Generate creative AI images and visual concepts from simple text prompts.</p><span class="category">Images</span></div><div><button class="tool-button" onclick="openTool('https://www.midjourney.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Midjourney', 'Images', 'https://www.midjourney.com')">⭐ Save to Favorites</button></div></div>
+<div class="tool-card" data-category="Audio"><div class="tool-icon">🎙️</div><div><h3>TopMediai</h3><p>AI voice, text-to-speech and audio tools for content creators and businesses.</p><span class="category">Audio</span></div><div><button class="tool-button" onclick="openTool('https://www.topmediai.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('TopMediai', 'Audio', 'https://www.topmediai.com')">⭐ Save to Favorites</button></div></div>
+<div class="tool-card" data-category="Video"><div class="tool-icon">🎬</div><div><h3>Runway Gen-2</h3><p>Transform text and images into cinematic AI videos and professional motion graphics.</p><span class="category">Video</span></div><div><button class="tool-button" onclick="openTool('https://research.runwayml.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Runway Gen-2', 'Video', 'https://research.runwayml.com')">⭐ Save to Favorites</button></div></div>
+<div class="tool-card" data-category="Programming"><div class="tool-icon">💻</div><div><h3>GitHub Copilot</h3><p>AI pair programmer that helps developers write, debug and complete code faster.</p><span class="category">Programming</span></div><div><button class="tool-button" onclick="openTool('https://github.com/features/copilot')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('GitHub Copilot', 'Programming', 'https://github.com/features/copilot')">⭐ Save to Favorites</button></div></div>
+<div class="tool-card" data-category="Documents"><div class="tool-icon">📄</div><div><h3>Claude AI</h3><p>Analyze long PDF documents, summarize reports, and extract deep insights using AI.</p><span class="category">Documents</span></div><div><button class="tool-button" onclick="openTool('https://claude.ai')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Claude AI', 'Documents', 'https://claude.ai')">⭐ Save to Favorites</button></div></div>
+<div class="tool-card" data-category="Business"><div class="tool-icon">📈</div><div><h3>AI Business</h3><p>Tools for marketing, sales, analytics, productivity and modern business workflows.</p><span class="category">Business</span></div><div><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('AI Business', 'Business', 'https://chatgpt.com')">⭐ Save to Favorites</button></div></div>
 </div>
 </section>
+
 <div class="pricing"><div class="pricing-inner" id="pricing">
 <h2 class="section-title">Simple Plans</h2>
 <p class="section-subtitle">Start free and upgrade when Nexora becomes part of your workflow.</p>
@@ -262,6 +285,21 @@ function logout() {
   authToken = null; currentUser = null;
   localStorage.removeItem('nexora_token');
   updateUIForGuest(); alert('Logged out successfully');
+}
+
+/* دالة تصفية الأدوات حسب التصنيف */
+function filterTools(category, btnElement) {
+  document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+  btnElement.classList.add('active');
+
+  const cards = document.querySelectorAll('.tool-card');
+  cards.forEach(card => {
+    if (category === 'all' || card.getAttribute('data-category') === category) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
 }
 
 let currentMode = "signup";
