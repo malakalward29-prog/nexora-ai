@@ -56,7 +56,6 @@ nav{background:rgba(7,7,17,.88);backdrop-filter:blur(15px);border-bottom:1px sol
 </aside>
 
 <main class="main-content">
-<!-- قسم النظرة العامة وحالة الاشتراك -->
 <div id="tab-overview" class="card">
 <h2>Subscription Status</h2>
 <p style="color:#858596;margin-bottom:15px">Your current plan details and billing status.</p>
@@ -66,7 +65,6 @@ nav{background:rgba(7,7,17,.88);backdrop-filter:blur(15px);border-bottom:1px sol
 </div>
 </div>
 
-<!-- قسم إعدادات الملف الشخصي -->
 <div id="tab-profile" class="card" style="display:none;">
 <h2>Profile Settings</h2>
 <p style="color:#858596;margin-bottom:20px">Update your personal account details.</p>
@@ -83,12 +81,11 @@ nav{background:rgba(7,7,17,.88);backdrop-filter:blur(15px);border-bottom:1px sol
 <button class="btn" onclick="saveProfile()">Save Changes</button>
 </div>
 
-<!-- قسم المفضلة -->
 <div id="tab-favorites" class="card" style="display:none;">
 <h2>Saved Favorites</h2>
 <p style="color:#858596;margin-bottom:15px">AI tools you have saved for quick access.</p>
 <div id="favoritesList" class="favorites-grid">
-<p style="color:#77778a">No favorite tools saved yet.</p>
+<p style="color:#77778a">Loading favorites...</p>
 </div>
 </div>
 </main>
@@ -121,8 +118,34 @@ async function fetchUserData() {
         badge.textContent = 'Pro Plan Active';
         badge.className = 'badge-status status-pro';
       }
+      fetchUserFavorites();
     } else {
       logout();
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+async function fetchUserFavorites() {
+  try {
+    const res = await fetch(API_BASE + '/user/bookmarks', {
+      headers: { 'Authorization': 'Bearer ' + authToken }
+    });
+    const data = await res.json();
+    const container = document.getElementById('favoritesList');
+    if (data && data.success && data.data && data.data.length > 0) {
+      container.innerHTML = data.data.map(tool => `
+        <div class="fav-item">
+          <div>
+            <strong>${tool.name}</strong>
+            <span style="display:block;font-size:11px;color:#a78bfa;margin-top:4px">${tool.category}</span>
+          </div>
+          <button class="btn" style="padding:6px 12px;font-size:12px;" onclick="window.open('${tool.url}', '_blank')">Open</button>
+        </div>
+      `).join('');
+    } else {
+      container.innerHTML = '<p style="color:#77778a">No favorite tools saved yet.</p>';
     }
   } catch (err) {
     console.error(err);
