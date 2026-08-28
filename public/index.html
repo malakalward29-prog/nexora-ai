@@ -1,4 +1,4 @@
-     <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
@@ -313,7 +313,6 @@
             <li><a href="#" onclick="switchView('explore')">Explore</a></li>
             <li><a href="#" onclick="switchView('dashboard')">Dashboard</a></li>
             <li><a href="#" onclick="switchView('compare')">Smart Compare</a></li>
-            <li><a href="#blog">Blog & Guides</a></li>
             <li><a href="#" onclick="openPricingModal()">Pricing Plans</a></li>
         </ul>
         <button class="btn" onclick="openSubmitModal()">+ Submit AI Tool</button>
@@ -434,46 +433,6 @@
         </div>
     </div>
 
-    <!-- قسم المدونة ونصائح الذكاء الاصطناعي (AI Blog / Guides) -->
-    <section id="blog" style="background:#0d0d18; border-top:1px solid #202033; border-bottom:1px solid #202033; padding: 60px 20px; margin-top: 60px;">
-        <div style="max-width:1200px; margin:auto;">
-            <h2 class="section-title">📚 AI Blog & Guides</h2>
-            <p class="section-subtitle">Short, actionable guides and tips to master AI tools and boost your daily productivity.</p>
-
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:25px; margin-top:35px;">
-              <!-- مقال 1 -->
-              <div style="background:#10101b; border:1px solid #242438; border-radius:22px; padding:25px; display:flex; flex-direction:column; justify-content:space-between; transition:.25s;" onmouseover="this.style.borderColor='#8b5cf6'" onmouseout="this.style.borderColor='#242438'">
-                <div>
-                  <span style="display:inline-block; background:#191526; color:#a78bfa; font-size:12px; font-weight:bold; padding:5px 12px; border-radius:20px; margin-bottom:15px;">Midjourney • Prompting</span>
-                  <h3 style="font-size:18px; margin-bottom:12px; line-height:1.4;">How to Write Professional Prompts for Midjourney</h3>
-                  <p style="color:#858596; font-size:14px; line-height:1.6; margin-bottom:20px;">Master the art of structuring your prompts with style modifiers, lighting cues, and aspect ratios to generate hyper-realistic images.</p>
-                </div>
-                <button class="btn btn-dark" style="width:100%; font-size:13px;" onclick="openArticle('midjourney-guide')">Read Guide →</button>
-              </div>
-
-              <!-- مقال 2 -->
-              <div style="background:#10101b; border:1px solid #242438; border-radius:22px; padding:25px; display:flex; flex-direction:column; justify-content:space-between; transition:.25s;" onmouseover="this.style.borderColor='#8b5cf6'" onmouseout="this.style.borderColor='#242438'">
-                <div>
-                  <span style="display:inline-block; background:#191526; color:#a78bfa; font-size:12px; font-weight:bold; padding:5px 12px; border-radius:20px; margin-bottom:15px;">Research • Productivity</span>
-                  <h3 style="font-size:18px; margin-bottom:12px; line-height:1.4;">Best AI Tools to Accelerate Scientific Research</h3>
-                  <p style="color:#858596; font-size:14px; line-height:1.6; margin-bottom:20px;">Discover how tools like Claude AI and specialized research assistants streamline literature reviews, data analysis, and citation management.</p>
-                </div>
-                <button class="btn btn-dark" style="width:100%; font-size:13px;" onclick="openArticle('research-guide')">Read Guide →</button>
-              </div>
-
-              <!-- مقال 3 -->
-              <div style="background:#10101b; border:1px solid #242438; border-radius:22px; padding:25px; display:flex; flex-direction:column; justify-content:space-between; transition:.25s;" onmouseover="this.style.borderColor='#8b5cf6'" onmouseout="this.style.borderColor='#242438'">
-                <div>
-                  <span style="display:inline-block; background:#191526; color:#a78bfa; font-size:12px; font-weight:bold; padding:5px 12px; border-radius:20px; margin-bottom:15px;">Workflows • Automation</span>
-                  <h3 style="font-size:18px; margin-bottom:12px; line-height:1.4;">Building Your First Multi-Tool AI Workflow</h3>
-                  <p style="color:#858596; font-size:14px; line-height:1.6; margin-bottom:20px;">Learn how to chain ChatGPT for outlines, Claude for deep drafting, and Canva AI for visual presentation assets seamlessly.</p>
-                </div>
-                <button class="btn btn-dark" style="width:100%; font-size:13px;" onclick="openArticle('workflow-guide')">Read Guide →</button>
-              </div>
-            </div>
-        </div>
-    </section>
-
     <!-- نافذة تفاصيل الأداة والمراجعات -->
     <div class="modal" id="detailModal">
         <div class="modal-box">
@@ -494,19 +453,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- نافذة قراءة المقال الكاملة -->
-    <div class="modal" id="articleModal">
-      <div class="modal-box" style="max-width: 650px;">
-        <div class="modal-header">
-          <h2 id="articleModalTitle" style="font-size: 20px;">Guide Title</h2>
-          <button class="close" onclick="closeArticleModal()">×</button>
-        </div>
-        <div id="articleModalContent" style="color: #b8b8cc; font-size: 14px; line-height: 1.8; max-height: 400px; overflow-y: auto; padding-right: 5px;">
-          <!-- محتوى المقال -->
-        </div>
-      </div>
     </div>
 
     <!-- نافذة أسعار الباقات والدفع -->
@@ -605,49 +551,6 @@
         function closePricingModal() { document.getElementById('pricingModal').style.display = 'none'; }
         function openSubmitModal() { document.getElementById('submitModal').style.display = 'flex'; }
         function closeSubmitModal() { document.getElementById('submitModal').style.display = 'none'; }
-
-        // بيانات المقالات ونوافذها
-        const articlesData = {
-          "midjourney-guide": {
-            title: "How to Write Professional Prompts for Midjourney",
-            content: `
-              <p style="margin-bottom: 12px;">Writing effective prompts in Midjourney requires a clear formula: <strong>[Subject] + [Medium/Style] + [Lighting] + [Environment/Background] + [Parameters]</strong>.</p>
-              <p style="margin-bottom: 12px;">1. <strong>Be Specific:</strong> Instead of writing "a car," specify the model, era, and texture (e.g., "a vintage 1968 Porsche 911 covered in morning dew").</p>
-              <p style="margin-bottom: 12px;">2. <strong>Define the Lighting:</strong> Terms like "cinematic lighting," "golden hour," or "neon rim lighting" dramatically alter the mood.</p>
-              <p style="margin-bottom: 12px;">3. <strong>Use Parameters:</strong> Append parameters like <code style="background:#080811; padding:2px 6px; border-radius:4px; color:#a78bfa;">--ar 16:9</code> for widescreen cinematic aspect ratios or <code style="background:#080811; padding:2px 6px; border-radius:4px; color:#a78bfa;">--v 6.0</code> for the latest ultra-realistic rendering engine.</p>
-            `
-          },
-          "research-guide": {
-            title: "Best AI Tools to Accelerate Scientific Research",
-            content: `
-              <p style="margin-bottom: 12px;">Navigating hundreds of research papers can be exhausting. Modern AI workspaces have transformed how academics conduct literature reviews and data synthesis.</p>
-              <p style="margin-bottom: 12px;">1. <strong>Claude AI for Document Analysis:</strong> With its massive context window, you can upload entire PDF research reports or clinical datasets, asking Claude to summarize methodologies or extract specific data points.</p>
-              <p style="margin-bottom: 12px;">2. <strong>ChatGPT for Structuring Outlines:</strong> Use GPT to brainstorm research hypotheses, refine paper structures, and check grammar or academic tone.</p>
-              <p style="margin-bottom: 12px;">3. <strong>Best Practice:</strong> Always cross-verify AI-generated statistical interpretations against primary sources to maintain absolute research accuracy.</p>
-            `
-          },
-          "workflow-guide": {
-            title: "Building Your First Multi-Tool AI Workflow",
-            content: `
-              <p style="margin-bottom: 12px;">Relying on a single AI tool limits your productivity. Combining tools into a cohesive pipeline yields professional results much faster.</p>
-              <p style="margin-bottom: 12px;">1. <strong>Phase 1 - Ideation & Outline (ChatGPT):</strong> Prompt ChatGPT to outline a project proposal, blog series, or business presentation structure.</p>
-              <p style="margin-bottom: 12px;">2. <strong>Phase 2 - Deep Content & Refinement (Claude):</strong> Feed the outline into Claude to expand technical sections, polish arguments, and ensure deep context consistency.</p>
-              <p style="margin-bottom: 12px;">3. <strong>Phase 3 - Visual Assets (Canva AI / Midjourney):</strong> Export the finalized concepts into Canva AI to generate polished presentation slides or social media graphics instantly.</p>
-            `
-          }
-        };
-
-        function openArticle(articleId) {
-          const article = articlesData[articleId];
-          if (!article) return;
-          document.getElementById("articleModalTitle").textContent = article.title;
-          document.getElementById("articleModalContent").innerHTML = article.content;
-          document.getElementById("articleModal").style.display = "flex";
-        }
-
-        function closeArticleModal() {
-          document.getElementById("articleModal").style.display = "none";
-        }
     </script>
 </body>
 </html>
