@@ -134,14 +134,13 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 </div></div>
 
 <script>
-// إعداد وتهيأة مكتبة Paddle بشكل صحيح وبدون أخطاء
+// تهيئة مكتبة Paddle بالشكل الصحيح والسليم للـ V2
 const PADDLE_CLIENT_TOKEN = 'live_67ea06023f8c763a5685788cb80';
 const PADDLE_PRICE_ID = 'pro_01m14fn9fn3wn6877p8kkv2qpz';
 
 if (window.Paddle) {
   Paddle.Initialize({ 
-    token: PADDLE_CLIENT_TOKEN,
-    environment: 'production' 
+    token: PADDLE_CLIENT_TOKEN 
   });
 }
 
