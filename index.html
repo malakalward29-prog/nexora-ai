@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nexora AI</title>
+<!-- مكتبة Paddle.js لتفعيل بوابة الدفع -->
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -113,7 +115,8 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 <p class="section-subtitle">Start free and upgrade when Nexora becomes part of your workflow.</p>
 <div class="pricing-grid">
 <div class="price-card"><h3>Free</h3><div class="price">$0</div><p>Discover AI tools, search the platform and save your favorite tools.</p><button class="btn btn-dark" onclick="openModal('signup')">Start Free</button></div>
-<div class="price-card featured"><h3>Pro</h3><div class="price">$9</div><p>Advanced AI workflows, premium features and personalized recommendations.</p><button class="btn btn-purple" onclick="showMessage('Nexora Pro will be available soon.')">Coming Soon</button></div>
+<!-- تم استبدال Coming Soon بزر الترقية المباشر -->
+<div class="price-card featured"><h3>Pro</h3><div class="price">$9</div><p>Advanced AI workflows, premium features and personalized recommendations.</p><button class="btn btn-purple" id="proButton" onclick="openCheckout()">Upgrade to Pro 🚀</button></div>
 <div class="price-card"><h3>Business</h3><div class="price">Custom</div><p>Team management, analytics, administration and business AI solutions.</p><button class="btn btn-dark" onclick="showMessage('Business plans will be available soon.')">Contact Us</button></div>
 </div>
 </div></div>
@@ -132,6 +135,30 @@ footer{border-top:1px solid #202033;padding:35px 25px;text-align:center;color:#6
 </div></div>
 
 <script>
+// إعداد وتهيأة مكتبة Paddle
+const PADDLE_CLIENT_TOKEN = 'live_67ea06023f8c763a5685788cb80';
+const PADDLE_PRICE_ID = 'pri_01m14fzfvky5dav91ktsz3kfyx';
+
+if (window.Paddle) {
+  Paddle.Initialize({ token: PADDLE_CLIENT_TOKEN });
+}
+
+// دالة فتح نافذة الدفع للترقية
+function openCheckout() {
+  if (window.Paddle) {
+    Paddle.Checkout.open({
+      items: [
+        {
+          priceId: PADDLE_PRICE_ID,
+          quantity: 1
+        }
+      ]
+    });
+  } else {
+    alert('جاري تحميل بوابة الدفع، يرجى المحاولة بعد لحظات...');
+  }
+}
+
 const API_BASE = window.location.origin + '/api';
 let authToken = localStorage.getItem('nexora_token');
 let currentUser = null;
@@ -238,6 +265,7 @@ function toggleLanguage() {
   document.documentElement.lang = arabic ? "ar" : "en";
   document.documentElement.dir = arabic ? "rtl" : "ltr";
   document.getElementById("languageButton").textContent = arabic ? "EN" : "AR";
+  const proBtn = document.getElementById("proButton");
   if (arabic) {
     document.querySelector(".badge").textContent = "مساحة ذكية واحدة للذكاء الاصطناعي";
     document.querySelector(".hero p").textContent = "اكتشف وقارن واستخدم أدوات الذكاء الاصطناعي المناسبة لعملك ودراستك وإبداعك.";
@@ -247,6 +275,7 @@ function toggleLanguage() {
     document.querySelectorAll(".nav-links a")[2].textContent = "الأسعار";
     document.querySelectorAll(".nav-links a")[3].textContent = "عن Nexora";
     document.querySelector(".search-row input").placeholder = "ماذا تريد أن تنجز؟";
+    if (proBtn) proBtn.textContent = "الترقية إلى Pro 🚀";
   } else {
     document.querySelector(".badge").textContent = "One intelligent workspace for AI";
     document.querySelector(".hero p").textContent = "Discover, compare and use powerful AI tools for work, business, education, creativity and everyday life.";
@@ -256,6 +285,7 @@ function toggleLanguage() {
     document.querySelectorAll(".nav-links a")[2].textContent = "Pricing";
     document.querySelectorAll(".nav-links a")[3].textContent = "About";
     document.querySelector(".search-row input").placeholder = "What do you want to accomplish?";
+    if (proBtn) proBtn.textContent = "Upgrade to Pro 🚀";
   }
 }
 
