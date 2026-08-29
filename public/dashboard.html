@@ -69,8 +69,11 @@ let authToken = localStorage.getItem('nexora_token');
 let currentUser = null;
 
 async function initDashboard() {
-  // التحقق من اسم المستخدم وتحديث الترحيب
-  let userName = "User";
+  if (!authToken) {
+    location.href = 'index.html';
+    return;
+  }
+
   try {
     const res = await fetch(API_BASE + '/auth/me', {
       headers: { 'Authorization': 'Bearer ' + authToken }
@@ -78,70 +81,39 @@ async function initDashboard() {
     const data = await res.json();
     if (data && data.success && data.data) {
       currentUser = data.data;
-      if (currentUser.profile && currentUser.profile.full_name) {
-        userName = currentUser.profile.full_name;
-      } else if (currentUser.email) {
-        userName = currentUser.email.split('@')[0];
-      }
+      const userName = currentUser.profile && currentUser.profile.full_name ? currentUser.profile.full_name : currentUser.email;
+      document.getElementById('welcomeTitle').textContent = `Welcome back, ${userName}! 👋`;
     }
   } catch (e) {
-    // في حال عدم توفر الخادم، محاولة جلب الاسم من التخزين المحلي إن وجد
+    console.error(e);
   }
-  
-  document.getElementById('welcomeTitle').textContent = `Welcome back, ${userName}! 👋`;
 
-  // جلب وعرض المفضلة
   loadBookmarks();
 }
 
 async function loadBookmarks() {
   const container = document.getElementById('bookmarksContainer');
-  
   try {
     const res = await fetch(API_BASE + '/user/bookmarks', {
       headers: { 'Authorization': 'Bearer ' + authToken }
     });
     const data = await res.json();
     if (data && data.success && data.data && data.data.length > 0) {
-      renderBookmarksList(data.data, container);
+      container.innerHTML = data.data.map(b => `
+        <div style="background:#151522; border:1px solid #2f2f45; border-radius:15px; padding:15px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <h4 style="color:#fff; margin-bottom:4px; font-size:16px;">${b.name}</h4>
+            <span style="color:#a78bfa; font-size:12px;">${b.category}</span>
+          </div>
+          <a href="${b.url}" target="_blank" class="btn btn-purple" style="padding:8px 14px; font-size:13px;">Use Tool →</a>
+        </div>
+      `).join('');
     } else {
-      loadBookmarksFromLocal(container);
+      container.innerHTML = '<p style="color:#858596; text-align:center; padding:20px;">No saved bookmarks yet.</p>';
     }
   } catch (err) {
-    // جلب البيانات من التخزين المحلي مباشرة لتجنب رسالة الفشل
-    loadBookmarksFromLocal(container);
+    container.innerHTML = '<p style="color:#f87171; text-align:center; padding:20px;">Failed to load bookmarks.</p>';
   }
-}
-
-function loadBookmarksFromLocal(container) {
-  const localBookmarks = JSON.parse(localStorage.getItem('nexora_favorites') || '[]');
-  if (localBookmarks.length > 0) {
-    renderBookmarksList(localBookmarks, container);
-  } else {
-    container.innerHTML = '<p style="color:#858596; text-align:center; padding:20px;">No saved favorites yet. Start saving tools using the ⭐ button!</p>';
-  }
-}
-
-function renderBookmarksList(items, container) {
-  container.innerHTML = items.map(b => `
-    <div style="background:#151522; border:1px solid #2f2f45; border-radius:15px; padding:15px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
-      <div>
-        <h4 style="color:#fff; margin-bottom:4px; font-size:16px;">${b.name}</h4>
-        <span style="color:#a78bfa; font-size:12px;">${b.category}</span>
-      </div>
-      <div style="display:flex; gap:8px;">
-        <a href="${b.url}" target="_blank" class="btn btn-purple" style="padding:8px 14px; font-size:13px;">Use Tool →</a>
-        <button class="btn btn-dark" style="padding:8px 12px; font-size:13px; color:#f87171;" onclick="removeBookmark('${b.name}')">✕</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function removeBookmark(name) {
-  let localBookmarks = JSON.parse(localStorage.getItem('nexora_favorites') || '[]');
-  localBookmarks = localBookmarks.filter(b => b.name !== name);
-  localStorage.setItem('nexora_favorites', JSON.stringify(localBookmarks));
-  loadBookmarks();
 }
 
 function logout() {
@@ -149,7 +121,6 @@ function logout() {
   location.href = 'index.html';
 }
 
-// تشغيل الدالة عند تحميل الصفحة
 window.onload = initDashboard;
 </script>
 
