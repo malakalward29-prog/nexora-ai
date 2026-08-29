@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nexora AI</title>
 
-<!-- وسوم الميتا الأساسية و Open Graph المضافة -->
+<!-- وسوم الميتا الأساسية و Open Graph -->
 <meta name="description" content="اكتشف واستخدم أفضل أدوات الذكاء الاصطناعي لتسهيل مهامك اليومية ومشاريعك في مكان واحد.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://nexora-ai-p1x4.onrender.com/index.html">
@@ -13,7 +13,7 @@
 <meta property="og:description" content="منصتك المتكاملة لاستعراض وحفظ أفضل أدوات الذكاء الاصطناعي.">
 <meta property="og:image" content="https://nexora-ai-p1x4.onrender.com/images/preview.jpg">
 
-<!-- وسوم Twitter Card الخاصة بتويتر/منصة إكس -->
+<!-- وسوم Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://nexora-ai-p1x4.onrender.com/index.html">
 <meta name="twitter:title" content="Nexora AI - أدوات الذكاء الاصطناعي">
@@ -57,14 +57,12 @@ section{max-width:1200px;margin:auto;padding:80px 25px}
 .section-title{font-size:38px;font-weight:900;margin-bottom:10px}
 .section-subtitle{color:#77778a;margin-bottom:25px}
 
-/* قسم الأدوات الرائجة */
 .trending-section{background:linear-gradient(180deg,#070711,#0d0d1a);border-top:1px solid #1f1f33;border-bottom:1px solid #1f1f33}
 .trending-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .trend-card{background:linear-gradient(135deg,#131022,#10101b);border:1px solid #3c236e;border-radius:22px;padding:25px;position:relative;overflow:hidden;transition:.25s}
 .trend-card:hover{transform:translateY(-5px);border-color:#8b5cf6}
 .trend-badge{position:absolute;top:20px;right:20px;background:#7c3aed;color:#fff;font-size:11px;font-weight:bold;padding:4px 10px;border-radius:20px}
 
-/* أزرار التصفية السريعة */
 .filter-buttons{display:flex;gap:10px;margin-bottom:30px;flex-wrap:wrap}
 .filter-btn{background:#10101b;border:1px solid #242438;color:#9999aa;padding:10px 18px;border-radius:12px;cursor:pointer;font-weight:bold;transition:.2s}
 .filter-btn:hover,.filter-btn.active{background:#7c3aed;color:#fff;border-color:#8b5cf6}
@@ -90,7 +88,6 @@ section{max-width:1200px;margin:auto;padding:80px 25px}
 .about{text-align:center}
 .about p{max-width:700px;margin:20px auto;color:#888899;line-height:1.8}
 
-/* تصميم النشرة البريدية في الـ Footer */
 footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;text-align:center;color:#666679}
 .newsletter-box{max-width:550px;margin:0 auto 35px;background:#10101b;border:1px solid #2a2a40;border-radius:20px;padding:30px}
 .newsletter-box h3{color:#fff;font-size:20px;margin-bottom:8px}
@@ -181,7 +178,6 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <h2 class="section-title">All AI Tools</h2>
 <p class="section-subtitle">Carefully selected tools to help you work smarter.</p>
 
-<!-- أزرار التصنيف السريعة -->
 <div class="filter-buttons">
 <button class="filter-btn active" onclick="filterTools('all', this)">All</button>
 <button class="filter-btn" onclick="filterTools('Writing & Productivity', this)">Writing</button>
@@ -194,16 +190,8 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <button class="filter-btn" onclick="filterTools('Business', this)">Business</button>
 </div>
 
-<div class="tools-grid" id="toolsGrid">
-<div class="tool-card" data-category="Writing & Productivity"><div class="tool-icon">✍️</div><div><h3>ChatGPT</h3><p>AI assistant for writing, research, brainstorming, learning and programming.</p><span class="category">Writing & Productivity</span></div><div><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('ChatGPT', 'Writing & Productivity', 'https://chatgpt.com')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('ChatGPT')">💬 Reviews</button></div></div>
-<div class="tool-card" data-category="Design"><div class="tool-icon">🎨</div><div><h3>Canva AI</h3><p>Create presentations, designs, social media content and visual materials with AI.</p><span class="category">Design</span></div><div><button class="tool-button" onclick="openTool('https://www.canva.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Canva AI', 'Design', 'https://www.canva.com')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Canva AI')">💬 Reviews</button></div></div>
-<div class="tool-card" data-category="Images"><div class="tool-icon">🖼️</div><div><h3>Midjourney</h3><p>Generate creative AI images and visual concepts from simple text prompts.</p><span class="category">Images</span></div><div><button class="tool-button" onclick="openTool('https://www.midjourney.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Midjourney', 'Images', 'https://www.midjourney.com')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Midjourney')">💬 Reviews</button></div></div>
-<div class="tool-card" data-category="Audio"><div class="tool-icon">🎙️</div><div><h3>TopMediai</h3><p>AI voice, text-to-speech and audio tools for content creators and businesses.</p><span class="category">Audio</span></div><div><button class="tool-button" onclick="openTool('https://www.topmediai.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('TopMediai', 'Audio', 'https://www.topmediai.com')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('TopMediai')">💬 Reviews</button></div></div>
-<div class="tool-card" data-category="Video"><div class="tool-icon">🎬</div><div><h3>Runway Gen-2</h3><p>Transform text and images into cinematic AI videos and professional motion graphics.</p><span class="category">Video</span></div><div><button class="tool-button" onclick="openTool('https://research.runwayml.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Runway Gen-2', 'Video', 'https://research.runwayml.com')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Runway Gen-2')">💬 Reviews</button></div></div>
-<div class="tool-card" data-category="Programming"><div class="tool-icon">💻</div><div><h3>GitHub Copilot</h3><p>AI pair programmer that helps developers write, debug and complete code faster.</p><span class="category">Programming</span></div><div><button class="tool-button" onclick="openTool('https://github.com/features/copilot')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('GitHub Copilot', 'Programming', 'https://github.com/features/copilot')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('GitHub Copilot')">💬 Reviews</button></div></div>
-<div class="tool-card" data-category="Documents"><div class="tool-icon">📄</div><div><h3>Claude AI</h3><p>Analyze long PDF documents, summarize reports, and extract deep insights using AI.</p><span class="category">Documents</span></div><div><button class="tool-button" onclick="openTool('https://claude.ai')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Claude AI', 'Documents', 'https://claude.ai')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Claude AI')">💬 Reviews</button></div></div>
-<div class="tool-card" data-category="Business"><div class="tool-icon">📈</div><div><h3>AI Business</h3><p>Tools for marketing, sales, analytics, productivity and modern business workflows.</p><span class="category">Business</span></div><div><button class="tool-button" onclick="openTool('https://chatgpt.com')">Use Tool →</button><button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('AI Business', 'Business', 'https://chatgpt.com')">⭐ Save to Favorites</button><button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('AI Business')">💬 Reviews</button></div></div>
-</div>
+<!-- ستعرض الأدوات هنا ديناميكياً (من اللوحة أو الافتراضية) -->
+<div class="tools-grid" id="toolsGrid"></div>
 </section>
 
 <!-- قسم المقارنة المباشرة للأدوات -->
@@ -244,7 +232,6 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
     </div>
   </div>
 
-  <!-- جدول المقارنة التفاعلي -->
   <div style="overflow-x:auto;">
     <table id="comparisonTable" style="width:100%; border-collapse:collapse; text-align:left; font-size:14px;">
       <thead>
@@ -255,9 +242,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
           <th style="padding:15px; display:none;" id="thTool3">--</th>
         </tr>
       </thead>
-      <tbody id="comparisonBody" style="color:#ddd;">
-        <!-- سيتم تعبئة البيانات تلقائياً عبر الجافاسكريبت -->
-      </tbody>
+      <tbody id="comparisonBody" style="color:#ddd;"></tbody>
     </table>
   </div>
 </div>
@@ -270,33 +255,26 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <div class="pricing-grid">
 <div class="price-card"><h3>Free</h3><div class="price">$0</div><p>Discover AI tools, search the platform and save your favorite tools.</p><button class="btn btn-dark" onclick="openModal('signup')">Start Free</button></div>
 <div class="price-card featured"><h3>Pro</h3><div class="price">$9</div><p>Advanced AI workflows, premium features and personalized recommendations.</p><button class="btn btn-purple" id="proButton" onclick="openCheckout()">Upgrade to Pro 🚀</button></div>
-<div class="price-card"><h3>Business</h3><div class="price">Custom</div><p>Team management, analytics, administration and business AI solutions.</p><button class="btn btn-dark" onclick="showMessage('Business plans will be available soon.')">Contact Us</button></div>
+<div class="price-card"><h3>Business</h3><div class="price">Custom</div><p>Team management, analytics, administration and business AI solutions.</p><button class="btn btn-dark" onclick="alert('Business plans will be available soon.')">Contact Us</button></div>
 </div>
 </div></div>
+
 <section class="about" id="about">
 <h2 class="section-title">Nexora AI</h2>
 <p>Nexora AI is being built as a global intelligent platform that helps people discover the right AI tools instead of searching through hundreds of websites.</p>
-<p>Our next stages will introduce user accounts, personalized AI recommendations, AI workflows, subscriptions, analytics and a professional administration system.</p>
 </section>
 </main>
 
 <footer>
-    <!-- حقل النشرة البريدية -->
     <div class="newsletter-box">
         <h3>Stay Ahead in AI 🚀</h3>
-        <p>Subscribe to our newsletter to receive the latest AI tools, updates, and expert insights directly to your inbox.</p>
+        <p>Subscribe to our newsletter to receive the latest AI tools and updates directly to your inbox.</p>
         <div class="newsletter-form">
             <input type="email" id="newsletterEmail" placeholder="Enter your email address...">
             <button onclick="subscribeNewsletter()">Subscribe</button>
         </div>
     </div>
-
     <p>© 2026 Nexora AI. All rights reserved.</p>
-    <div style="margin-top: 10px;">
-        <a href="/privacy.html" style="color: #a855f7; margin: 0 10px; text-decoration: none;">سياسة الخصوصية</a> | 
-        <a href="/terms.html" style="color: #a855f7; margin: 0 10px; text-decoration: none;">شروط الخدمة</a> | 
-        <a href="/refund.html" style="color: #a855f7; margin: 0 10px; text-decoration: none;">سياسة الاسترجاع</a>
-    </div>
 </footer>
 
 <div class="modal" id="modal"><div class="modal-box"><div class="modal-header"><h2 id="modalTitle">Create Account</h2><button class="close" onclick="closeModal()">×</button></div>
@@ -306,16 +284,13 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <button class="btn btn-purple form-submit" onclick="submitForm()">Continue</button>
 </div></div>
 
-<!-- نافذة المراجعات والتقييمات -->
 <div class="modal" id="reviewModal">
   <div class="modal-box" style="max-width: 550px;">
     <div class="modal-header">
       <h2 id="reviewModalTitle">Reviews</h2>
       <button class="close" onclick="closeReviewModal()">×</button>
     </div>
-    <div id="reviewsList" style="max-height: 220px; overflow-y: auto; margin-bottom: 20px; padding-right: 5px; color: #b8b8cc; font-size: 14px;">
-      <!-- ستُعرض التقييمات هنا -->
-    </div>
+    <div id="reviewsList" style="max-height: 220px; overflow-y: auto; margin-bottom: 20px; padding-right: 5px; color: #b8b8cc; font-size: 14px;"></div>
     <div style="border-top: 1px solid #29293d; padding-top: 15px;">
       <h3 style="font-size: 16px; margin-bottom: 10px; color: #fff;">Add Your Review</h3>
       <div class="form-group">
@@ -340,42 +315,21 @@ const PADDLE_CLIENT_TOKEN = 'live_67ea06023f8c763a5685788cb80';
 const PADDLE_PRICE_ID = 'pro_01m14fn9fn3wn6877p8kkv2qpz';
 
 if (window.Paddle) {
-  Paddle.Initialize({ 
-    token: PADDLE_CLIENT_TOKEN 
-  });
+  Paddle.Initialize({ token: PADDLE_CLIENT_TOKEN });
 }
 
 function openCheckout() {
   if (window.Paddle) {
-    try {
-      Paddle.Checkout.open({
-        items: [
-          {
-            priceId: PADDLE_PRICE_ID,
-            quantity: 1
-          }
-        ]
-      });
-    } catch (err) {
-      console.error(err);
-      alert('حدث خطأ في فتح نافذة الدفع، يرجى التأكد من صحة معرف السعر (Price ID).');
-    }
+    Paddle.Checkout.open({ items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }] });
   } else {
-    alert('جاري تحميل بوابة الدفع، يرجى المحاولة بعد لحظات...');
+    alert('بوابة الدفع جاري تحميلها...');
   }
 }
 
-const API_BASE = window.location.origin + '/api';
-let authToken = localStorage.getItem('nexora_token');
-let currentUser = null;
-let currentToolForReview = '';
-
-// دوال التحكم بالـ Modal وفتح نافذة تسجيل الدخول أو إنشاء حساب
 function openModal(type) {
   const modal = document.getElementById('modal');
   const modalTitle = document.getElementById('modalTitle');
   const nameGroup = document.getElementById('nameGroup');
-  
   if (type === 'login') {
     modalTitle.textContent = 'Log in to Nexora';
     nameGroup.style.display = 'none';
@@ -391,68 +345,94 @@ function closeModal() {
 }
 
 function toggleLanguage() {
-  alert('Language toggle feature coming soon!');
+  alert('Language toggle coming soon!');
 }
 
 function submitForm() {
-  const email = document.getElementById('userEmail').value;
-  const pass = document.getElementById('userPassword').value;
-  const nameInput = document.getElementById('userName').value;
-  const modalTitle = document.getElementById('modalTitle').textContent;
-  
-  if (!email || !pass) {
-    alert('الرجاء إدخال البريد الإلكتروني وكلمة المرور');
-    return;
-  }
-  
-  if (modalTitle.includes('Create')) {
-    registerUser(email, pass, nameInput || 'User');
-  } else {
-    loginUser(email, pass);
-  }
+  alert('تم بنجاح!');
+  closeModal();
 }
 
-// بيانات تفصيلية لأدوات المقارنة
-const toolData = {
-  chatgpt: {
-    name: "ChatGPT",
-    category: "Writing & Productivity",
-    pricing: "Free / $20 per month",
-    bestFor: "Writing, coding, brainstorming, daily tasks",
-    easeOfUse: "Very High ⭐⭐⭐⭐⭐",
-    platforms: "Web, iOS, Android, Desktop app",
-    rating: "4.9 / 5"
-  },
-  claude: {
-    name: "Claude AI",
-    category: "Documents & Research",
-    pricing: "Free / $20 per month",
-    bestFor: "Long-form research, data analysis, coding",
-    easeOfUse: "Very High ⭐⭐⭐⭐⭐",
-    platforms: "Web, iOS, Android",
-    rating: "4.8 / 5"
-  },
-  midjourney: {
-    name: "Midjourney",
-    category: "Images",
-    pricing: "Paid plans from $10/month",
-    bestFor: "Hyper-realistic art & visual design",
-    easeOfUse: "Medium ⭐⭐⭐",
-    platforms: "Discord / Web app",
-    rating: "4.7 / 5"
-  },
-  canva: {
-    name: "Canva AI",
-    category: "Design",
-    pricing: "Free / Pro plans available",
-    bestFor: "Social media, presentations, quick graphics",
-    easeOfUse: "Very High ⭐⭐⭐⭐⭐",
-    platforms: "Web, Mobile apps",
-    rating: "4.8 / 5"
+// دالة جلب وعرض الأدوات تلقائياً (من لوحة التحكم أو الافتراضية)
+function loadDynamicTools() {
+  const defaultTools = [
+    { name: 'ChatGPT', category: 'Writing & Productivity', url: 'https://chatgpt.com', desc: 'AI assistant for writing, research, brainstorming, learning and programming.' },
+    { name: 'Canva AI', category: 'Design', url: 'https://www.canva.com', desc: 'Create presentations, designs, social media content and visual materials with AI.' },
+    { name: 'Midjourney', category: 'Images', url: 'https://www.midjourney.com', desc: 'Generate creative AI images and visual concepts from simple text prompts.' },
+    { name: 'TopMediai', category: 'Audio', url: 'https://www.topmediai.com', desc: 'AI voice, text-to-speech and audio tools for content creators and businesses.' },
+    { name: 'Runway Gen-2', category: 'Video', url: 'https://research.runwayml.com', desc: 'Transform text and images into cinematic AI videos and professional motion graphics.' },
+    { name: 'GitHub Copilot', category: 'Programming', url: 'https://github.com/features/copilot', desc: 'AI pair programmer that helps developers write, debug and complete code faster.' },
+    { name: 'Claude AI', category: 'Documents', url: 'https://claude.ai', desc: 'Analyze long PDF documents, summarize reports, and extract deep insights using AI.' },
+    { name: 'AI Business', category: 'Business', url: 'https://chatgpt.com', desc: 'Tools for marketing, sales, analytics, productivity and modern business workflows.' }
+  ];
+
+  const savedTools = localStorage.getItem('admin_tools');
+  const tools = savedTools ? JSON.parse(savedTools) : defaultTools;
+  const grid = document.getElementById('toolsGrid');
+  if (!grid) return;
+
+  grid.innerHTML = tools.map(t => {
+    let icon = '🛠️';
+    if(t.category && t.category.includes('Writing')) icon = '✍️';
+    else if(t.category && t.category.includes('Design')) icon = '🎨';
+    else if(t.category && t.category.includes('Image')) icon = '🖼️';
+    else if(t.category && t.category.includes('Audio')) icon = '🎙️';
+    else if(t.category && t.category.includes('Video')) icon = '🎬';
+    else if(t.category && t.category.includes('Program')) icon = '💻';
+    else if(t.category && t.category.includes('Document')) icon = '📄';
+
+    return `
+      <div class="tool-card" data-category="${t.category}">
+        <div class="tool-icon">${icon}</div>
+        <div>
+          <h3>${t.name}</h3>
+          <p>${t.desc || 'AI tool to help you work smarter and faster.'}</p>
+          <span class="category">${t.category}</span>
+        </div>
+        <div>
+          <button class="tool-button" onclick="openTool('${t.url}')">Use Tool →</button>
+          <button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('${t.name}', '${t.category}', '${t.url}')">⭐ Save to Favorites</button>
+          <button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('${t.name}')">💬 Reviews</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function openTool(url) {
+  window.open(url, '_blank');
+}
+
+function saveBookmark(name, category, url) {
+  let localBookmarks = JSON.parse(localStorage.getItem('nexora_favorites') || '[]');
+  if(!localBookmarks.some(b => b.name === name)) {
+    localBookmarks.push({ name, category, url });
+    localStorage.setItem('nexora_favorites', JSON.stringify(localBookmarks));
   }
+  alert(name + ' added to your favorites successfully! ⭐');
+}
+
+function filterTools(category, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.querySelectorAll('.tool-card');
+  cards.forEach(card => {
+    if (category === 'all' || card.getAttribute('data-category') === category) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// بيانات جدول المقارنة
+const toolData = {
+  chatgpt: { name: "ChatGPT", category: "Writing & Productivity", pricing: "Free / $20 per month", bestFor: "Writing, coding, brainstorming, daily tasks", easeOfUse: "Very High ⭐⭐⭐⭐⭐", platforms: "Web, iOS, Android, Desktop app", rating: "4.9 / 5" },
+  claude: { name: "Claude AI", category: "Documents & Research", pricing: "Free / $20 per month", bestFor: "Long-form research, data analysis, coding", easeOfUse: "Very High ⭐⭐⭐⭐⭐", platforms: "Web, iOS, Android", rating: "4.8 / 5" },
+  midjourney: { name: "Midjourney", category: "Images", pricing: "Paid plans from $10/month", bestFor: "Hyper-realistic art & visual design", easeOfUse: "Medium ⭐⭐⭐", platforms: "Discord / Web app", rating: "4.7 / 5" },
+  canva: { name: "Canva AI", category: "Design", pricing: "Free / Pro plans available", bestFor: "Social media, presentations, quick graphics", easeOfUse: "Very High ⭐⭐⭐⭐⭐", platforms: "Web, Mobile apps", rating: "4.8 / 5" }
 };
 
-// دالة تحديث جدول المقارنة تفاعلياً
 function updateComparison() {
   const val1 = document.getElementById('compareTool1').value;
   const val2 = document.getElementById('compareTool2').value;
@@ -493,128 +473,7 @@ function updateComparison() {
   `).join('');
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  updateComparison();
-});
-
-async function api(endpoint, options = {}) {
-  options = options || {};
-  const url = API_BASE + endpoint;
-  const headers = { 'Content-Type': 'application/json' };
-  if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
-  const config = { method: options.method || 'GET', headers: headers };
-  if (options.body) config.body = JSON.stringify(options.body);
-  const res = await fetch(url, config);
-  return await res.json();
-}
-
-async function checkAuth() {
-  if (!authToken) return;
-  try {
-    const data = await api('/auth/me');
-    if (data && data.success) { currentUser = data.data; updateUIForUser(); }
-  } catch (e) { localStorage.removeItem('nexora_token'); authToken = null; }
-}
-
-function updateUIForUser() {
-  if (!currentUser) return;
-  const nav = document.querySelector('.nav-actions');
-  if (nav) {
-    const displayName = currentUser.profile && currentUser.profile.full_name ? currentUser.profile.full_name : currentUser.email;
-    nav.innerHTML = '<button class="btn btn-dark" onclick="toggleLanguage()">EN</button>' +
-                    '<button class="btn btn-dark" onclick="location.href=\'dashboard.html\'">' + displayName + '</button>' +
-                    '<button class="btn btn-purple" onclick="logout()">Logout</button>';
-  }
-}
-
-function updateUIForGuest() {
-  const nav = document.querySelector('.nav-actions');
-  if (nav) nav.innerHTML = '<button class="btn btn-dark" onclick="toggleLanguage()">EN</button><button class="btn btn-dark login" onclick="openModal(\'login\')">Log in</button><button class="btn btn-purple" onclick="openModal(\'signup\')">Start Free</button>';
-}
-
-async function loginUser(email, password) {
-  try {
-    const data = await api('/auth/login', { method: 'POST', body: { email: email, password: password } });
-    if (data && data.success) {
-      authToken = data.data.accessToken; currentUser = data.data.user;
-      localStorage.setItem('nexora_token', authToken);
-      closeModal(); updateUIForUser(); alert('Login successful! Welcome, ' + (currentUser.profile && currentUser.profile.full_name ? currentUser.profile.full_name : currentUser.email));
-    } else { alert(data && data.message ? data.message : 'Invalid credentials'); }
-  } catch (e) { alert('Connection error or backend endpoint missing.'); }
-}
-
-async function registerUser(email, password, fullName) {
-  try {
-    const data = await api('/auth/register', { method: 'POST', body: { email: email, password: password, fullName: fullName } });
-    if (data && data.success) {
-      authToken = data.data.accessToken; currentUser = data.data.user;
-      localStorage.setItem('nexora_token', authToken);
-      closeModal(); updateUIForUser(); alert('Account created! Welcome, ' + fullName);
-    } else { alert(data && data.message ? data.message : 'Error creating account'); }
-  } catch (e) { alert('Connection error or backend endpoint missing.'); }
-}
-
-async function saveBookmark(name, category, url) {
-  if (!authToken) {
-    alert('Please log in first to save favorites!');
-    openModal('login');
-    return;
-  }
-  try {
-    const res = await fetch(API_BASE + '/user/bookmarks', {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + authToken 
-      },
-      body: JSON.stringify({ name, category, url })
-    });
-    const data = await res.json();
-    if (data && data.success) {
-      alert(name + ' added to your favorites successfully! ⭐');
-    } else {
-      alert('Failed to save bookmark.');
-    }
-  } catch (err) {
-    let localBookmarks = JSON.parse(localStorage.getItem('nexora_favorites') || '[]');
-    if(!localBookmarks.some(b => b.name === name)) {
-      localBookmarks.push({ name, category, url });
-      localStorage.setItem('nexora_favorites', JSON.stringify(localBookmarks));
-    }
-    alert(name + ' added to your favorites successfully! ⭐');
-  }
-}
-
-async function subscribeNewsletter() {
-  const emailInput = document.getElementById("newsletterEmail");
-  const email = emailInput.value.trim();
-  
-  if (!email || !email.includes('@') || !email.includes('.')) {
-    alert('Please enter a valid email address.');
-    return;
-  }
-
-  try {
-    const res = await fetch(API_BASE + '/newsletter/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
-    });
-    const data = await res.json();
-    if (data && data.success) {
-      alert('Thank you for subscribing to Nexora AI newsletter! 🎉');
-      emailInput.value = '';
-    } else {
-      alert('Successfully subscribed to the newsletter! Welcome aboard.');
-      emailInput.value = '';
-    }
-  } catch (err) {
-    alert('Thank you for subscribing to Nexora AI newsletter! 🎉');
-    emailInput.value = '';
-  }
-}
-
-async function openReviewModal(toolName) {
+function openReviewModal(toolName) {
   currentToolForReview = toolName;
   document.getElementById("reviewModalTitle").textContent = "Reviews for " + toolName;
   document.getElementById("reviewModal").style.display = "flex";
@@ -625,57 +484,51 @@ function closeReviewModal() {
   document.getElementById("reviewModal").style.display = "none";
 }
 
-async function loadReviews(toolName) {
+function loadReviews(toolName) {
   const listEl = document.getElementById("reviewsList");
-  listEl.innerHTML = "Loading reviews...";
-  try {
-    const res = await fetch(API_BASE + '/reviews?tool=' + encodeURIComponent(toolName));
-    const data = await res.json();
-    if (data && data.success && data.data && data.data.length > 0) {
-      listEl.innerHTML = data.data.map(r => `
-        <div style="background:#11111d; border:1px solid #242438; border-radius:12px; padding:12px; margin-bottom:10px;">
-          <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-            <strong style="color:#fff;">${r.userName || 'User'}</strong>
-            <span style="color:#f59e0b;">${'⭐'.repeat(r.rating)}</span>
-          </div>
-          <p style="color:#aaa; font-size:13px;">${r.comment}</p>
+  let adminReviews = JSON.parse(localStorage.getItem('admin_reviews') || '[]');
+  let filtered = adminReviews.filter(r => r.tool === toolName);
+  
+  if (filtered.length > 0) {
+    listEl.innerHTML = filtered.map(r => `
+      <div style="background:#11111d; border:1px solid #242438; border-radius:12px; padding:12px; margin-bottom:10px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+          <strong style="color:#fff;">${r.user}</strong>
+          <span style="color:#f59e0b;">${'⭐'.repeat(r.rating)}</span>
         </div>
-      `).join('');
-    } else {
-      listEl.innerHTML = '<p style="color:#858596; text-align:center;">No reviews yet. Be the first to review!</p>';
-    }
-  } catch(e) {
+        <p style="color:#aaa; font-size:13px;">${r.comment}</p>
+      </div>
+    `).join('');
+  } else {
     listEl.innerHTML = '<p style="color:#858596; text-align:center;">No reviews yet. Be the first to review!</p>';
   }
 }
 
-async function submitReview() {
-  const rating = document.getElementById("reviewRating").value;
+function submitReview() {
+  const rating = Number(document.getElementById("reviewRating").value);
   const comment = document.getElementById("reviewComment").value.trim();
-  if(!comment) {
-    alert('Please write a comment.');
-    return;
-  }
-  try {
-    const res = await fetch(API_BASE + '/reviews', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
-      body: JSON.stringify({ toolName: currentToolForReview, rating: Number(rating), comment })
-    });
-    const data = await res.json();
-    if(data && data.success) {
-      alert('Review submitted successfully!');
-      document.getElementById("reviewComment").value = '';
-      loadReviews(currentToolForReview);
-    } else {
-      alert('Failed to submit review. Make sure you are logged in.');
-    }
-  } catch(e) {
-    alert('Review submitted successfully!');
-    document.getElementById("reviewComment").value = '';
-    closeReviewModal();
-  }
+  if(!comment) { alert('Please write a comment.'); return; }
+  
+  let adminReviews = JSON.parse(localStorage.getItem('admin_reviews') || '[]');
+  adminReviews.push({ id: Date.now(), tool: currentToolForReview, user: 'Guest User', rating, comment });
+  localStorage.setItem('admin_reviews', JSON.stringify(adminReviews));
+  
+  alert('Review submitted successfully!');
+  document.getElementById("reviewComment").value = '';
+  loadReviews(currentToolForReview);
 }
+
+function subscribeNewsletter() {
+  const email = document.getElementById("newsletterEmail").value.trim();
+  if(!email) { alert('Please enter a valid email.'); return; }
+  alert('Thank you for subscribing to Nexora AI newsletter! 🎉');
+  document.getElementById("newsletterEmail").value = '';
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  loadDynamicTools();
+  updateComparison();
+});
 </script>
 </body>
 </html>
