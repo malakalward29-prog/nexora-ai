@@ -109,7 +109,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 @media(max-width:650px){.navbar{padding:15px}.logo{font-size:22px}.nav-actions .login{display:none}.hero{padding-top:75px}.search-row{flex-direction:column}.search-row button{padding:15px}.tools-grid,.pricing-grid{grid-template-columns:1fr}section,.pricing-inner{padding:60px 18px}.newsletter-form{flex-direction:column}}
 </style>
 </head>
-<body>
+<body onload="checkLoginState(); loadDynamicTools();">
 <nav><div class="navbar">
 <a href="#" class="logo">Nexora <span>AI</span></a>
 <div class="nav-links"><a href="#home">Home</a><a href="#trending">Trending</a><a href="#tools">AI Tools</a><a href="#comparison">Compare</a><a href="#pricing">Pricing</a><a href="#about">About</a></div>
@@ -357,7 +357,6 @@ function toggleLanguage() {
   alert('Language toggle coming soon!');
 }
 
-// دالة تسجيل الدخول لتخزين الجلسة وتحديث واجهة المستخدم
 function submitForm() {
   const emailInput = document.getElementById('userEmail').value.trim();
   const passwordInput = document.getElementById('userPassword').value.trim();
@@ -373,14 +372,13 @@ function submitForm() {
   checkLoginState();
 }
 
-// تفعيل الضغط على اسم البريد لفتح لوحة التحكم الخاصة بالمفضلة والتعليقات
 function checkLoginState() {
   const user = localStorage.getItem('nexora_logged_in_user');
   const container = document.getElementById('navActionsContainer');
   if (user && container) {
     container.innerHTML = `
       <button class="btn btn-dark" onclick="toggleLanguage()" id="languageButton">AR</button>
-      <span onclick="openUserDashboard()" style="color: #a78bfa; font-size: 14px; margin: 0 8px; cursor: pointer; text-decoration: underline;" title="انقر لفتح لوحة التحكم">👤 ${user.split('@')[0]}</span>
+      <span onclick="openUserDashboard()" style="color: #a78bfa; font-size: 14px; margin: 0 8px; cursor: pointer; text-decoration: underline; font-weight: bold;" title="انقر لفتح لوحة التحكم">👤 ${user.split('@')[0]}</span>
       <button class="btn btn-dark" onclick="logoutUser()">Log out</button>
     `;
   }
@@ -391,48 +389,63 @@ function logoutUser() {
   location.reload();
 }
 
-// دالة لفتح لوحة تحكم المستخدم لعرض المفضلة والتعليقات والخيارات
+// دالة متطورة وأنيقة لفتح لوحة تحكم المستخدم لعرض المفضلة والتعليقات والتحكم بالحساب
 function openUserDashboard() {
   const favorites = JSON.parse(localStorage.getItem('nexora_favorites') || '[]');
   const reviews = JSON.parse(localStorage.getItem('admin_reviews') || '[]');
   const userEmail = localStorage.getItem('nexora_logged_in_user');
   
-  let favHtml = favorites.length > 0 ? favorites.map(f => `<li style="margin-bottom:8px;"><a href="${f.url}" target="_blank" style="color:#a78bfa; text-decoration:underline;">${f.name}</a> <span style="color:#858596; font-size:12px;">(${f.category})</span></li>`).join('') : '<p style="color:#858596; font-size:14px;">لا توجد أدوات محفوظة في المفضلة بعد.</p>';
+  let favHtml = favorites.length > 0 ? favorites.map(f => `
+    <div style="display:flex; justify-content:space-between; align-items:center; background:#080811; padding:10px 14px; border-radius:10px; margin-bottom:8px; border:1px solid #252538;">
+      <a href="${f.url}" target="_blank" style="color:#a78bfa; text-decoration:underline; font-weight:bold; font-size:14px;">${f.name}</a> 
+      <span style="background:#191526; color:#b9a2ff; font-size:11px; padding:3px 8px; border-radius:6px;">${f.category}</span>
+    </div>`).join('') : '<p style="color:#858596; font-size:14px; text-align:center; padding:15px;">لا توجد أدوات محفوظة في المفضلة بعد.</p>';
   
   let userReviews = reviews.filter(r => r.user === 'Guest User' || r.user === userEmail);
-  let revHtml = userReviews.length > 0 ? userReviews.map(r => `<div style="background:#080811; padding:10px; border-radius:8px; margin-bottom:8px; font-size:13px;"><strong style="color:#fff;">${r.tool}</strong>: ${r.comment} <span style="color:#f59e0b;">(${r.rating}⭐)</span></div>`).join('') : '<p style="color:#858596; font-size:14px;">لا توجد تعليقات مسجلة بعد.</p>';
+  let revHtml = userReviews.length > 0 ? userReviews.map(r => `
+    <div style="background:#080811; padding:12px; border-radius:10px; margin-bottom:8px; border:1px solid #252538; font-size:13px;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+        <strong style="color:#fff; font-size:14px;">${r.tool}</strong>
+        <span style="color:#f59e0b; font-weight:bold;">${r.rating} ⭐</span>
+      </div>
+      <p style="color:#b8b8cc; line-height:1.4;">${r.comment}</p>
+    </div>`).join('') : '<p style="color:#858596; font-size:14px; text-align:center; padding:15px;">لا توجد تعليقات مسجلة بعد.</p>';
 
   let modalContent = `
     <div class="modal" id="userDashboardModal" style="display:flex;">
-      <div class="modal-box" style="max-width: 600px;">
-        <div class="modal-header">
-          <h2>لوحة التحكم الخاصة بك</h2>
-          <button class="close" onclick="document.getElementById('userDashboardModal').remove()">×</button>
+      <div class="modal-box" style="max-width: 650px; background:#12121e; border:1px solid #3c236e; box-shadow: 0 10px 40px rgba(124,58,237,0.2);">
+        <div class="modal-header" style="border-bottom:1px solid #242438; padding-bottom:15px; margin-bottom:20px;">
+          <h2 style="font-size:22px; color:#fff; display:flex; align-items:center; gap:8px;">🚀 لوحة التحكم الشخصية</h2>
+          <button class="close" onclick="document.getElementById('userDashboardModal').remove()" style="color:#fff; font-size:24px;">×</button>
         </div>
-        <div style="margin-bottom: 20px;">
-          <h3 style="color: #fff; font-size: 16px; margin-bottom: 10px;">⭐ الأدوات المفضلة (Save Favorites)</h3>
-          <ul style="padding-right: 20px; color: #ddd; max-height: 140px; overflow-y: auto;">${favHtml}</ul>
+        
+        <div style="margin-bottom: 25px;">
+          <h3 style="color: #a78bfa; font-size: 15px; margin-bottom: 12px; display:flex; align-items:center; gap:6px;">⭐ الأدوات المفضلة لديك (${favorites.length})</h3>
+          <div style="max-height: 160px; overflow-y: auto; padding-right: 5px;">${favHtml}</div>
         </div>
-        <div style="margin-bottom: 20px;">
-          <h3 style="color: #fff; font-size: 16px; margin-bottom: 10px;">💬 تعليقاتك (Comments)</h3>
-          <div style="max-height: 140px; overflow-y: auto;">${revHtml}</div>
+
+        <div style="margin-bottom: 25px;">
+          <h3 style="color: #a78bfa; font-size: 15px; margin-bottom: 12px; display:flex; align-items:center; gap:6px;">💬 تعليقاتك وتقييماتك (${userReviews.length})</h3>
+          <div style="max-height: 160px; overflow-y: auto; padding-right: 5px;">${revHtml}</div>
         </div>
-        <div>
-          <h3 style="color: #fff; font-size: 16px; margin-bottom: 10px;">⚙️ إعدادات الحساب (Account Settings)</h3>
-          <p style="color: #858596; font-size: 14px;">البريد الإلكتروني المسجل: <strong style="color:#fff;">${userEmail}</strong></p>
+
+        <div style="background:#080811; padding:15px; border-radius:12px; border:1px solid #252538; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <h3 style="color: #fff; font-size: 14px; margin-bottom: 4px;">إعدادات وحالة الحساب</h3>
+            <p style="color: #858596; font-size: 13px;">البريد: <strong style="color:#a78bfa;">${userEmail}</strong></p>
+          </div>
+          <button class="btn btn-dark" onclick="logoutUser()" style="background:#2a1b3d; border-color:#582c8a; font-size:13px; padding:8px 14px;">تسجيل الخروج</button>
         </div>
       </div>
     </div>
   `;
   
-  // إزالة أي لوحة تحكم سابقة إن وجدت لعدم التكرار
   const oldModal = document.getElementById('userDashboardModal');
   if(oldModal) oldModal.remove();
 
   document.body.insertAdjacentHTML('beforeend', modalContent);
 }
 
-// دالة جلب وعرض الأدوات تلقائياً
 function loadDynamicTools() {
   const defaultTools = [
     { name: 'ChatGPT', category: 'Writing & Productivity', url: 'https://chatgpt.com', desc: 'AI assistant for writing, research, brainstorming, learning and programming.' },
@@ -504,7 +517,6 @@ function filterTools(category, btn) {
   });
 }
 
-// بيانات جدول المقارنة
 const toolData = {
   chatgpt: { name: "ChatGPT", category: "Writing & Productivity", pricing: "Free / $20 per month", bestFor: "Writing, coding, brainstorming, daily tasks", easeOfUse: "Very High ⭐⭐⭐⭐⭐", platforms: "Web, iOS, Android, Desktop app", rating: "4.9 / 5" },
   claude: { name: "Claude AI", category: "Documents & Research", pricing: "Free / $20 per month", bestFor: "Long-form research, data analysis, coding", easeOfUse: "Very High ⭐⭐⭐⭐⭐", platforms: "Web, iOS, Android", rating: "4.8 / 5" },
@@ -572,46 +584,66 @@ function loadReviews(toolName) {
   
   if (filtered.length > 0) {
     listEl.innerHTML = filtered.map(r => `
-      <div style="background:#11111d; border:1px solid #242438; border-radius:12px; padding:12px; margin-bottom:10px;">
-        <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-          <strong style="color:#fff;">${r.user}</strong>
-          <span style="color:#f59e0b;">${'⭐'.repeat(r.rating)}</span>
+      <div style="background:#080811; border:1px solid #252538; padding:10px 12px; border-radius:10px; margin-bottom:8px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+          <span style="color:#a78bfa; font-weight:bold; font-size:13px;">${r.user || 'Guest'}</span>
+          <span style="color:#f59e0b; font-size:12px;">${r.rating} ⭐</span>
         </div>
-        <p style="color:#aaa; font-size:13px;">${r.comment}</p>
+        <p style="color:#ccc; font-size:13px;">${r.comment}</p>
       </div>
     `).join('');
   } else {
-    listEl.innerHTML = '<p style="color:#858596; text-align:center;">No reviews yet. Be the first to review!</p>';
+    listEl.innerHTML = '<p style="color:#858596; text-align:center; padding:15px;">No reviews yet for this tool. Be the first to add one!</p>';
   }
 }
 
 function submitReview() {
-  const rating = Number(document.getElementById("reviewRating").value);
+  const rating = document.getElementById("reviewRating").value;
   const comment = document.getElementById("reviewComment").value.trim();
-  if(!comment) { alert('Please write a comment.'); return; }
-  
-  const userEmail = localStorage.getItem('nexora_logged_in_user') || 'Guest User';
+  const user = localStorage.getItem('nexora_logged_in_user') || 'Guest User';
+
+  if (!comment) {
+    alert("Please write a comment before submitting.");
+    return;
+  }
+
   let adminReviews = JSON.parse(localStorage.getItem('admin_reviews') || '[]');
-  adminReviews.push({ id: Date.now(), tool: currentToolForReview, user: userEmail, rating, comment });
+  adminReviews.push({ tool: currentToolForReview, user, rating, comment });
   localStorage.setItem('admin_reviews', JSON.stringify(adminReviews));
-  
-  alert('Review submitted successfully!');
-  document.getElementById("reviewComment").value = '';
+
+  document.getElementById("reviewComment").value = "";
+  alert("Review submitted successfully! 🎉");
   loadReviews(currentToolForReview);
 }
 
 function subscribeNewsletter() {
   const email = document.getElementById("newsletterEmail").value.trim();
-  if(!email) { alert('Please enter a valid email.'); return; }
-  alert('Thank you for subscribing to Nexora AI newsletter! 🎉');
-  document.getElementById("newsletterEmail").value = '';
+  if (!email) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+  alert("Thank you for subscribing to Nexora AI newsletter! 🚀");
+  document.getElementById("newsletterEmail").value = "";
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  loadDynamicTools();
-  updateComparison();
-  checkLoginState();
-});
+function recommendTool() {
+  const query = document.getElementById("smartSearch").value.toLowerCase();
+  const recBox = document.getElementById("recommendation");
+  if (!query) {
+    recBox.style.display = "none";
+    return;
+  }
+  let suggestion = "We recommend trying **ChatGPT** for general tasks, writing, and brainstorming, or **Claude AI** for deep document research.";
+  if(query.includes('image') || query.includes('photo') || query.includes('art')) {
+    suggestion = "For images and visual concepts, **Midjourney** is your best choice!";
+  } else if(query.includes('code') || query.includes('program') || query.includes('developer')) {
+    suggestion = "For coding and programming, **GitHub Copilot** or **ChatGPT** are ideal choices.";
+  } else if(query.includes('design') || query.includes('presentation')) {
+    suggestion = "For graphic design and presentations, **Canva AI** is highly recommended.";
+  }
+  recBox.innerHTML = suggestion;
+  recBox.style.display = "block";
+}
 </script>
 </body>
 </html>
