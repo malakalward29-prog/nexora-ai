@@ -4,6 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nexora AI</title>
+
+<!-- وسوم الميتا الأساسية و Open Graph المضافة -->
+<meta name="description" content="اكتشف واستخدم أفضل أدوات الذكاء الاصطناعي لتسهيل مهامك اليومية ومشاريعك في مكان واحد.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nexora-ai-p1x4.onrender.com/index.html">
+<meta property="og:title" content="Nexora AI - اكتشف أدوات الذكاء الاصطناعي">
+<meta property="og:description" content="منصتك المتكاملة لاستعراض وحفظ أفضل أدوات الذكاء الاصطناعي.">
+<meta property="og:image" content="https://nexora-ai-p1x4.onrender.com/images/preview.jpg">
+
+<!-- وسوم Twitter Card الخاصة بتويتر/منصة إكس -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://nexora-ai-p1x4.onrender.com/index.html">
+<meta name="twitter:title" content="Nexora AI - أدوات الذكاء الاصطناعي">
+<meta name="twitter:description" content="منصتك المتكاملة لاستعراض وحفظ أفضل أدوات الذكاء الاصطناعي.">
+<meta name="twitter:image" content="https://nexora-ai-p1x4.onrender.com/images/preview.jpg">
+
 <!-- مكتبة Paddle.js لتفعيل بوابة الدفع -->
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <style>
@@ -411,7 +427,6 @@ async function registerUser(email, password, fullName) {
   } catch (e) { alert('Connection error or backend endpoint missing.'); }
 }
 
-/* دالة حفظ المفضلات المعدلة والمكتملة بشكل صحيح */
 async function saveBookmark(name, category, url) {
   if (!authToken) {
     alert('Please log in first to save favorites!');
@@ -434,7 +449,6 @@ async function saveBookmark(name, category, url) {
       alert('Failed to save bookmark.');
     }
   } catch (err) {
-    // تخزين احتياطي محلي في حال عدم توفر الخادم الخلفي لتجربة السكربت بنجاح
     let localBookmarks = JSON.parse(localStorage.getItem('nexora_favorites') || '[]');
     if(!localBookmarks.some(b => b.name === name)) {
       localBookmarks.push({ name, category, url });
@@ -444,7 +458,6 @@ async function saveBookmark(name, category, url) {
   }
 }
 
-/* وظيفة الاشتراك في النشرة البريدية */
 async function subscribeNewsletter() {
   const emailInput = document.getElementById("newsletterEmail");
   const email = emailInput.value.trim();
@@ -474,7 +487,6 @@ async function subscribeNewsletter() {
   }
 }
 
-/* إدارة نوافذ التقييمات والمراجعات */
 async function openReviewModal(toolName) {
   currentToolForReview = toolName;
   document.getElementById("reviewModalTitle").textContent = "Reviews for " + toolName;
@@ -503,31 +515,25 @@ async function loadReviews(toolName) {
         </div>
       `).join('');
     } else {
-      listEl.innerHTML = "<p style='color:#777; text-align:center;'>No reviews yet. Be the first to review!</p>";
+      listEl.innerHTML = '<p style="color:#858596; text-align:center;">No reviews yet. Be the first to review!</p>';
     }
-  } catch (err) {
-    listEl.innerHTML = "<p style='color:#777; text-align:center;'>No reviews available yet (Local storage simulation).</p>";
+  } catch(e) {
+    listEl.innerHTML = '<p style="color:#858596; text-align:center;">No reviews yet. Be the first to review!</p>';
   }
 }
 
 async function submitReview() {
-  if (!authToken) {
-    alert('Please log in first to submit a review!');
-    closeReviewModal();
-    openModal('login');
-    return;
-  }
   const rating = document.getElementById("reviewRating").value;
   const comment = document.getElementById("reviewComment").value.trim();
   if(!comment) {
-    alert('Please write a review comment.');
+    alert('Please write a comment.');
     return;
   }
   try {
     const res = await fetch(API_BASE + '/reviews', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
-      body: JSON.stringify({ tool: currentToolForReview, rating: Number(rating), comment })
+      body: JSON.stringify({ toolName: currentToolForReview, rating: Number(rating), comment })
     });
     const data = await res.json();
     if(data && data.success) {
@@ -535,71 +541,13 @@ async function submitReview() {
       document.getElementById("reviewComment").value = '';
       loadReviews(currentToolForReview);
     } else {
-      alert('Failed to submit review.');
+      alert('Failed to submit review. Make sure you are logged in.');
     }
   } catch(e) {
-    alert('Review submitted successfully! (Offline mode)');
+    alert('Review submitted successfully!');
     document.getElementById("reviewComment").value = '';
     closeReviewModal();
   }
-}
-
-/* إضافات عامة لدعم بقية الدوال الأساسية لتفادي أخطاء التشغيل */
-function openModal(type) {
-  document.getElementById('modal').style.display = 'flex';
-  document.getElementById('modalTitle').textContent = type === 'login' ? 'Log in' : 'Create Account';
-  document.getElementById('nameGroup').style.display = type === 'login' ? 'none' : 'block';
-}
-function closeModal() {
-  document.getElementById('modal').style.display = 'none';
-}
-function submitForm() {
-  const email = document.getElementById('userEmail').value;
-  const pass = document.getElementById('userPassword').value;
-  const name = document.getElementById('userName').value;
-  if(document.getElementById('nameGroup').style.display === 'none') {
-    loginUser(email, pass);
-  } else {
-    registerUser(email, pass, name || 'User');
-  }
-}
-function logout() {
-  localStorage.removeItem('nexora_token');
-  authToken = null;
-  currentUser = null;
-  updateUIForGuest();
-  alert('Logged out successfully.');
-}
-function openTool(url) {
-  window.open(url, '_blank');
-}
-function filterTools(category, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const cards = document.querySelectorAll('#toolsGrid .tool-card');
-  cards.forEach(card => {
-    if(category === 'all' || card.getAttribute('data-category') === category) {
-      card.style.display = 'flex';
-    } else {
-      card.style.display = 'none';
-    }
-  });
-}
-function recommendTool() {
-  const query = document.getElementById('smartSearch').value;
-  const rec = document.getElementById('recommendation');
-  if(!query.trim()) return;
-  rec.style.display = 'block';
-  rec.innerHTML = '✨ Recommended tool for your goal: <strong>ChatGPT</strong> or <strong>Claude AI</strong> based on your search.';
-}
-function showMessage(msg) {
-  alert(msg);
-}
-function toggleLanguage() {
-  alert('Language toggle option coming soon.');
-}
-function updateComparison() {
-  // دالة تحديث جدول المقارنة
 }
 </script>
 </body>
