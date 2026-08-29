@@ -3,27 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard - Nexora AI</title>
+<title>User Dashboard - Nexora AI</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,Helvetica,sans-serif;background:#070711;color:#fff;min-height:100vh}
 a{color:inherit;text-decoration:none}
+button,input{font:inherit}
 nav{position:sticky;top:0;z-index:1000;background:rgba(7,7,17,.88);backdrop-filter:blur(15px);border-bottom:1px solid #202033}
-.navbar{max-width:1200px;margin:auto;padding:18px 25px;display:flex;align-items:center;justify-content:space-between}
+.navbar{max-width:1200px;margin:auto;padding:18px 25px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .logo{font-size:27px;font-weight:900}
 .logo span{color:#a78bfa}
 .btn{border:0;cursor:pointer;border-radius:12px;padding:11px 18px;color:#fff;transition:.2s}
 .btn:hover{transform:translateY(-1px)}
 .btn-dark{background:#151522;border:1px solid #303044}
 .btn-purple{background:linear-gradient(135deg,#7c3aed,#c026d3)}
-.dashboard-container{max-width:1200px;margin:auto;padding:40px 25px}
-.welcome-card{background:linear-gradient(135deg,#131022,#10101b);border:1px solid #3c236e;border-radius:22px;padding:30px;margin-bottom:30px}
-.welcome-card h1{font-size:28px;margin-bottom:8px}
-.welcome-card p{color:#858596;font-size:15px}
-.grid-section{display:grid;grid-template-columns:2fr 1fr;gap:20px}
-.card{background:#10101b;border:1px solid #242438;border-radius:22px;padding:25px}
-.card h2{font-size:20px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
-@media(max-width:900px){.grid-section{grid-template-columns:1fr}}
+.dashboard-container{max-width:1200px;margin:auto;padding:50px 25px}
+.welcome-banner{background:linear-gradient(135deg,#131022,#10101b);border:1px solid #3c236e;border-radius:22px;padding:35px;margin-bottom:40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.welcome-banner h1{font-size:28px;margin-bottom:8px}
+.welcome-banner p{color:#858596;font-size:15px}
+.dashboard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px;margin-bottom:40px}
+.dash-card{background:#10101b;border:1px solid #242438;border-radius:22px;padding:25px;display:flex;flex-direction:column}
+.dash-card h2{font-size:20px;margin-bottom:20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #202033;padding-bottom:12px}
+.items-list{max-height:300px;overflow-y:auto;padding-right:5px;flex:1}
+.item-row{background:#080811;border:1px solid #252538;border-radius:14px;padding:15px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.item-info h4{font-size:16px;margin-bottom:4px}
+.item-info span{color:#858596;font-size:12px}
+.action-btns{display:flex;gap:6px}
+.sm-btn{padding:6px 12px;font-size:12px;border-radius:8px;border:0;cursor:pointer}
+.btn-del{background:#7f1d1d;color:#fca5a5}
+.btn-del:hover{background:#991b1b}
+.btn-visit{background:#7c3aed;color:#fff}
+.btn-visit:hover{background:#8b5cf6}
+.empty-msg{color:#666679;text-align:center;padding:30px 0;font-size:14px}
+@media(max-width:900px){.dashboard-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -32,33 +44,50 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(7,7,17,.88);backdrop-filt
   <div class="navbar">
     <a href="index.html" class="logo">Nexora <span>AI</span></a>
     <div>
-      <button class="btn btn-dark" onclick="location.href='index.html'">Home</button>
+      <button class="btn btn-dark" onclick="location.href='index.html'">Back to Home</button>
       <button class="btn btn-purple" onclick="logout()">Logout</button>
     </div>
   </div>
 </nav>
 
 <div class="dashboard-container">
-  <div class="welcome-card">
-    <h1 id="welcomeTitle">Welcome back! 👋</h1>
-    <p>Manage your saved favorite AI tools, active subscriptions, and account settings.</p>
+  <div class="welcome-banner">
+    <div>
+      <h1 id="userWelcomeName">Welcome back!</h1>
+      <p>Manage your saved favorite AI tools, active subscriptions, and reviews from one central dashboard.</p>
+    </div>
+    <button class="btn btn-purple" onclick="location.href='index.html#tools'">Explore More Tools 🚀</button>
   </div>
 
-  <div class="grid-section">
-    <!-- قسم المفضلة -->
-    <div class="card">
+  <div class="dashboard-grid">
+    <!-- المفضلة -->
+    <div class="dash-card">
       <h2>⭐ Saved Bookmarks</h2>
-      <div id="bookmarksContainer">
-        <p style="color:#858596; text-align:center; padding:20px;">Loading bookmarks...</p>
+      <div class="items-list" id="bookmarksList">
+        <div class="empty-msg">Loading bookmarks...</div>
       </div>
     </div>
 
-    <!-- قسم تفاصيل الحساب أو الاشتراكات -->
-    <div class="card">
-      <h2>🚀 Subscription Plan</h2>
-      <p style="color:#a78bfa; font-weight:bold; font-size:18px; margin-bottom:15px;">Free Tier</p>
-      <p style="color:#858596; font-size:14px; line-height:1.6; margin-bottom:20px;">You are currently on the free plan. Upgrade to Pro to unlock advanced AI features and personalized workflows.</p>
-      <button class="btn btn-purple" style="width:100%;" onclick="location.href='index.html#pricing'">Upgrade Now</button>
+    <!-- الاشتراكات -->
+    <div class="dash-card">
+      <h2>💳 Active Subscriptions</h2>
+      <div class="items-list" id="subscriptionsList">
+        <div class="item-row">
+          <div class="item-info">
+            <h4>Free Plan</h4>
+            <span>Status: Active</span>
+          </div>
+          <button class="sm-btn btn-visit" onclick="location.href='index.html#pricing'">Upgrade</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- المراجعات والتقييمات السابقة -->
+    <div class="dash-card">
+      <h2>💬 Your Reviews</h2>
+      <div class="items-list" id="reviewsList">
+        <div class="empty-msg">Loading reviews...</div>
+      </div>
     </div>
   </div>
 </div>
@@ -68,79 +97,120 @@ const API_BASE = window.location.origin + '/api';
 let authToken = localStorage.getItem('nexora_token');
 let currentUser = null;
 
+if (!authToken) {
+  alert('Please log in first to access your dashboard.');
+  window.location.href = 'index.html';
+}
+
 async function initDashboard() {
-  let userName = "User";
   try {
     const res = await fetch(API_BASE + '/auth/me', {
       headers: { 'Authorization': 'Bearer ' + authToken }
     });
     const data = await res.json();
-    if (data && data.success && data.data) {
+    if (data && data.success) {
       currentUser = data.data;
-      userName = currentUser.profile && currentUser.profile.full_name ? currentUser.profile.full_name : (currentUser.email ? currentUser.email.split('@')[0] : "User");
+      const fullName = currentUser.profile && currentUser.profile.full_name ? currentUser.profile.full_name : currentUser.email;
+      document.getElementById('userWelcomeName').textContent = 'Welcome back, ' + fullName + '! 👋';
+      loadBookmarks();
+      loadUserReviews();
+    } else {
+      throw new Error('Unauthorized');
     }
-  } catch (e) {
-    // تجاهل الخطأ واستخدام الاسم الافتراضي
+  } catch (err) {
+    localStorage.removeItem('nexora_token');
+    window.location.href = 'index.html';
   }
-  
-  document.getElementById('welcomeTitle').textContent = `Welcome back, ${userName}! 👋`;
-  loadBookmarks();
 }
 
 async function loadBookmarks() {
-  const container = document.getElementById('bookmarksContainer');
+  const container = document.getElementById('bookmarksList');
   try {
     const res = await fetch(API_BASE + '/user/bookmarks', {
       headers: { 'Authorization': 'Bearer ' + authToken }
     });
     const data = await res.json();
     if (data && data.success && data.data && data.data.length > 0) {
-      renderBookmarksList(data.data, container);
+      container.innerHTML = data.data.map(b => `
+        <div class="item-row">
+          <div class="item-info">
+            <h4>${b.name}</h4>
+            <span>${b.category || 'AI Tool'}</span>
+          </div>
+          <div class="action-btns">
+            <button class="sm-btn btn-visit" onclick="window.open('${b.url}', '_blank')">Open</button>
+            <button class="sm-btn btn-del" onclick="deleteBookmark('${b.id || b.name}')">Delete</button>
+          </div>
+        </div>
+      `).join('');
     } else {
-      loadBookmarksFromLocal(container);
+      container.innerHTML = '<div class="empty-msg">No saved bookmarks yet. Star your favorite tools!</div>';
     }
   } catch (err) {
-    loadBookmarksFromLocal(container);
+    container.innerHTML = '<div class="empty-msg">Failed to load bookmarks.</div>';
   }
 }
 
-function loadBookmarksFromLocal(container) {
-  const localBookmarks = JSON.parse(localStorage.getItem('nexora_favorites') || '[]');
-  if (localBookmarks.length > 0) {
-    renderBookmarksList(localBookmarks, container);
-  } else {
-    container.innerHTML = '<p style="color:#858596; text-align:center; padding:20px;">No saved favorites yet. Start saving tools using the ⭐ button!</p>';
+async function deleteBookmark(id) {
+  if (!confirm('Are you sure you want to remove this tool from your favorites?')) return;
+  try {
+    await fetch(API_BASE + '/user/bookmarks/' + encodeURIComponent(id), {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + authToken }
+    });
+    loadBookmarks();
+  } catch (err) {
+    alert('Error removing bookmark.');
   }
 }
 
-function renderBookmarksList(items, container) {
-  container.innerHTML = items.map(b => `
-    <div style="background:#151522; border:1px solid #2f2f45; border-radius:15px; padding:15px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
-      <div>
-        <h4 style="color:#fff; margin-bottom:4px; font-size:16px;">${b.name}</h4>
-        <span style="color:#a78bfa; font-size:12px;">${b.category}</span>
-      </div>
-      <div style="display:flex; gap:8px;">
-        <a href="${b.url}" target="_blank" class="btn btn-purple" style="padding:8px 14px; font-size:13px;">Use Tool →</a>
-        <button class="btn btn-dark" style="padding:8px 12px; font-size:13px; color:#f87171;" onclick="removeBookmark('${b.name}')">✕</button>
-      </div>
-    </div>
-  `).join('');
+async function loadUserReviews() {
+  const container = document.getElementById('reviewsList');
+  try {
+    const res = await fetch(API_BASE + '/user/reviews', {
+      headers: { 'Authorization': 'Bearer ' + authToken }
+    });
+    const data = await res.json();
+    if (data && data.success && data.data && data.data.length > 0) {
+      container.innerHTML = data.data.map(r => `
+        <div class="item-row" style="flex-direction:column; align-items:flex-start;">
+          <div style="display:flex; justify-content:space-width; width:100%; justify-content:space-between;">
+            <h4>${r.toolName}</h4>
+            <span style="color:#f59e0b;">${'⭐'.repeat(r.rating)}</span>
+          </div>
+          <p style="color:#aaa; font-size:13px; margin:6px 0;">${r.comment}</p>
+          <div style="display:flex; gap:6px; width:100%; justify-content:flex-end;">
+            <button class="sm-btn btn-del" onclick="deleteReview('${r.id || r.toolName}')">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    } else {
+      container.innerHTML = '<div class="empty-msg">No reviews submitted yet.</div>';
+    }
+  } catch (err) {
+    container.innerHTML = '<div class="empty-msg">No reviews available yet.</div>';
+  }
 }
 
-function removeBookmark(name) {
-  let localBookmarks = JSON.parse(localStorage.getItem('nexora_favorites') || '[]');
-  localBookmarks = localBookmarks.filter(b => b.name !== name);
-  localStorage.setItem('nexora_favorites', JSON.stringify(localBookmarks));
-  loadBookmarks();
+async function deleteReview(id) {
+  if (!confirm('Are you sure you want to delete this review?')) return;
+  try {
+    await fetch(API_BASE + '/reviews/' + encodeURIComponent(id), {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + authToken }
+    });
+    loadUserReviews();
+  } catch (err) {
+    alert('Error deleting review.');
+  }
 }
 
 function logout() {
   localStorage.removeItem('nexora_token');
-  location.href = 'index.html';
+  window.location.href = 'index.html';
 }
 
-window.onload = initDashboard;
+initDashboard();
 </script>
 
 </body>
