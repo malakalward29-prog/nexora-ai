@@ -69,11 +69,7 @@ let authToken = localStorage.getItem('nexora_token');
 let currentUser = null;
 
 async function initDashboard() {
-  if (!authToken) {
-    location.href = 'index.html';
-    return;
-  }
-
+  let userName = "User";
   try {
     const res = await fetch(API_BASE + '/auth/me', {
       headers: { 'Authorization': 'Bearer ' + authToken }
@@ -81,13 +77,13 @@ async function initDashboard() {
     const data = await res.json();
     if (data && data.success && data.data) {
       currentUser = data.data;
-      const userName = currentUser.profile && currentUser.profile.full_name ? currentUser.profile.full_name : currentUser.email;
-      document.getElementById('welcomeTitle').textContent = `Welcome back, ${userName}! 👋`;
+      userName = currentUser.profile && currentUser.profile.full_name ? currentUser.profile.full_name : (currentUser.email ? currentUser.email.split('@')[0] : "User");
     }
   } catch (e) {
-    console.error(e);
+    // تجاهل الخطأ واستخدام الاسم الافتراضي
   }
-
+  
+  document.getElementById('welcomeTitle').textContent = `Welcome back, ${userName}! 👋`;
   loadBookmarks();
 }
 
@@ -99,21 +95,44 @@ async function loadBookmarks() {
     });
     const data = await res.json();
     if (data && data.success && data.data && data.data.length > 0) {
-      container.innerHTML = data.data.map(b => `
-        <div style="background:#151522; border:1px solid #2f2f45; border-radius:15px; padding:15px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <h4 style="color:#fff; margin-bottom:4px; font-size:16px;">${b.name}</h4>
-            <span style="color:#a78bfa; font-size:12px;">${b.category}</span>
-          </div>
-          <a href="${b.url}" target="_blank" class="btn btn-purple" style="padding:8px 14px; font-size:13px;">Use Tool →</a>
-        </div>
-      `).join('');
+      renderBookmarksList(data.data, container);
     } else {
-      container.innerHTML = '<p style="color:#858596; text-align:center; padding:20px;">No saved bookmarks yet.</p>';
+      loadBookmarksFromLocal(container);
     }
   } catch (err) {
-    container.innerHTML = '<p style="color:#f87171; text-align:center; padding:20px;">Failed to load bookmarks.</p>';
+    loadBookmarksFromLocal(container);
   }
+}
+
+function loadBookmarksFromLocal(container) {
+  const localBookmarks = JSON.parse(localStorage.getItem('nexora_favorites') || '[]');
+  if (localBookmarks.length > 0) {
+    renderBookmarksList(localBookmarks, container);
+  } else {
+    container.innerHTML = '<p style="color:#858596; text-align:center; padding:20px;">No saved favorites yet. Start saving tools using the ⭐ button!</p>';
+  }
+}
+
+function renderBookmarksList(items, container) {
+  container.innerHTML = items.map(b => `
+    <div style="background:#151522; border:1px solid #2f2f45; border-radius:15px; padding:15px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <h4 style="color:#fff; margin-bottom:4px; font-size:16px;">${b.name}</h4>
+        <span style="color:#a78bfa; font-size:12px;">${b.category}</span>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <a href="${b.url}" target="_blank" class="btn btn-purple" style="padding:8px 14px; font-size:13px;">Use Tool →</a>
+        <button class="btn btn-dark" style="padding:8px 12px; font-size:13px; color:#f87171;" onclick="removeBookmark('${b.name}')">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function removeBookmark(name) {
+  let localBookmarks = JSON.parse(localStorage.getItem('nexora_favorites') || '[]');
+  localBookmarks = localBookmarks.filter(b => b.name !== name);
+  localStorage.setItem('nexora_favorites', JSON.stringify(localBookmarks));
+  loadBookmarks();
 }
 
 function logout() {
