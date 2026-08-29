@@ -412,6 +412,91 @@ function submitForm() {
   }
 }
 
+// بيانات تفصيلية لأدوات المقارنة
+const toolData = {
+  chatgpt: {
+    name: "ChatGPT",
+    category: "Writing & Productivity",
+    pricing: "Free / $20 per month",
+    bestFor: "Writing, coding, brainstorming, daily tasks",
+    easeOfUse: "Very High ⭐⭐⭐⭐⭐",
+    platforms: "Web, iOS, Android, Desktop app",
+    rating: "4.9 / 5"
+  },
+  claude: {
+    name: "Claude AI",
+    category: "Documents & Research",
+    pricing: "Free / $20 per month",
+    bestFor: "Long-form research, data analysis, coding",
+    easeOfUse: "Very High ⭐⭐⭐⭐⭐",
+    platforms: "Web, iOS, Android",
+    rating: "4.8 / 5"
+  },
+  midjourney: {
+    name: "Midjourney",
+    category: "Images",
+    pricing: "Paid plans from $10/month",
+    bestFor: "Hyper-realistic art & visual design",
+    easeOfUse: "Medium ⭐⭐⭐",
+    platforms: "Discord / Web app",
+    rating: "4.7 / 5"
+  },
+  canva: {
+    name: "Canva AI",
+    category: "Design",
+    pricing: "Free / Pro plans available",
+    bestFor: "Social media, presentations, quick graphics",
+    easeOfUse: "Very High ⭐⭐⭐⭐⭐",
+    platforms: "Web, Mobile apps",
+    rating: "4.8 / 5"
+  }
+};
+
+// دالة تحديث جدول المقارنة تفاعلياً
+function updateComparison() {
+  const val1 = document.getElementById('compareTool1').value;
+  const val2 = document.getElementById('compareTool2').value;
+  const val3 = document.getElementById('compareTool3').value;
+
+  const t1 = toolData[val1];
+  const t2 = toolData[val2];
+  const t3 = val3 !== 'none' ? toolData[val3] : null;
+
+  document.getElementById('thTool1').textContent = t1.name;
+  document.getElementById('thTool2').textContent = t2.name;
+  
+  const th3 = document.getElementById('thTool3');
+  if (t3) {
+    th3.style.display = 'table-cell';
+    th3.textContent = t3.name;
+  } else {
+    th3.style.display = 'none';
+  }
+
+  const features = [
+    { label: 'Category', key: 'category' },
+    { label: 'Pricing', key: 'pricing' },
+    { label: 'Best For', key: 'bestFor' },
+    { label: 'Ease of Use', key: 'easeOfUse' },
+    { label: 'Platforms', key: 'platforms' },
+    { label: 'User Rating', key: 'rating' }
+  ];
+
+  const tbody = document.getElementById('comparisonBody');
+  tbody.innerHTML = features.map(f => `
+    <tr style="border-bottom:1px solid #1f1f33;">
+      <td style="padding:15px; color:#858596; font-weight:bold;">${f.label}</td>
+      <td style="padding:15px;">${t1[f.key]}</td>
+      <td style="padding:15px;">${t2[f.key]}</td>
+      <td style="padding:15px; display:${t3 ? 'table-cell' : 'none'};">${t3 ? t3[f.key] : ''}</td>
+    </tr>
+  `).join('');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  updateComparison();
+});
+
 async function api(endpoint, options = {}) {
   options = options || {};
   const url = API_BASE + endpoint;
