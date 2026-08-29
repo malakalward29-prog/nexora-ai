@@ -113,7 +113,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <nav><div class="navbar">
 <a href="#" class="logo">Nexora <span>AI</span></a>
 <div class="nav-links"><a href="#home">Home</a><a href="#trending">Trending</a><a href="#tools">AI Tools</a><a href="#comparison">Compare</a><a href="#pricing">Pricing</a><a href="#about">About</a></div>
-<div class="nav-actions">
+<div class="nav-actions" id="navActionsContainer">
 <button class="btn btn-dark" onclick="toggleLanguage()" id="languageButton">AR</button>
 <button class="btn btn-dark login" onclick="openModal('login')">Log in</button>
 <button class="btn btn-purple" onclick="openModal('signup')">Start Free</button>
@@ -190,7 +190,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <button class="filter-btn" onclick="filterTools('Business', this)">Business</button>
 </div>
 
-<!-- ستعرض الأدوات هنا ديناميكياً (من اللوحة أو الافتراضية) -->
+<!-- ستعرض الأدوات هنا ديناميكياً -->
 <div class="tools-grid" id="toolsGrid"></div>
 </section>
 
@@ -275,7 +275,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
         </div>
     </div>
     
-    <!-- روابط تذييل الصفحة متضمنة سياسة الخصوصية، الاسترجاع والشروط -->
+    <!-- روابط تذييل الصفحة -->
     <div style="margin-bottom: 20px; display: flex; justify-content: center; gap: 20px; font-size: 14px; flex-wrap: wrap;">
         <a href="privacy.html" style="color: #858596;">Privacy Policy</a>
         <a href="terms.html" style="color: #858596;">Terms of Service</a>
@@ -357,12 +357,44 @@ function toggleLanguage() {
   alert('Language toggle coming soon!');
 }
 
+// دالة تسجيل الدخول المحسنة لحفظ الجلسة وتحديث واجهة المستخدم
 function submitForm() {
-  alert('تم بنجاح!');
+  const emailInput = document.getElementById('userEmail').value.trim();
+  const passwordInput = document.getElementById('userPassword').value.trim();
+  
+  if(!emailInput || !passwordInput) {
+    alert('الرجاء إدخال البريد الإلكتروني وكلمة المرور');
+    return;
+  }
+
+  // حفظ الجلسة محلياً
+  localStorage.setItem('nexora_logged_in_user', emailInput);
+  
+  alert('تم تسجيل الدخول بنجاح!');
   closeModal();
+  
+  // تحديث شريط التنقل العلوي
+  checkLoginState();
 }
 
-// دالة جلب وعرض الأدوات تلقائياً (من لوحة التحكم أو الافتراضية)
+function checkLoginState() {
+  const user = localStorage.getItem('nexora_logged_in_user');
+  const container = document.getElementById('navActionsContainer');
+  if (user && container) {
+    container.innerHTML = `
+      <button class="btn btn-dark" onclick="toggleLanguage()" id="languageButton">AR</button>
+      <span style="color: #a78bfa; font-size: 14px; margin: 0 8px;">👤 ${user.split('@')[0]}</span>
+      <button class="btn btn-dark" onclick="logoutUser()">Log out</button>
+    `;
+  }
+}
+
+function logoutUser() {
+  localStorage.removeItem('nexora_logged_in_user');
+  location.reload();
+}
+
+// دالة جلب وعرض الأدوات تلقائياً
 function loadDynamicTools() {
   const defaultTools = [
     { name: 'ChatGPT', category: 'Writing & Productivity', url: 'https://chatgpt.com', desc: 'AI assistant for writing, research, brainstorming, learning and programming.' },
@@ -482,6 +514,8 @@ function updateComparison() {
   `).join('');
 }
 
+let currentToolForReview = '';
+
 function openReviewModal(toolName) {
   currentToolForReview = toolName;
   document.getElementById("reviewModalTitle").textContent = "Reviews for " + toolName;
@@ -537,6 +571,7 @@ function subscribeNewsletter() {
 window.addEventListener('DOMContentLoaded', () => {
   loadDynamicTools();
   updateComparison();
+  checkLoginState();
 });
 </script>
 </body>
