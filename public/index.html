@@ -370,6 +370,20 @@ function closeModal() {
   document.getElementById('modal').style.display = 'none';
 }
 
+// تفعيل زر Esc من لوحة المفاتيح لإغلاق النوافذ المنبثقة فوراً
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeModal();
+    if (typeof closeReviewModal === 'function') {
+      closeReviewModal();
+    }
+    const userDashboardModal = document.getElementById('userDashboardModal');
+    if (userDashboardModal) {
+      userDashboardModal.remove();
+    }
+  }
+});
+
 // دالة تفعيل وتغيير اللغة بين العربية والإنجليزية بالكامل
 function toggleLanguage() {
   const currentLang = localStorage.getItem('nexora_lang') || 'en';
