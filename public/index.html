@@ -370,6 +370,48 @@ let authToken = localStorage.getItem('nexora_token');
 let currentUser = null;
 let currentToolForReview = '';
 
+// دوال التحكم بالـ Modal وفتح نافذة تسجيل الدخول أو إنشاء حساب
+function openModal(type) {
+  const modal = document.getElementById('modal');
+  const modalTitle = document.getElementById('modalTitle');
+  const nameGroup = document.getElementById('nameGroup');
+  
+  if (type === 'login') {
+    modalTitle.textContent = 'Log in to Nexora';
+    nameGroup.style.display = 'none';
+  } else {
+    modalTitle.textContent = 'Create Account';
+    nameGroup.style.display = 'block';
+  }
+  modal.style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+
+function toggleLanguage() {
+  alert('Language toggle feature coming soon!');
+}
+
+function submitForm() {
+  const email = document.getElementById('userEmail').value;
+  const pass = document.getElementById('userPassword').value;
+  const nameInput = document.getElementById('userName').value;
+  const modalTitle = document.getElementById('modalTitle').textContent;
+  
+  if (!email || !pass) {
+    alert('الرجاء إدخال البريد الإلكتروني وكلمة المرور');
+    return;
+  }
+  
+  if (modalTitle.includes('Create')) {
+    registerUser(email, pass, nameInput || 'User');
+  } else {
+    loginUser(email, pass);
+  }
+}
+
 async function api(endpoint, options = {}) {
   options = options || {};
   const url = API_BASE + endpoint;
