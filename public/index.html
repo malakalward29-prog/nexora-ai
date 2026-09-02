@@ -166,7 +166,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
     <div class="tool-icon">🖼️</div>
     <h3>Midjourney</h3>
     <p data-en="Creating unprecedented hyper-realistic cinematic images and visual concepts from prompts." data-ar="إنشاء صور سينمائية فائقة الواقعية ومفاهيم بصرية مذهلة من النصوص.">Creating unprecedented hyper-realistic cinematic images and visual concepts from prompts.</p>
-    <span class="category" data-en="Images" data-ar="الصور والرسومات">Images</span>
+    <span class="category" data-en="Images" data-ar="الصور">Images</span>
     <button class="tool-button" onclick="openTool('https://www.midjourney.com')" data-en="Use Tool →" data-ar="استخدم الأداة ←">Use Tool →</button>
     <button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Midjourney', 'Images', 'https://www.midjourney.com')" data-en="⭐ Save to Favorites" data-ar="⭐ حفظ في المفضلة">⭐ Save to Favorites</button>
     <button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Midjourney')" data-en="💬 Reviews" data-ar="💬 التقييمات">💬 Reviews</button>
@@ -176,7 +176,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
     <div class="tool-icon">📄</div>
     <h3>Claude AI</h3>
     <p data-en="Dominating long-form research, data synthesis, document review, and deep insights." data-ar="الأفضل في الأبحاث المطولة، تحليل البيانات، مراجعة المستندات واستخلاص الرؤى العميقة.">Dominating long-form research, data synthesis, document review, and deep insights.</p>
-    <span class="category" data-en="Documents" data-ar="المستندات والبحث">Documents</span>
+    <span class="category" data-en="Documents" data-ar="المستندات">Documents</span>
     <button class="tool-button" onclick="openTool('https://claude.ai')" data-en="Use Tool →" data-ar="استخدم الأداة ←">Use Tool →</button>
     <button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Claude AI', 'Documents', 'https://claude.ai')" data-en="⭐ Save to Favorites" data-ar="⭐ حفظ في المفضلة">⭐ Save to Favorites</button>
     <button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Claude AI')" data-en="💬 Reviews" data-ar="💬 التقييمات">💬 Reviews</button>
@@ -331,31 +331,31 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
     <div style="background:#11111d; border:1px solid #303044; border-radius:25px; padding:30px; width:100%; max-width:450px; position:relative; color:#fff;">
         <button onclick="closeManualModal()" class="close" style="position:absolute; top:20px; right:20px; background:none; border:0; color:#aaa; font-size:22px; cursor:pointer;">×</button>
 
-        <h3 style="font-size:20px; margin-bottom:12px; color:#a78bfa;">Upgrade to Nexora AI Pro</h3>
-        <p style="color:#858596; font-size:14px; margin-bottom:20px; line-height:1.6;">
+        <h3 style="font-size:20px; margin-bottom:12px; color:#a78bfa;" data-en="Upgrade to Nexora AI Pro" data-ar="الترقية إلى Nexora AI Pro">Upgrade to Nexora AI Pro</h3>
+        <p style="color:#858596; font-size:14px; margin-bottom:20px; line-height:1.6;" data-en="To upgrade your account manually, please transfer the subscription fee ($9) to our local bank account using the details below:" data-ar="لترقية حسابك يدوياً، يرجى تحويل رسوم الاشتراكات (9$) إلى حسابنا البنكي المحلي باستخدام التفاصيل أدناه:">
             To upgrade your account manually, please transfer the subscription fee ($9) to our local bank account using the details below:
         </p>
 
         <div style="background:#080811; padding:15px; border-radius:14px; margin-bottom:20px; border:1px solid #252538;">
             <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px;">
-                <span style="color:#858596;">Bank Name:</span>
+                <span style="color:#858596;" data-en="Bank Name:" data-ar="اسم البنك:">Bank Name:</span>
                 <span style="font-weight:500;">Bank of Palestine</span>
             </div>
             <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px;">
-                <span style="color:#858596;">Account Holder:</span>
+                <span style="color:#858596;" data-en="Account Holder:" data-ar="صاحب الحساب:">Account Holder:</span>
                 <span style="font-weight:500;">Hanin Maher</span>
             </div>
             <div style="display:flex; flex-direction:column; gap:6px; border-top:1px solid #252538; padding-top:8px;">
-                <span style="color:#858596; font-size:13px;">IBAN:</span>
+                <span style="color:#858596; font-size:13px;" data-en="IBAN:" data-ar="رقم الحساب الدولي (IBAN):">IBAN:</span>
                 <span id="iban-text" style="font-family:monospace; color:#a78bfa; font-size:12px; word-break:break-all; background:#11111d; padding:8px; border-radius:8px;">PS47PALS045441320650993000000</span>
             </div>
         </div>
 
         <div style="display:flex; flex-direction:column; gap:10px;">
-            <button onclick="copyIban()" style="width:100%; background:#1c1c2e; border:1px solid #303044; padding:12px; border-radius:12px; color:#fff; cursor:pointer; font-weight:bold;">
+            <button onclick="copyIban()" style="width:100%; background:#1c1c2e; border:1px solid #303044; padding:12px; border-radius:12px; color:#fff; cursor:pointer; font-weight:bold;" data-en="Copy IBAN" data-ar="نسخ رقم IBAN">
                 Copy IBAN
             </button>
-            <a id="whatsappLink" href="#" target="_blank" style="display:block; text-align:center; width:100%; background:#059669; color:#fff; font-weight:bold; padding:12px; border-radius:12px; text-decoration:none; transition:.2s;">
+            <a id="whatsappLink" href="#" target="_blank" style="display:block; text-align:center; width:100%; background:#059669; color:#fff; font-weight:bold; padding:12px; border-radius:12px; text-decoration:none; transition:.2s;" data-en="Send Receipt via WhatsApp" data-ar="إرسال سند التحويل عبر واتساب">
                 Send Receipt via WhatsApp
             </a>
         </div>
@@ -366,7 +366,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <div class="modal" id="favoritesModal">
   <div class="modal-box" style="max-width: 500px;">
     <div class="modal-header">
-      <h2 data-en="Saved Favorites ⭐" data-en-ar="الأدوات المفضلة ⭐" id="favModalTitle">Saved Favorites ⭐</h2>
+      <h2 data-en="Saved Favorites ⭐" data-ar="الأدوات المفضلة ⭐" id="favModalTitle">Saved Favorites ⭐</h2>
       <button class="close" onclick="closeFavoritesModal()">×</button>
     </div>
     <div id="favoritesListContainer" style="max-height: 300px; overflow-y: auto; color: #ddd; font-size: 14px;"></div>
@@ -404,14 +404,94 @@ const ibanValue = "PS47PALS045441320650993000000";
 const whatsappNumber = "970597730669";
 
 const allToolsData = [
-  { name: "ChatGPT", category: "Writing & Productivity", icon: "✍️", desc: "The definitive AI assistant for writing, coding, brainstorming, and daily problem-solving.", url: "https://chatgpt.com", pricing: "Freemium", rating: "4.9/5" },
-  { name: "Claude AI", category: "Documents", icon: "📄", desc: "Dominating long-form research, data synthesis, document review, and deep insights.", url: "https://claude.ai", pricing: "Freemium", rating: "4.9/5" },
-  { name: "Midjourney", category: "Images", icon: "🖼️", desc: "Creating unprecedented hyper-realistic cinematic images and visual concepts from prompts.", url: "https://www.midjourney.com", pricing: "Paid", rating: "4.8/5" },
-  { name: "Canva AI", category: "Design", icon: "🎨", desc: "Quick graphic design, automated templates, and AI-powered visual assets creation.", url: "https://www.canva.com", pricing: "Freemium", rating: "4.7/5" },
-  { name: "ElevenLabs", category: "Audio", icon: "🔊", desc: "Hyper-realistic voice cloning and text-to-speech generation in dozens of languages.", url: "https://elevenlabs.io", pricing: "Freemium", rating: "4.8/5" },
-  { name: "Runway", category: "Video", icon: "🎬", desc: "Generative video tools for creators, cinematic text-to-video, and advanced editing.", url: "https://runwayml.com", pricing: "Freemium", rating: "4.6/5" },
-  { name: "GitHub Copilot", category: "Programming", icon: "💻", desc: "AI pair programmer that helps you write code faster with autocomplete suggestions.", url: "https://github.com/features/copilot", pricing: "Paid", rating: "4.9/5" },
-  { name: "Notion AI", category: "Business", icon: "📊", desc: "Integrated workspace assistant for notes, project management, and automated summaries.", url: "https://www.notion.so", pricing: "Freemium", rating: "4.7/5" }
+  { 
+    name: "ChatGPT", 
+    category: "Writing & Productivity", 
+    categoryAr: "الكتابة والإنتاجية",
+    icon: "✍️", 
+    descEn: "The definitive AI assistant for writing, coding, brainstorming, and daily problem-solving.", 
+    descAr: "مساعد الذكاء الاصطناعي الأول للكتابة، البرمجة، العصف الذهني وحل المشكلات اليومية.",
+    url: "https://chatgpt.com", 
+    pricing: "Freemium", 
+    rating: "4.9/5" 
+  },
+  { 
+    name: "Claude AI", 
+    category: "Documents", 
+    categoryAr: "المستندات",
+    icon: "📄", 
+    descEn: "Dominating long-form research, data synthesis, document review, and deep insights.", 
+    descAr: "الأفضل في الأبحاث المطولة، تحليل البيانات، مراجعة المستندات واستخلاص الرؤى العميقة.",
+    url: "https://claude.ai", 
+    pricing: "Freemium", 
+    rating: "4.9/5" 
+  },
+  { 
+    name: "Midjourney", 
+    category: "Images", 
+    categoryAr: "الصور",
+    icon: "🖼️", 
+    descEn: "Creating unprecedented hyper-realistic cinematic images and visual concepts from prompts.", 
+    descAr: "إنشاء صور سينمائية فائقة الواقعية ومفاهيم بصرية مذهلة من النصوص.",
+    url: "https://www.midjourney.com", 
+    pricing: "Paid", 
+    rating: "4.8/5" 
+  },
+  { 
+    name: "Canva AI", 
+    category: "Design", 
+    categoryAr: "التصميم",
+    icon: "🎨", 
+    descEn: "Quick graphic design, automated templates, and AI-powered visual assets creation.", 
+    descAr: "تصميم جرافيكي سريع، قوالب جاهزة، وإنشاء أصول بصرية مدعومة بالذكاء الاصطناعي.",
+    url: "https://www.canva.com", 
+    pricing: "Freemium", 
+    rating: "4.7/5" 
+  },
+  { 
+    name: "TopMediai", 
+    category: "Audio", 
+    categoryAr: "الصوت",
+    icon: "🔊", 
+    descEn: "AI voice generator, text-to-speech, voice cloning and audio tools for content creators.", 
+    descAr: "مولد أصوات ذكي، تحويل النص إلى كلام، استنساخ الأصوات وأدوات صوتية لصناع المحتوى.",
+    url: "https://www.topmediai.com", 
+    pricing: "Freemium", 
+    rating: "4.7/5" 
+  },
+  { 
+    name: "Runway", 
+    category: "Video", 
+    categoryAr: "الفيديو",
+    icon: "🎬", 
+    descEn: "Generative video tools for creators, cinematic text-to-video, and advanced editing.", 
+    descAr: "أدوات توليد الفيديو للمصممين، تحويل النص إلى فيديو سينمائي، وتعديل متقدم.",
+    url: "https://runwayml.com", 
+    pricing: "Freemium", 
+    rating: "4.6/5" 
+  },
+  { 
+    name: "GitHub Copilot", 
+    category: "Programming", 
+    categoryAr: "البرمجة",
+    icon: "💻", 
+    descEn: "AI pair programmer that helps you write code faster with autocomplete suggestions.", 
+    descAr: "مساعد برمجي ذكي يساهم في كتابة الكود بسرعة فائقة مع اقتراحات الإكمال التلقائي.",
+    url: "https://github.com/features/copilot", 
+    pricing: "Paid", 
+    rating: "4.9/5" 
+  },
+  { 
+    name: "Business AI", 
+    category: "Business", 
+    categoryAr: "الأعمال",
+    icon: "📊", 
+    descEn: "Integrated workspace assistant for notes, project management, and automated summaries.", 
+    descAr: "مساعد مساحة عمل متكامل للملاحظات، إدارة المشاريع، والملخصات التلقائية.",
+    url: "https://www.notion.so", 
+    pricing: "Freemium", 
+    rating: "4.7/5" 
+  }
 ];
 
 function renderTools(filter = 'all') {
@@ -419,22 +499,30 @@ function renderTools(filter = 'all') {
   if(!grid) return;
   grid.innerHTML = '';
   
+  const currentLang = localStorage.getItem('nexora_lang') || 'en';
   const filtered = filter === 'all' ? allToolsData : allToolsData.filter(t => t.category === filter);
   
   filtered.forEach(tool => {
     const card = document.createElement('div');
     card.className = 'tool-card';
+    
+    const descText = currentLang === 'ar' ? tool.descAr : tool.descEn;
+    const catText = currentLang === 'ar' ? tool.categoryAr : tool.category;
+    const useBtnText = currentLang === 'ar' ? 'استخدم الأداة ←' : 'Use Tool →';
+    const saveBtnText = currentLang === 'ar' ? '⭐ حفظ في المفضلة' : '⭐ Save to Favorites';
+    const reviewsBtnText = currentLang === 'ar' ? '💬 التقييمات' : '💬 Reviews';
+    
     card.innerHTML = `
       <div>
         <div class="tool-icon">${tool.icon}</div>
         <h3>${tool.name}</h3>
-        <p>${tool.desc}</p>
-        <span class="category">${tool.category}</span>
+        <p>${descText}</p>
+        <span class="category">${catText}</span>
       </div>
       <div>
-        <button class="tool-button" onclick="openTool('${tool.url}')">Use Tool →</button>
-        <button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('${tool.name}', '${tool.category}', '${tool.url}')">⭐ Save to Favorites</button>
-        <button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('${tool.name}')">💬 Reviews</button>
+        <button class="tool-button" onclick="openTool('${tool.url}')">${useBtnText}</button>
+        <button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('${tool.name}', '${catText}', '${tool.url}')">${saveBtnText}</button>
+        <button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('${tool.name}')">${reviewsBtnText}</button>
       </div>
     `;
     grid.appendChild(card);
@@ -444,6 +532,9 @@ function renderTools(filter = 'all') {
 function filterTools(category, btnElement) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btnElement.classList.add('active');
+  
+  // حفظ الفئة الحالية لتطبيق الترجمة الصحيحة عليها عند تغيير اللغة
+  window.currentActiveCategory = category;
   renderTools(category);
 }
 
@@ -456,9 +547,9 @@ function saveBookmark(name, category, url) {
   if(!bookmarks.some(b => b.name === name)) {
     bookmarks.push({name, category, url});
     localStorage.setItem('nexora_bookmarks', JSON.stringify(bookmarks));
-    alert('Tool saved to your favorites successfully! ⭐');
+    alert(localStorage.getItem('nexora_lang') === 'ar' ? 'تم حفظ الأداة في المفضلة بنجاح! ⭐' : 'Tool saved to your favorites successfully! ⭐');
   } else {
-    alert('This tool is already in your favorites.');
+    alert(localStorage.getItem('nexora_lang') === 'ar' ? 'هذه الأداة موجودة مسبقاً في المفضلة.' : 'This tool is already in your favorites.');
   }
 }
 
@@ -489,28 +580,35 @@ function updateComparison() {
     th3.style.display = 'none';
   }
   
+  const currentLang = localStorage.getItem('nexora_lang') || 'en';
+  const featureText = currentLang === 'ar' ? 'الميزة' : 'Feature';
+  const categoryText = currentLang === 'ar' ? 'التصنيف' : 'Category';
+  const pricingText = currentLang === 'ar' ? 'نموذج الأسعار' : 'Pricing Model';
+  const ratingText = currentLang === 'ar' ? 'تقييم المجتمع' : 'Community Rating';
+  const bestForText = currentLang === 'ar' ? 'الأفضل لـ' : 'Best For';
+  
   const tbody = document.getElementById('comparisonBody');
   tbody.innerHTML = `
     <tr style="border-bottom:1px solid #1f1f33;">
-      <td style="padding:15px; color:#858596;">Category</td>
+      <td style="padding:15px; color:#858596;">${categoryText}</td>
       <td style="padding:15px;">${tool1.category}</td>
       <td style="padding:15px;">${tool2.category}</td>
       ${tool3 ? `<td style="padding:15px;">${tool3.category}</td>` : ''}
     </tr>
     <tr style="border-bottom:1px solid #1f1f33;">
-      <td style="padding:15px; color:#858596;">Pricing Model</td>
+      <td style="padding:15px; color:#858596;">${pricingText}</td>
       <td style="padding:15px;">${tool1.pricing}</td>
       <td style="padding:15px;">${tool2.pricing}</td>
       ${tool3 ? `<td style="padding:15px;">${tool3.pricing}</td>` : ''}
     </tr>
     <tr style="border-bottom:1px solid #1f1f33;">
-      <td style="padding:15px; color:#858596;">Community Rating</td>
+      <td style="padding:15px; color:#858596;">${ratingText}</td>
       <td style="padding:15px; color:#a78bfa; font-weight:bold;">⭐ ${tool1.rating}</td>
       <td style="padding:15px; color:#a78bfa; font-weight:bold;">⭐ ${tool2.rating}</td>
       ${tool3 ? `<td style="padding:15px; color:#a78bfa; font-weight:bold;">⭐ ${tool3.rating}</td>` : ''}
     </tr>
     <tr>
-      <td style="padding:15px; color:#858596;">Best For</td>
+      <td style="padding:15px; color:#858596;">${bestForText}</td>
       <td style="padding:15px;">${tool1.bestFor}</td>
       <td style="padding:15px;">${tool2.bestFor}</td>
       ${tool3 ? `<td style="padding:15px;">${tool3.bestFor}</td>` : ''}
@@ -529,14 +627,21 @@ function recommendTool() {
   else if(query.includes('code') || query.includes('program') || query.includes('برمجة')) match = allToolsData[6];
   else if(query.includes('voice') || query.includes('audio') || query.includes('صوت')) match = allToolsData[4];
   
+  const currentLang = localStorage.getItem('nexora_lang') || 'en';
+  const descText = currentLang === 'ar' ? match.descAr : match.descEn;
+  const catText = currentLang === 'ar' ? match.categoryAr : match.category;
+  const recLabel = currentLang === 'ar' ? '✨ مقترحة لك:' : '✨ Recommended for you:';
+  const openLabel = currentLang === 'ar' ? 'افتح الأداة ←' : 'Open Tool →';
+
   recBox.style.display = 'block';
-  recBox.innerHTML = `✨ Recommended for you: <strong>${match.name}</strong> (${match.category}) - ${match.desc} <br><a href="${match.url}" target="_blank" style="color:#a78bfa; font-weight:bold; text-decoration:underline; display:inline-block; margin-top:5px;">Open Tool →</a>`;
+  recBox.innerHTML = `${recLabel} <strong>${match.name}</strong> (${catText}) - ${descText} <br><a href="${match.url}" target="_blank" style="color:#a78bfa; font-weight:bold; text-decoration:underline; display:inline-block; margin-top:5px;">${openLabel}</a>`;
 }
 
 let currentReviewTool = '';
 function openReviewModal(toolName) {
   currentReviewTool = toolName;
-  document.getElementById('reviewModalTitle').textContent = `Reviews for ${toolName}`;
+  const currentLang = localStorage.getItem('nexora_lang') || 'en';
+  document.getElementById('reviewModalTitle').textContent = currentLang === 'ar' ? `تقييمات أداة ${toolName}` : `Reviews for ${toolName}`;
   loadReviews(toolName);
   document.getElementById('reviewModal').style.display = 'flex';
 }
@@ -568,9 +673,10 @@ function submitReview() {
   const rating = document.getElementById('reviewRating').value;
   const comment = document.getElementById('reviewComment').value.trim();
   const user = localStorage.getItem('nexora_logged_in_user') || 'Guest User';
+  const currentLang = localStorage.getItem('nexora_lang') || 'en';
   
   if(!comment) {
-    alert('Please write a comment before submitting.');
+    alert(currentLang === 'ar' ? 'الرجاء كتابة تعليق قبل الإرسال.' : 'Please write a comment before submitting.');
     return;
   }
   
@@ -582,16 +688,17 @@ function submitReview() {
   
   document.getElementById('reviewComment').value = '';
   loadReviews(currentReviewTool);
-  alert('Review submitted successfully!');
+  alert(currentLang === 'ar' ? 'تم إرسال التقييم بنجاح!' : 'Review submitted successfully!');
 }
 
 function subscribeNewsletter() {
   const email = document.getElementById('newsletterEmail').value.trim();
+  const currentLang = localStorage.getItem('nexora_lang') || 'en';
   if(email) {
-    alert('Thank you for subscribing to Nexora AI newsletter!');
+    alert(currentLang === 'ar' ? 'شكراً لاشتراكك في نشرة Nexora AI الإخبارية!' : 'Thank you for subscribing to Nexora AI newsletter!');
     document.getElementById('newsletterEmail').value = '';
   } else {
-    alert('Please enter a valid email address.');
+    alert(currentLang === 'ar' ? 'الرجاء إدخال بريد إلكتروني صحيح.' : 'Please enter a valid email address.');
   }
 }
 
@@ -599,7 +706,7 @@ function openManualModal() {
     const modal = document.getElementById('paymentModal');
     modal.style.display = 'flex';
     const userEmail = localStorage.getItem('nexora_logged_in_user') || 'My-Email';
-    const message = encodeURIComponent(`Hello, I have transferred the subscription fee for Nixora AI Pro. Here is my receipt and account email: ${userEmail}`);
+    const message = encodeURIComponent(`Hello, I have transferred the subscription fee for Nexora AI Pro. Here is my receipt and account email: ${userEmail}`);
     document.getElementById('whatsappLink').href = `https://wa.me/${whatsappNumber}?text=${message}`;
 }
 
@@ -609,7 +716,7 @@ function closeManualModal() {
 
 function copyIban() {
     navigator.clipboard.writeText(ibanValue).then(() => {
-        alert('IBAN copied to clipboard successfully!');
+        alert(localStorage.getItem('nexora_lang') === 'ar' ? 'تم نسخ رقم IBAN بنجاح!' : 'IBAN copied to clipboard successfully!');
     });
 }
 
@@ -675,6 +782,9 @@ function applyLanguage(lang) {
     el.placeholder = el.getAttribute(`data-${lang}-placeholder`);
   });
 
+  // إعادة رسم أدوات الذكاء الاصطناعي باللغة المحددة حالياً مع الحفاظ على الفلتر النشط
+  renderTools(window.currentActiveCategory || 'all');
+  updateComparison();
   checkLoginState();
 }
 
@@ -763,7 +873,7 @@ function openFavoritesModal() {
           <span style="font-size: 12px; color: #858596;">${b.category}</span>
         </div>
         <div style="display: flex; gap: 8px;">
-          <a href="${b.url}" target="_blank" style="background: #7c3aed; color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold;">Open</a>
+          <a href="${b.url}" target="_blank" style="background: #7c3aed; color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold;" data-en="Open" data-ar="فتح">Open</a>
           <button onclick="removeBookmark(${idx})" style="background: #2a1520; color: #f87171; border: 1px solid #4a2030; padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer;">✕</button>
         </div>
       </div>
