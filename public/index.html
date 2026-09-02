@@ -12,12 +12,6 @@
 <meta property="og:description" content="منصتك المتكاملة لاستعراض وحفظ أفضل أدوات الذكاء الاصطناعي.">
 <meta property="og:image" content="https://nexora-ai-p1x4.onrender.com/images/preview.jpg">
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://nexora-ai-p1x4.onrender.com/index.html">
-<meta name="twitter:title" content="Nexora AI - أدوات الذكاء الاصطناعي">
-<meta name="twitter:description" content="منصتك المتكاملة لاستعراض وحفظ أفضل أدوات الذكاء الاصطناعي.">
-<meta name="twitter:image" content="https://nexora-ai-p1x4.onrender.com/images/preview.jpg">
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -122,6 +116,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <button class="btn btn-purple" onclick="openModal('signup')" data-en="Start Free" data-ar="ابدأ مجاناً">Start Free</button>
 </div>
 </div></nav>
+
 <main>
 <section class="hero" id="home">
 <div class="badge" data-en="One intelligent workspace for AI" data-ar="مساحة عمل ذكية متكاملة للذكاء الاصطناعي">One intelligent workspace for AI</div>
@@ -131,51 +126,56 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <a href="#tools" class="btn btn-purple big-btn" data-en="Explore AI Tools" data-ar="استكشف أدوات الذكاء الاصطناعي">Explore AI Tools</a>
 <button class="btn btn-dark big-btn" onclick="openModal('signup')" data-en="Start Free" data-ar="ابدأ مجاناً">Start Free</button>
 </div>
-<div class="search-box"><div class="search-row">
-<input id="smartSearch" type="text" placeholder="What do you want to accomplish?" data-en-placeholder="What do you want to accomplish?" data-ar-placeholder="ما الذي تريد إنجازه اليوم؟">
-<button onclick="recommendTool()" data-en="Find My Tool ✨" data-ar="ابحث عن أداتي ✨">Find My Tool ✨</button>
-</div><div id="recommendation" class="recommendation"></div></div>
+<div class="search-box">
+  <div class="search-row">
+    <input id="smartSearch" type="text" placeholder="What do you want to accomplish?" data-en-placeholder="What do you want to accomplish?" data-ar-placeholder="ما الذي تريد إنجازه اليوم؟">
+    <button onclick="recommendTool()" data-en="Find My Tool ✨" data-ar="ابحث عن أداتي ✨">Find My Tool ✨</button>
+  </div>
+  <div id="recommendation" class="recommendation"></div>
+</div>
 </section>
 
+<!-- Trending Section -->
 <div class="trending-section" id="trending">
 <section style="padding: 60px 25px;">
 <h2 class="section-title" data-en="🔥 Trending This Week" data-ar="🔥 الأدوات الأكثر رواجاً هذا الأسبوع">🔥 Trending This Week</h2>
 <p class="section-subtitle" data-en="The most popular and heavily used AI tools by our community right now." data-ar="الأدوات الأكثر شهرة واستخداماً من قبل مجتمعنا في الوقت الحالي.">The most popular and heavily used AI tools by our community right now.</p>
 <div class="trending-grid">
-<div class="trend-card">
-<span class="trend-badge" data-en="#1 Hot" data-ar="الأكثر طلباً #1">#1 Hot</span>
-<div class="tool-icon">✍️</div>
-<h3>ChatGPT</h3>
-<p data-en="The definitive AI assistant for writing, coding, brainstorming, and daily problem-solving." data-ar="مساعد الذكاء الاصطناعي الأول للكتابة، البرمجة، العصف الذهني وحل المشكلات اليومية.">The definitive AI assistant for writing, coding, brainstorming, and daily problem-solving.</p>
-<span class="category" data-en="Writing & Productivity" data-ar="الكتابة والإنتاجية">Writing & Productivity</span>
-<button class="tool-button" onclick="openTool('https://chatgpt.com')" data-en="Use Tool →" data-ar="استخدم الأداة ←">Use Tool →</button>
-<button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('ChatGPT', 'Writing & Productivity', 'https://chatgpt.com')" data-en="⭐ Save to Favorites" data-ar="⭐ حفظ في المفضلة">⭐ Save to Favorites</button>
-<button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('ChatGPT')" data-en="💬 Reviews" data-ar="💬 التقييمات">💬 Reviews</button>
-</div>
-<div class="trend-card">
-<span class="trend-badge" data-en="#2 Hot" data-ar="الأكثر طلباً #2">#2 Hot</span>
-<div class="tool-icon">🖼️</div>
-<h3>Midjourney</h3>
-<p data-en="Creating unprecedented hyper-realistic cinematic images and visual concepts from prompts." data-ar="إنشاء صور سينمائية فائقة الواقعية ومفاهيم بصرية مذهلة من النصوص.">Creating unprecedented hyper-realistic cinematic images and visual concepts from prompts.</p>
-<span class="category" data-en="Images" data-ar="الصور والرسومات">Images</span>
-<button class="tool-button" onclick="openTool('https://www.midjourney.com')" data-en="Use Tool →" data-ar="استخدم الأداة ←">Use Tool →</button>
-<button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Midjourney', 'Images', 'https://www.midjourney.com')" data-en="⭐ Save to Favorites" data-ar="⭐ حفظ في المفضلة">⭐ Save to Favorites</button>
-<button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Midjourney')" data-en="💬 Reviews" data-ar="💬 التقييمات">💬 Reviews</button>
-</div>
-<div class="trend-card">
-<span class="trend-badge" data-en="#3 Hot" data-ar="الأكثر طلباً #3">#3 Hot</span>
-<div class="tool-icon">📄</div>
-<h3>Claude AI</h3>
-<p data-en="Dominating long-form research, data synthesis, document review, and deep insights." data-ar="الأفضل في الأبحاث المطولة، تحليل البيانات، مراجعة المستندات واستخلاص الرؤى العميقة.">Dominating long-form research, data synthesis, document review, and deep insights.</p>
-<span class="category" data-en="Documents" data-ar="المستندات والبحث">Documents</span>
-<button class="tool-button" onclick="openTool('https://claude.ai')" data-en="Use Tool →" data-ar="استخدم الأداة ←">Use Tool →</button>
-<button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Claude AI', 'Documents', 'https://claude.ai')" data-en="⭐ Save to Favorites" data-ar="⭐ حفظ في المفضلة">⭐ Save to Favorites</button>
-<button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Claude AI')" data-en="💬 Reviews" data-ar="💬 التقييمات">💬 Reviews</button>
-</div>
+  <div class="trend-card">
+    <span class="trend-badge" data-en="#1 Hot" data-ar="الأكثر طلباً #1">#1 Hot</span>
+    <div class="tool-icon">✍️</div>
+    <h3>ChatGPT</h3>
+    <p data-en="The definitive AI assistant for writing, coding, brainstorming, and daily problem-solving." data-ar="مساعد الذكاء الاصطناعي الأول للكتابة، البرمجة، العصف الذهني وحل المشكلات اليومية.">The definitive AI assistant for writing, coding, brainstorming, and daily problem-solving.</p>
+    <span class="category" data-en="Writing & Productivity" data-ar="الكتابة والإنتاجية">Writing & Productivity</span>
+    <button class="tool-button" onclick="openTool('https://chatgpt.com')" data-en="Use Tool →" data-ar="استخدم الأداة ←">Use Tool →</button>
+    <button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('ChatGPT', 'Writing & Productivity', 'https://chatgpt.com')" data-en="⭐ Save to Favorites" data-ar="⭐ حفظ في المفضلة">⭐ Save to Favorites</button>
+    <button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('ChatGPT')" data-en="💬 Reviews" data-ar="💬 التقييمات">💬 Reviews</button>
+  </div>
+  <div class="trend-card">
+    <span class="trend-badge" data-en="#2 Hot" data-ar="الأكثر طلباً #2">#2 Hot</span>
+    <div class="tool-icon">🖼️</div>
+    <h3>Midjourney</h3>
+    <p data-en="Creating unprecedented hyper-realistic cinematic images and visual concepts from prompts." data-ar="إنشاء صور سينمائية فائقة الواقعية ومفاهيم بصرية مذهلة من النصوص.">Creating unprecedented hyper-realistic cinematic images and visual concepts from prompts.</p>
+    <span class="category" data-en="Images" data-ar="الصور والرسومات">Images</span>
+    <button class="tool-button" onclick="openTool('https://www.midjourney.com')" data-en="Use Tool →" data-ar="استخدم الأداة ←">Use Tool →</button>
+    <button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Midjourney', 'Images', 'https://www.midjourney.com')" data-en="⭐ Save to Favorites" data-ar="⭐ حفظ في المفضلة">⭐ Save to Favorites</button>
+    <button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Midjourney')" data-en="💬 Reviews" data-ar="💬 التقييمات">💬 Reviews</button>
+  </div>
+  <div class="trend-card">
+    <span class="trend-badge" data-en="#3 Hot" data-ar="الأكثر طلباً #3">#3 Hot</span>
+    <div class="tool-icon">📄</div>
+    <h3>Claude AI</h3>
+    <p data-en="Dominating long-form research, data synthesis, document review, and deep insights." data-ar="الأفضل في الأبحاث المطولة، تحليل البيانات، مراجعة المستندات واستخلاص الرؤى العميقة.">Dominating long-form research, data synthesis, document review, and deep insights.</p>
+    <span class="category" data-en="Documents" data-ar="المستندات والبحث">Documents</span>
+    <button class="tool-button" onclick="openTool('https://claude.ai')" data-en="Use Tool →" data-ar="استخدم الأداة ←">Use Tool →</button>
+    <button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('Claude AI', 'Documents', 'https://claude.ai')" data-en="⭐ Save to Favorites" data-ar="⭐ حفظ في المفضلة">⭐ Save to Favorites</button>
+    <button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('Claude AI')" data-en="💬 Reviews" data-ar="💬 التقييمات">💬 Reviews</button>
+  </div>
 </div>
 </section>
 </div>
 
+<!-- All Tools Section -->
 <section id="tools">
 <h2 class="section-title" data-en="All AI Tools" data-ar="جميع أدوات الذكاء الاصطناعي">All AI Tools</h2>
 <p class="section-subtitle" data-en="Carefully selected tools to help you work smarter." data-ar="أدوات مختارة بعناية لمساعدتك على العمل بذكاء أكبر.">Carefully selected tools to help you work smarter.</p>
@@ -195,6 +195,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <div class="tools-grid" id="toolsGrid"></div>
 </section>
 
+<!-- Comparison Section -->
 <section id="comparison" style="background:#0d0d18; border-top:1px solid #202033; border-bottom:1px solid #202033;">
 <div style="max-width:1200px; margin:auto;">
 <h2 class="section-title" data-en="⚖️ Compare AI Tools" data-ar="⚖️ مقارنة أدوات الذكاء الاصطناعي">⚖️ Compare AI Tools</h2>
@@ -249,6 +250,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 </div>
 </section>
 
+<!-- Pricing Section -->
 <div class="pricing"><div class="pricing-inner" id="pricing">
 <h2 class="section-title" data-en="Simple Plans" data-ar="خطط أسعار بسيطة">Simple Plans</h2>
 <p class="section-subtitle" data-en="Start free and upgrade when Nexora becomes part of your workflow." data-ar="ابدأ مجاناً وقم بالترقية عندما تصبح Nexora جزءاً أساسياً من عملك.">Start free and upgrade when Nexora becomes part of your workflow.</p>
@@ -300,25 +302,31 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
     <p data-en="© 2026 Nexora AI. All rights reserved." data-ar="© 2026 Nexora AI. جميع الحقوق محفوظة.">© 2026 Nexora AI. All rights reserved.</p>
 </footer>
 
-<div class="modal" id="modal"><div class="modal-box"><div class="modal-header"><h2 id="modalTitle" data-en="Create Account" data-ar="إنشاء حساب">Create Account</h2><button class="close" onclick="closeModal()">×</button></div>
-<div id="nameGroup" class="form-group"><input type="text" id="userName" placeholder="Your name" data-en-placeholder="Your name" data-ar-placeholder="اسمك"></div>
-<div class="form-group"><input type="email" id="userEmail" placeholder="Email address" data-en-placeholder="Email address" data-ar-placeholder="البريد الإلكتروني"></div>
-<div class="form-group"><input type="password" id="userPassword" placeholder="Password" data-en-placeholder="Password" data-ar-placeholder="كلمة المرور"></div>
-<button class="btn btn-purple form-submit" onclick="submitForm()" data-en="Continue" data-ar="متابعة">Continue</button>
-</div></div>
+<!-- Modals -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 id="modalTitle" data-en="Create Account" data-ar="إنشاء حساب">Create Account</h2>
+      <button class="close" onclick="closeModal()">×</button>
+    </div>
+    <div id="nameGroup" class="form-group"><input type="text" id="userName" placeholder="Your name" data-en-placeholder="Your name" data-ar-placeholder="اسمك"></div>
+    <div class="form-group"><input type="email" id="userEmail" placeholder="Email address" data-en-placeholder="Email address" data-ar-placeholder="البريد الإلكتروني"></div>
+    <div class="form-group"><input type="password" id="userPassword" placeholder="Password" data-en-placeholder="Password" data-ar-placeholder="كلمة المرور"></div>
+    <button class="btn btn-purple form-submit" onclick="submitForm()" data-en="Continue" data-ar="متابعة">Continue</button>
+  </div>
+</div>
 
 <!-- Manual Payment Modal (Bank of Palestine) -->
-<div id="paymentModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4 z-50" style="display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,.75); align-items:center; justify-content:center;">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-md w-full text-white shadow-2xl relative" style="background:#11111d; border:1px solid #303044; border-radius:25px; padding:30px; width:100%; max-width:450px;">
-        
+<div id="paymentModal" style="display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,.75); align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#11111d; border:1px solid #303044; border-radius:25px; padding:30px; width:100%; max-width:450px; position:relative; color:#fff;">
         <button onclick="closeManualModal()" class="close" style="position:absolute; top:20px; right:20px; background:none; border:0; color:#aaa; font-size:22px; cursor:pointer;">×</button>
 
-        <h3 class="text-xl font-bold mb-2 text-purple-400" style="font-size:20px; margin-bottom:12px; color:#a78bfa;">Upgrade to Nexora AI Pro</h3>
-        <p class="text-slate-300 text-sm mb-4" style="color:#858596; font-size:14px; margin-bottom:20px; line-height:1.6;">
+        <h3 style="font-size:20px; margin-bottom:12px; color:#a78bfa;">Upgrade to Nexora AI Pro</h3>
+        <p style="color:#858596; font-size:14px; margin-bottom:20px; line-height:1.6;">
             To upgrade your account manually, please transfer the subscription fee ($9) to our local bank account using the details below:
         </p>
 
-        <div class="bg-slate-800 p-4 rounded-xl mb-4 space-y-2 text-sm" style="background:#080811; padding:15px; border-radius:14px; margin-bottom:20px; border:1px solid #252538;">
+        <div style="background:#080811; padding:15px; border-radius:14px; margin-bottom:20px; border:1px solid #252538;">
             <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px;">
                 <span style="color:#858596;">Bank Name:</span>
                 <span style="font-weight:500;">Bank of Palestine</span>
@@ -327,18 +335,17 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
                 <span style="color:#858596;">Account Holder:</span>
                 <span style="font-weight:500;">Hanin Maher</span>
             </div>
-            <div style="display:flex; flex-direction:column; gap:6px; pt-2; border-top:1px solid #252538; padding-top:8px;">
+            <div style="display:flex; flex-direction:column; gap:6px; border-top:1px solid #252538; padding-top:8px;">
                 <span style="color:#858596; font-size:13px;">IBAN:</span>
                 <span id="iban-text" style="font-family:monospace; color:#a78bfa; font-size:12px; word-break:break-all; background:#11111d; padding:8px; border-radius:8px;">PS47PALS045441320650993000000</span>
             </div>
         </div>
 
         <div style="display:flex; flex-direction:column; gap:10px;">
-            <button onclick="copyIban()" class="btn btn-dark" style="width:100%; background:#1c1c2e; border:1px solid #303044; padding:12px; border-radius:12px; color:#fff; cursor:pointer; font-weight:bold;">
+            <button onclick="copyIban()" style="width:100%; background:#1c1c2e; border:1px solid #303044; padding:12px; border-radius:12px; color:#fff; cursor:pointer; font-weight:bold;">
                 Copy IBAN
             </button>
-
-            <a id="whatsappLink" href="#" target="_blank" style="display:block; text-align:center; width:100%; background:#059669; color:#fff; font-weight:bold; padding:12px; border-radius:12px; transition:.2s;">
+            <a id="whatsappLink" href="#" target="_blank" style="display:block; text-align:center; width:100%; background:#059669; color:#fff; font-weight:bold; padding:12px; border-radius:12px; text-decoration:none; transition:.2s;">
                 Send Receipt via WhatsApp
             </a>
         </div>
@@ -375,10 +382,203 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 const ibanValue = "PS47PALS045441320650993000000";
 const whatsappNumber = "970597730669";
 
+const allToolsData = [
+  { name: "ChatGPT", category: "Writing & Productivity", icon: "✍️", desc: "The definitive AI assistant for writing, coding, brainstorming, and daily problem-solving.", url: "https://chatgpt.com", pricing: "Freemium", rating: "4.9/5" },
+  { name: "Claude AI", category: "Documents", icon: "📄", desc: "Dominating long-form research, data synthesis, document review, and deep insights.", url: "https://claude.ai", pricing: "Freemium", rating: "4.9/5" },
+  { name: "Midjourney", category: "Images", icon: "🖼️", desc: "Creating unprecedented hyper-realistic cinematic images and visual concepts from prompts.", url: "https://www.midjourney.com", pricing: "Paid", rating: "4.8/5" },
+  { name: "Canva AI", category: "Design", icon: "🎨", desc: "Quick graphic design, automated templates, and AI-powered visual assets creation.", url: "https://www.canva.com", pricing: "Freemium", rating: "4.7/5" },
+  { name: "ElevenLabs", category: "Audio", icon: "🔊", desc: "Hyper-realistic voice cloning and text-to-speech generation in dozens of languages.", url: "https://elevenlabs.io", pricing: "Freemium", rating: "4.8/5" },
+  { name: "Runway", category: "Video", icon: "🎬", desc: "Generative video tools for creators, cinematic text-to-video, and advanced editing.", url: "https://runwayml.com", pricing: "Freemium", rating: "4.6/5" },
+  { name: "GitHub Copilot", category: "Programming", icon: "💻", desc: "AI pair programmer that helps you write code faster with autocomplete suggestions.", url: "https://github.com/features/copilot", pricing: "Paid", rating: "4.9/5" },
+  { name: "Notion AI", category: "Business", icon: "📊", desc: "Integrated workspace assistant for notes, project management, and automated summaries.", url: "https://www.notion.so", pricing: "Freemium", rating: "4.7/5" }
+];
+
+function renderTools(filter = 'all') {
+  const grid = document.getElementById('toolsGrid');
+  if(!grid) return;
+  grid.innerHTML = '';
+  
+  const filtered = filter === 'all' ? allToolsData : allToolsData.filter(t => t.category === filter);
+  
+  filtered.forEach(tool => {
+    const card = document.createElement('div');
+    card.className = 'tool-card';
+    card.innerHTML = `
+      <div>
+        <div class="tool-icon">${tool.icon}</div>
+        <h3>${tool.name}</h3>
+        <p>${tool.desc}</p>
+        <span class="category">${tool.category}</span>
+      </div>
+      <div>
+        <button class="tool-button" onclick="openTool('${tool.url}')">Use Tool →</button>
+        <button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('${tool.name}', '${tool.category}', '${tool.url}')">⭐ Save to Favorites</button>
+        <button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('${tool.name}')">💬 Reviews</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterTools(category, btnElement) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btnElement.classList.add('active');
+  renderTools(category);
+}
+
+function openTool(url) {
+  window.open(url, '_blank');
+}
+
+function saveBookmark(name, category, url) {
+  let bookmarks = JSON.parse(localStorage.getItem('nexora_bookmarks') || '[]');
+  if(!bookmarks.some(b => b.name === name)) {
+    bookmarks.push({name, category, url});
+    localStorage.setItem('nexora_bookmarks', JSON.stringify(bookmarks));
+    alert('Tool saved to your favorites successfully! ⭐');
+  } else {
+    alert('This tool is already in your favorites.');
+  }
+}
+
+const toolDetailsMap = {
+  chatgpt: { name: "ChatGPT", category: "Writing & Productivity", pricing: "Freemium ($20/mo Pro)", rating: "4.9/5", bestFor: "Writing, Coding, Brainstorming" },
+  claude: { name: "Claude AI", category: "Documents", pricing: "Freemium ($20/mo Pro)", rating: "4.9/5", bestFor: "Long-form Research, Analysis" },
+  midjourney: { name: "Midjourney", category: "Images", pricing: "Paid (from $10/mo)", rating: "4.8/5", bestFor: "Hyper-realistic Art & Design" },
+  canva: { name: "Canva AI", category: "Design", pricing: "Freemium ($15/mo Pro)", rating: "4.7/5", bestFor: "Quick Graphic Design & Social Media" }
+};
+
+function updateComparison() {
+  const t1Key = document.getElementById('compareTool1').value;
+  const t2Key = document.getElementById('compareTool2').value;
+  const t3Key = document.getElementById('compareTool3').value;
+  
+  const tool1 = toolDetailsMap[t1Key];
+  const tool2 = toolDetailsMap[t2Key];
+  const tool3 = t3Key !== 'none' ? toolDetailsMap[t3Key] : null;
+  
+  document.getElementById('thTool1').textContent = tool1.name;
+  document.getElementById('thTool2').textContent = tool2.name;
+  
+  const th3 = document.getElementById('thTool3');
+  if(tool3) {
+    th3.style.display = 'table-cell';
+    th3.textContent = tool3.name;
+  } else {
+    th3.style.display = 'none';
+  }
+  
+  const tbody = document.getElementById('comparisonBody');
+  tbody.innerHTML = `
+    <tr style="border-bottom:1px solid #1f1f33;">
+      <td style="padding:15px; color:#858596;">Category</td>
+      <td style="padding:15px;">${tool1.category}</td>
+      <td style="padding:15px;">${tool2.category}</td>
+      ${tool3 ? `<td style="padding:15px;">${tool3.category}</td>` : ''}
+    </tr>
+    <tr style="border-bottom:1px solid #1f1f33;">
+      <td style="padding:15px; color:#858596;">Pricing Model</td>
+      <td style="padding:15px;">${tool1.pricing}</td>
+      <td style="padding:15px;">${tool2.pricing}</td>
+      ${tool3 ? `<td style="padding:15px;">${tool3.pricing}</td>` : ''}
+    </tr>
+    <tr style="border-bottom:1px solid #1f1f33;">
+      <td style="padding:15px; color:#858596;">Community Rating</td>
+      <td style="padding:15px; color:#a78bfa; font-weight:bold;">⭐ ${tool1.rating}</td>
+      <td style="padding:15px; color:#a78bfa; font-weight:bold;">⭐ ${tool2.rating}</td>
+      ${tool3 ? `<td style="padding:15px; color:#a78bfa; font-weight:bold;">⭐ ${tool3.rating}</td>` : ''}
+    </tr>
+    <tr>
+      <td style="padding:15px; color:#858596;">Best For</td>
+      <td style="padding:15px;">${tool1.bestFor}</td>
+      <td style="padding:15px;">${tool2.bestFor}</td>
+      ${tool3 ? `<td style="padding:15px;">${tool3.bestFor}</td>` : ''}
+    </tr>
+  `;
+}
+
+function recommendTool() {
+  const query = document.getElementById('smartSearch').value.toLowerCase();
+  const recBox = document.getElementById('recommendation');
+  if(!query.trim()) return;
+  
+  let match = allToolsData[0];
+  if(query.includes('image') || query.includes('photo') || query.includes('صورة') || query.includes('رسم')) match = allToolsData[2];
+  else if(query.includes('document')  || query.includes('research') || query.includes('بحث') || query.includes('ملف')) match = allToolsData[1];
+  else if(query.includes('code') || query.includes('program') || query.includes('برمجة')) match = allToolsData[6];
+  else if(query.includes('voice') || query.includes('audio') || query.includes('صوت')) match = allToolsData[4];
+  
+  recBox.style.display = 'block';
+  recBox.innerHTML = `✨ Recommended for you: <strong>${match.name}</strong> (${match.category}) - ${match.desc} <br><a href="${match.url}" target="_blank" style="color:#a78bfa; font-weight:bold; text-decoration:underline; display:inline-block; margin-top:5px;">Open Tool →</a>`;
+}
+
+let currentReviewTool = '';
+function openReviewModal(toolName) {
+  currentReviewTool = toolName;
+  document.getElementById('reviewModalTitle').textContent = `Reviews for ${toolName}`;
+  loadReviews(toolName);
+  document.getElementById('reviewModal').style.display = 'flex';
+}
+
+function closeReviewModal() {
+  document.getElementById('reviewModal').style.display = 'none';
+}
+
+function loadReviews(toolName) {
+  const list = document.getElementById('reviewsList');
+  const allReviews = JSON.parse(localStorage.getItem('nexora_reviews') || '{}');
+  const toolReviews = allReviews[toolName] || [
+    {user: "Alex M.", rating: "5", comment: "Incredible tool, saved me hours of work!"},
+    {user: "Sara K.", rating: "4", comment: "Very useful and fast performance."}
+  ];
+  
+  list.innerHTML = toolReviews.map(r => `
+    <div style="background:#080811; padding:10px 14px; border-radius:10px; margin-bottom:8px; border:1px solid #252538;">
+      <div style="display:flex; justify-content:space-between; font-size:12px; color:#858596; margin-bottom:4px;">
+        <span>👤 ${r.user}</span>
+        <span>${'⭐'.repeat(r.rating)}</span>
+      </div>
+      <div>${r.comment}</div>
+    </div>
+  `).join('');
+}
+
+function submitReview() {
+  const rating = document.getElementById('reviewRating').value;
+  const comment = document.getElementById('reviewComment').value.trim();
+  const user = localStorage.getItem('nexora_logged_in_user') || 'Guest User';
+  
+  if(!comment) {
+    alert('Please write a comment before submitting.');
+    return;
+  }
+  
+  let allReviews = JSON.parse(localStorage.getItem('nexora_reviews') || '{}');
+  if(!allReviews[currentReviewTool]) allReviews[currentReviewTool] = [];
+  
+  allReviews[currentReviewTool].unshift({user: user.split('@')[0], rating, comment});
+  localStorage.setItem('nexora_reviews', JSON.stringify(allReviews));
+  
+  document.getElementById('reviewComment').value = '';
+  loadReviews(currentReviewTool);
+  alert('Review submitted successfully!');
+}
+
+function subscribeNewsletter() {
+  const email = document.getElementById('newsletterEmail').value.trim();
+  if(email) {
+    alert('Thank you for subscribing to Nexora AI newsletter!');
+    document.getElementById('newsletterEmail').value = '';
+  } else {
+    alert('Please enter a valid email address.');
+  }
+}
+
 function openManualModal() {
     const modal = document.getElementById('paymentModal');
     modal.style.display = 'flex';
-    const message = encodeURIComponent("Hello, I have transferred the subscription fee for Nixora AI Pro. Here is my receipt and account email: [My-Email]");
+    const userEmail = localStorage.getItem('nexora_logged_in_user') || 'My-Email';
+    const message = encodeURIComponent(`Hello, I have transferred the subscription fee for Nixora AI Pro. Here is my receipt and account email: ${userEmail}`);
     document.getElementById('whatsappLink').href = `https://wa.me/${whatsappNumber}?text=${message}`;
 }
 
@@ -416,9 +616,7 @@ document.addEventListener('keydown', function(event) {
   if (event.key === 'Escape') {
     closeModal();
     closeManualModal();
-    if (typeof closeReviewModal === 'function') {
-      closeReviewModal();
-    }
+    closeReviewModal();
   }
 });
 
@@ -461,6 +659,8 @@ function applyLanguage(lang) {
 function initApp() {
   const savedLang = localStorage.getItem('nexora_lang') || 'en';
   applyLanguage(savedLang);
+  renderTools('all');
+  updateComparison();
   checkLoginState();
 }
 
