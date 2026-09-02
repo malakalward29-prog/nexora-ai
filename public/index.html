@@ -18,7 +18,6 @@
 <meta name="twitter:description" content="منصتك المتكاملة لاستعراض وحفظ أفضل أدوات الذكاء الاصطناعي.">
 <meta name="twitter:image" content="https://nexora-ai-p1x4.onrender.com/images/preview.jpg">
 
-<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -140,7 +139,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 
 <div class="trending-section" id="trending">
 <section style="padding: 60px 25px;">
-<h2 class="section-title" data-en="🔥 Trending This Week" data-en-title="🔥 Trending This Week" data-ar="🔥 الأدوات الأكثر رواجاً هذا الأسبوع">🔥 Trending This Week</h2>
+<h2 class="section-title" data-en="🔥 Trending This Week" data-ar="🔥 الأدوات الأكثر رواجاً هذا الأسبوع">🔥 Trending This Week</h2>
 <p class="section-subtitle" data-en="The most popular and heavily used AI tools by our community right now." data-ar="الأدوات الأكثر شهرة واستخداماً من قبل مجتمعنا في الوقت الحالي.">The most popular and heavily used AI tools by our community right now.</p>
 <div class="trending-grid">
 <div class="trend-card">
@@ -264,7 +263,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
   <h3 data-en="Pro" data-ar="المحترفة">Pro</h3>
   <div class="price">$9</div>
   <p data-en="Advanced AI workflows, premium features and personalized recommendations." data-ar="مسارات عمل متقدمة، ميزات مميزة وتوصيات مخصصة.">Advanced AI workflows, premium features and personalized recommendations.</p>
-  <button class="btn btn-purple" id="proButton" onclick="openCheckout()" data-en="Upgrade to Pro 🚀" data-ar="الترقية إلى Pro 🚀">Upgrade to Pro 🚀</button>
+  <button class="btn btn-purple" id="proButton" onclick="openManualModal()" data-en="Upgrade to Pro 🚀" data-ar="الترقية إلى Pro 🚀">Upgrade to Pro 🚀</button>
 </div>
 <div class="price-card">
   <h3 data-en="Business" data-ar="للشركات">Business</h3>
@@ -308,6 +307,44 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <button class="btn btn-purple form-submit" onclick="submitForm()" data-en="Continue" data-ar="متابعة">Continue</button>
 </div></div>
 
+<!-- Manual Payment Modal (Bank of Palestine) -->
+<div id="paymentModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4 z-50" style="display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,.75); align-items:center; justify-content:center;">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-md w-full text-white shadow-2xl relative" style="background:#11111d; border:1px solid #303044; border-radius:25px; padding:30px; width:100%; max-width:450px;">
+        
+        <button onclick="closeManualModal()" class="close" style="position:absolute; top:20px; right:20px; background:none; border:0; color:#aaa; font-size:22px; cursor:pointer;">×</button>
+
+        <h3 class="text-xl font-bold mb-2 text-purple-400" style="font-size:20px; margin-bottom:12px; color:#a78bfa;">Upgrade to Nexora AI Pro</h3>
+        <p class="text-slate-300 text-sm mb-4" style="color:#858596; font-size:14px; margin-bottom:20px; line-height:1.6;">
+            To upgrade your account manually, please transfer the subscription fee ($9) to our local bank account using the details below:
+        </p>
+
+        <div class="bg-slate-800 p-4 rounded-xl mb-4 space-y-2 text-sm" style="background:#080811; padding:15px; border-radius:14px; margin-bottom:20px; border:1px solid #252538;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px;">
+                <span style="color:#858596;">Bank Name:</span>
+                <span style="font-weight:500;">Bank of Palestine</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px;">
+                <span style="color:#858596;">Account Holder:</span>
+                <span style="font-weight:500;">Hanin Maher</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px; pt-2; border-top:1px solid #252538; padding-top:8px;">
+                <span style="color:#858596; font-size:13px;">IBAN:</span>
+                <span id="iban-text" style="font-family:monospace; color:#a78bfa; font-size:12px; word-break:break-all; background:#11111d; padding:8px; border-radius:8px;">PS47PALS045441320650993000000</span>
+            </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px;">
+            <button onclick="copyIban()" class="btn btn-dark" style="width:100%; background:#1c1c2e; border:1px solid #303044; padding:12px; border-radius:12px; color:#fff; cursor:pointer; font-weight:bold;">
+                Copy IBAN
+            </button>
+
+            <a id="whatsappLink" href="#" target="_blank" style="display:block; text-align:center; width:100%; background:#059669; color:#fff; font-weight:bold; padding:12px; border-radius:12px; transition:.2s;">
+                Send Receipt via WhatsApp
+            </a>
+        </div>
+    </div>
+</div>
+
 <div class="modal" id="reviewModal">
   <div class="modal-box" style="max-width: 550px;">
     <div class="modal-header">
@@ -335,19 +372,24 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 </div>
 
 <script>
-const PADDLE_CLIENT_TOKEN = 'live_67ea06023f8c763a5685788cb80';
-const PADDLE_PRICE_ID = 'pri_01m14fzfvky5dav91ktsz3kfyx';
+const ibanValue = "PS47PALS045441320650993000000";
+const whatsappNumber = "970597730669";
 
-if (window.Paddle) {
-  Paddle.Initialize({ token: PADDLE_CLIENT_TOKEN });
+function openManualModal() {
+    const modal = document.getElementById('paymentModal');
+    modal.style.display = 'flex';
+    const message = encodeURIComponent("Hello, I have transferred the subscription fee for Nixora AI Pro. Here is my receipt and account email: [My-Email]");
+    document.getElementById('whatsappLink').href = `https://wa.me/${whatsappNumber}?text=${message}`;
 }
 
-function openCheckout() {
-  if (window.Paddle) {
-    Paddle.Checkout.open({ items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }] });
-  } else {
-    alert('بوابة الدفع جاري تحميلها أو في انتظار الموافقة الحية...');
-  }
+function closeManualModal() {
+    document.getElementById('paymentModal').style.display = 'none';
+}
+
+function copyIban() {
+    navigator.clipboard.writeText(ibanValue).then(() => {
+        alert('IBAN copied to clipboard successfully!');
+    });
 }
 
 function openModal(type) {
@@ -370,21 +412,16 @@ function closeModal() {
   document.getElementById('modal').style.display = 'none';
 }
 
-// تفعيل زر Esc من لوحة المفاتيح لإغلاق النوافذ المنبثقة فوراً
 document.addEventListener('keydown', function(event) {
   if (event.key === 'Escape') {
     closeModal();
+    closeManualModal();
     if (typeof closeReviewModal === 'function') {
       closeReviewModal();
-    }
-    const userDashboardModal = document.getElementById('userDashboardModal');
-    if (userDashboardModal) {
-      userDashboardModal.remove();
     }
   }
 });
 
-// دالة تفعيل وتغيير اللغة بين العربية والإنجليزية بالكامل
 function toggleLanguage() {
   const currentLang = localStorage.getItem('nexora_lang') || 'en';
   const newLang = currentLang === 'en' ? 'ar' : 'en';
@@ -399,38 +436,32 @@ function applyLanguage(lang) {
   if (lang === 'ar') {
     htmlRoot.setAttribute('dir', 'rtl');
     htmlRoot.setAttribute('lang', 'ar');
-    langBtn.textContent = 'EN';
+    if(langBtn) langBtn.textContent = 'EN';
   } else {
     htmlRoot.setAttribute('dir', 'ltr');
     htmlRoot.setAttribute('lang', 'en');
-    langBtn.textContent = 'AR';
+    if(langBtn) langBtn.textContent = 'AR';
   }
 
-  // تحديث كل العناصر التي تحتوي على data-en و data-ar
   document.querySelectorAll('[data-en][data-ar]').forEach(el => {
     el.textContent = el.getAttribute(`data-${lang}`);
   });
 
-  // تحديث العناوين التي تحتوي على كود HTML داخلها
   document.querySelectorAll('[data-en-html][data-ar-html]').forEach(el => {
     el.innerHTML = el.getAttribute(`data-${lang}-html`);
   });
 
-  // تحديث خانات الإدخال (Placeholders)
   document.querySelectorAll('[data-en-placeholder][data-ar-placeholder]').forEach(el => {
     el.placeholder = el.getAttribute(`data-${lang}-placeholder`);
   });
 
   checkLoginState();
-  loadDynamicTools();
-  updateComparison();
 }
 
 function initApp() {
   const savedLang = localStorage.getItem('nexora_lang') || 'en';
   applyLanguage(savedLang);
   checkLoginState();
-  loadDynamicTools();
 }
 
 function submitForm() {
@@ -456,10 +487,9 @@ function checkLoginState() {
   
   if (user && container) {
     const logoutText = currentLang === 'ar' ? 'تسجيل الخروج' : 'Log out';
-    const profileTitle = currentLang === 'ar' ? 'انقر لفتح لوحة التحكم' : 'Click to open dashboard';
     container.innerHTML = `
       <button class="btn btn-dark" onclick="toggleLanguage()" id="languageButton">${currentLang === 'en' ? 'AR' : 'EN'}</button>
-      <span onclick="openUserDashboard()" style="color: #a78bfa; font-size: 14px; margin: 0 8px; cursor: pointer; text-decoration: underline; font-weight: bold;" title="${profileTitle}">👤 ${user.split('@')[0]}</span>
+      <span style="color: #a78bfa; font-size: 14px; margin: 0 8px; font-weight: bold;">👤 ${user.split('@')[0]}</span>
       <button class="btn btn-dark" onclick="logoutUser()">${logoutText}</button>
     `;
   }
@@ -468,276 +498,6 @@ function checkLoginState() {
 function logoutUser() {
   localStorage.removeItem('nexora_logged_in_user');
   location.reload();
-}
-
-function openUserDashboard() {
-  const favorites = JSON.parse(localStorage.getItem('nexora_favorites') || '[]');
-  const reviews = JSON.parse(localStorage.getItem('admin_reviews') || '[]');
-  const userEmail = localStorage.getItem('nexora_logged_in_user');
-  const currentLang = localStorage.getItem('nexora_lang') || 'en';
-  
-  let favHtml = favorites.length > 0 ? favorites.map(f => `
-    <div style="display:flex; justify-content:space-between; align-items:center; background:#080811; padding:10px 14px; border-radius:10px; margin-bottom:8px; border:1px solid #252538;">
-      <a href="${f.url}" target="_blank" style="color:#a78bfa; text-decoration:underline; font-weight:bold; font-size:14px;">${f.name}</a> 
-      <span style="background:#191526; color:#b9a2ff; font-size:11px; padding:3px 8px; border-radius:6px;">${f.category}</span>
-    </div>`).join('') : `<p style="color:#858596; font-size:14px; text-align:center; padding:15px;">${currentLang === 'ar' ? 'لا توجد أدوات محفوظة في المفضلة بعد.' : 'No favorite tools saved yet.'}</p>`;
-  
-  let userReviews = reviews.filter(r => r.user === 'Guest User' || r.user === userEmail);
-  let revHtml = userReviews.length > 0 ? userReviews.map(r => `
-    <div style="background:#080811; padding:12px; border-radius:10px; margin-bottom:8px; border:1px solid #252538; font-size:13px;">
-      <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-        <strong style="color:#fff; font-size:14px;">${r.tool}</strong>
-        <span style="color:#f59e0b; font-weight:bold;">${r.rating} ⭐</span>
-      </div>
-      <p style="color:#b8b8cc; line-height:1.4;">${r.comment}</p>
-    </div>`).join('') : `<p style="color:#858596; font-size:14px; text-align:center; padding:15px;">${currentLang === 'ar' ? 'لا توجد تعليقات مسجلة بعد.' : 'No reviews recorded yet.'}</p>`;
-
-  let modalContent = `
-    <div class="modal" id="userDashboardModal" style="display:flex;">
-      <div class="modal-box" style="max-width: 650px; background:#12121e; border:1px solid #3c236e; box-shadow: 0 10px 40px rgba(124,58,237,0.2);">
-        <div class="modal-header" style="border-bottom:1px solid #242438; padding-bottom:15px; margin-bottom:20px;">
-          <h2 style="font-size:22px; color:#fff; display:flex; align-items:center; gap:8px;">${currentLang === 'ar' ? '🚀 لوحة التحكم الشخصية' : '🚀 Personal Dashboard'}</h2>
-          <button class="close" onclick="document.getElementById('userDashboardModal').remove()" style="color:#fff; font-size:24px;">×</button>
-        </div>
-        
-        <div style="margin-bottom: 25px;">
-          <h3 style="color: #a78bfa; font-size: 15px; margin-bottom: 12px; display:flex; align-items:center; gap:6px;">⭐ ${currentLang === 'ar' ? 'الأدوات المفضلة لديك' : 'Your Favorites'} (${favorites.length})</h3>
-          <div style="max-height: 160px; overflow-y: auto; padding-right: 5px;">${favHtml}</div>
-        </div>
-
-        <div style="margin-bottom: 25px;">
-          <h3 style="color: #a78bfa; font-size: 15px; margin-bottom: 12px; display:flex; align-items:center; gap:6px;">💬 ${currentLang === 'ar' ? 'تعليقاتك وتقييماتك' : 'Your Reviews'} (${userReviews.length})</h3>
-          <div style="max-height: 160px; overflow-y: auto; padding-right: 5px;">${revHtml}</div>
-        </div>
-
-        <div style="background:#080811; padding:15px; border-radius:12px; border:1px solid #252538; display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <h3 style="color: #fff; font-size: 14px; margin-bottom: 4px;">${currentLang === 'ar' ? 'حالة الحساب' : 'Account Status'}</h3>
-            <p style="color: #858596; font-size: 13px;">${currentLang === 'ar' ? 'البريد:' : 'Email:'} <strong style="color:#a78bfa;">${userEmail}</strong></p>
-          </div>
-          <button class="btn btn-dark" onclick="logoutUser()" style="background:#2a1b3d; border-color:#582c8a; font-size:13px; padding:8px 14px;">${currentLang === 'ar' ? 'تسجيل الخروج' : 'Log out'}</button>
-        </div>
-      </div>
-    </div>
-  `;
-  
-  const oldModal = document.getElementById('userDashboardModal');
-  if(oldModal) oldModal.remove();
-  document.body.insertAdjacentHTML('beforeend', modalContent);
-}
-
-function loadDynamicTools() {
-  const currentLang = localStorage.getItem('nexora_lang') || 'en';
-  const defaultTools = [
-    { name: 'ChatGPT', category: 'Writing & Productivity', url: 'https://chatgpt.com', desc: currentLang === 'ar' ? 'مساعد ذكي للكتابة، البحث، العصف الذهني، التعلم والبرمجة.' : 'AI assistant for writing, research, brainstorming, learning and programming.' },
-    { name: 'Canva AI', category: 'Design', url: 'https://www.canva.com', desc: currentLang === 'ar' ? 'أنشئ عروضاً توضيحية، تصميمات ومحتوى منصات التواصل بالذكاء الاصطناعي.' : 'Create presentations, designs, social media content and visual materials with AI.' },
-    { name: 'Midjourney', category: 'Images', url: 'https://www.midjourney.com', desc: currentLang === 'ar' ? 'توليد صور إبداعية ومفاهيم بصرية فريدة من نصوص بسيطة.' : 'Generate creative AI images and visual concepts from simple text prompts.' },
-    { name: 'TopMediai', category: 'Audio', url: 'https://www.topmediai.com', desc: currentLang === 'ar' ? 'أدوات أصوات ذكية وتحويل النص إلى كلام لصانعي المحتوى.' : 'AI voice, text-to-speech and audio tools for content creators and businesses.' },
-    { name: 'Runway Gen-2', category: 'Video', url: 'https://research.runwayml.com', desc: currentLang === 'ar' ? 'تحويل النصوص والصور إلى فيديوهات سينمائية وتأثيرات بصرية.' : 'Transform text and images into cinematic AI videos and professional motion graphics.' },
-    { name: 'GitHub Copilot', category: 'Programming', url: 'https://github.com/features/copilot', desc: currentLang === 'ar' ? 'مساعد برمجي ذكي يساعدك على كتابة وتصحيح الأكواد بسرعة.' : 'AI pair programmer that helps developers write, debug and complete code faster.' },
-    { name: 'Claude AI', category: 'Documents', url: 'https://claude.ai', desc: currentLang === 'ar' ? 'تحليل ملفات PDF الطويلة، تلخيص التقارير واستخراج الرؤى.' : 'Analyze long PDF documents, summarize reports, and extract deep insights using AI.' },
-    { name: 'AI Business', category: 'Business', url: 'https://chatgpt.com', desc: currentLang === 'ar' ? 'أدوات للتسويق، المبيعات، التحليلات وإدارة الأعمال الحديثة.' : 'Tools for marketing, sales, analytics, productivity and modern business workflows.' }
-  ];
-
-  const savedTools = localStorage.getItem('admin_tools');
-  const tools = savedTools ? JSON.parse(savedTools) : defaultTools;
-  const grid = document.getElementById('toolsGrid');
-  if (!grid) return;
-
-  const btnText = currentLang === 'ar' ? 'استخدم الأداة ←' : 'Use Tool →';
-  const saveText = currentLang === 'ar' ? '⭐ حفظ في المفضلة' : '⭐ Save to Favorites';
-  const revText = currentLang === 'ar' ? '💬 التقييمات' : '💬 Reviews';
-
-  grid.innerHTML = tools.map(t => {
-    let icon = '🛠️';
-    if(t.category && t.category.includes('Writing')) icon = '✍️';
-    else if(t.category && t.category.includes('Design')) icon = '🎨';
-    else if(t.category && t.category.includes('Image')) icon = '🖼️';
-    else if(t.category && t.category.includes('Audio')) icon = '🎙️';
-    else if(t.category && t.category.includes('Video')) icon = '🎬';
-    else if(t.category && t.category.includes('Program')) icon = '💻';
-    else if(t.category && t.category.includes('Document')) icon = '📄';
-
-    return `
-      <div class="tool-card" data-category="${t.category}">
-        <div class="tool-icon">${icon}</div>
-        <div>
-          <h3>${t.name}</h3>
-          <p>${t.desc || 'AI tool to help you work smarter and faster.'}</p>
-          <span class="category">${t.category}</span>
-        </div>
-        <div>
-          <button class="tool-button" onclick="openTool('${t.url}')">${btnText}</button>
-          <button class="btn btn-dark" style="width:100%;margin-top:8px;font-size:13px;" onclick="saveBookmark('${t.name}', '${t.category}', '${t.url}')">${saveText}</button>
-          <button class="btn btn-dark" style="width:100%;margin-top:6px;font-size:13px;" onclick="openReviewModal('${t.name}')">${revText}</button>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-function openTool(url) {
-  window.open(url, '_blank');
-}
-
-function saveBookmark(name, category, url) {
-  let localBookmarks = JSON.parse(localStorage.getItem('nexora_favorites') || '[]');
-  const currentLang = localStorage.getItem('nexora_lang') || 'en';
-  if(!localBookmarks.some(b => b.name === name)) {
-    localBookmarks.push({ name, category, url });
-    localStorage.setItem('nexora_favorites', JSON.stringify(localBookmarks));
-  }
-  alert(name + (currentLang === 'ar' ? ' تمت إضافتها إلى المفضلة بنجاح! ⭐' : ' added to your favorites successfully! ⭐'));
-}
-
-function filterTools(category, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const cards = document.querySelectorAll('.tool-card');
-  cards.forEach(card => {
-    if (category === 'all' || card.getAttribute('data-category') === category) {
-      card.style.display = 'flex';
-    } else {
-      card.style.display = 'none';
-    }
-  });
-}
-
-const toolData = {
-  chatgpt: { name: "ChatGPT", category: "Writing & Productivity", pricing: "Free / $20 per month", bestFor: "Writing, coding, brainstorming, daily tasks", easeOfUse: "Very High ⭐⭐⭐⭐⭐", platforms: "Web, iOS, Android, Desktop app", rating: "4.9 / 5" },
-  claude: { name: "Claude AI", category: "Documents & Research", pricing: "Free / $20 per month", bestFor: "Long-form research, data analysis, coding", easeOfUse: "Very High ⭐⭐⭐⭐⭐", platforms: "Web, iOS, Android", rating: "4.8 / 5" },
-  midjourney: { name: "Midjourney", category: "Images", pricing: "Paid plans from $10/month", bestFor: "Hyper-realistic art & visual design", easeOfUse: "Medium ⭐⭐⭐", platforms: "Discord / Web app", rating: "4.7 / 5" },
-  canva: { name: "Canva AI", category: "Design", pricing: "Free / Pro plans available", bestFor: "Social media, presentations, quick graphics", easeOfUse: "Very High ⭐⭐⭐⭐⭐", platforms: "Web, Mobile apps", rating: "4.8 / 5" }
-};
-
-function updateComparison() {
-  const val1 = document.getElementById('compareTool1').value;
-  const val2 = document.getElementById('compareTool2').value;
-  const val3 = document.getElementById('compareTool3').value;
-
-  const t1 = toolData[val1];
-  const t2 = toolData[val2];
-  const t3 = val3 !== 'none' ? toolData[val3] : null;
-
-  document.getElementById('thTool1').textContent = t1.name;
-  document.getElementById('thTool2').textContent = t2.name;
-  
-  const th3 = document.getElementById('thTool3');
-  if (t3) {
-    th3.style.display = 'table-cell';
-    th3.textContent = t3.name;
-  } else {
-    th3.style.display = 'none';
-  }
-
-  const currentLang = localStorage.getItem('nexora_lang') || 'en';
-  const features = [
-    { label: currentLang === 'ar' ? 'التصنيف' : 'Category', key: 'category' },
-    { label: currentLang === 'ar' ? 'السعر' : 'Pricing', key: 'pricing' },
-    { label: currentLang === 'ar' ? 'الأفضل لـ' : 'Best For', key: 'bestFor' },
-    { label: currentLang === 'ar' ? 'سهولة الاستخدام' : 'Ease of Use', key: 'easeOfUse' },
-    { label: currentLang === 'ar' ? 'المنصات المدعومة' : 'Platforms', key: 'platforms' },
-    { label: currentLang === 'ar' ? 'تقييم المستخدمين' : 'User Rating', key: 'rating' }
-  ];
-
-  const tbody = document.getElementById('comparisonBody');
-  tbody.innerHTML = features.map(f => `
-    <tr style="border-bottom:1px solid #1f1f33;">
-      <td style="padding:15px; color:#858596; font-weight:bold;">${f.label}</td>
-      <td style="padding:15px;">${t1[f.key]}</td>
-      <td style="padding:15px;">${t2[f.key]}</td>
-      <td style="padding:15px; display:${t3 ? 'table-cell' : 'none'};">${t3 ? t3[f.key] : ''}</td>
-    </tr>
-  `).join('');
-}
-
-let currentToolForReview = '';
-
-function openReviewModal(toolName) {
-  currentToolForReview = toolName;
-  const currentLang = localStorage.getItem('nexora_lang') || 'en';
-  document.getElementById("reviewModalTitle").textContent = (currentLang === 'ar' ? 'تقييمات الأداة: ' : 'Reviews for ') + toolName;
-  document.getElementById("reviewModal").style.display = "flex";
-  loadReviews(toolName);
-}
-
-function closeReviewModal() {
-  document.getElementById("reviewModal").style.display = "none";
-}
-
-function loadReviews(toolName) {
-  const listEl = document.getElementById("reviewsList");
-  const currentLang = localStorage.getItem('nexora_lang') || 'en';
-  let adminReviews = JSON.parse(localStorage.getItem('admin_reviews') || '[]');
-  let filtered = adminReviews.filter(r => r.tool === toolName);
-  
-  if (filtered.length > 0) {
-    listEl.innerHTML = filtered.map(r => `
-      <div style="background:#080811; border:1px solid #252538; padding:10px 12px; border-radius:10px; margin-bottom:8px;">
-        <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-          <span style="color:#a78bfa; font-weight:bold; font-size:13px;">${r.user || 'Guest'}</span>
-          <span style="color:#f59e0b; font-size:12px;">${r.rating} ⭐</span>
-        </div>
-        <p style="color:#ccc; font-size:13px;">${r.comment}</p>
-      </div>
-    `).join('');
-  } else {
-    listEl.innerHTML = `<p style="color:#858596; text-align:center; padding:15px;">${currentLang === 'ar' ? 'لا توجد تقييمات بعد لهذه الأداة. كن أول من يضيف تقييماً!' : 'No reviews yet for this tool. Be the first to add one!'}</p>`;
-  }
-}
-
-function submitReview() {
-  const rating = document.getElementById("reviewRating").value;
-  const comment = document.getElementById("reviewComment").value.trim();
-  const user = localStorage.getItem('nexora_logged_in_user') || 'Guest User';
-  const currentLang = localStorage.getItem('nexora_lang') || 'en';
-
-  if (!comment) {
-    alert(currentLang === 'ar' ? 'الرجاء كتابة تعليق قبل الإرسال.' : 'Please write a comment before submitting.');
-    return;
-  }
-
-  let adminReviews = JSON.parse(localStorage.getItem('admin_reviews') || '[]');
-  adminReviews.push({ tool: currentToolForReview, user, rating, comment });
-  localStorage.setItem('admin_reviews', JSON.stringify(adminReviews));
-
-  document.getElementById("reviewComment").value = "";
-  alert(currentLang === 'ar' ? 'تم إرسال التقييم بنجاح! 🎉' : 'Review submitted successfully! 🎉');
-  loadReviews(currentToolForReview);
-}
-
-function subscribeNewsletter() {
-  const email = document.getElementById("newsletterEmail").value.trim();
-  const currentLang = localStorage.getItem('nexora_lang') || 'en';
-  if (!email) {
-    alert(currentLang === 'ar' ? 'الرجاء إدخال بريد إلكتروني صحيح.' : 'Please enter a valid email address.');
-    return;
-  }
-  alert(currentLang === 'ar' ? 'شكراً لاشتراكك في نشرة Nexora AI! 🚀' : 'Thank you for subscribing to Nexora AI newsletter! 🚀');
-  document.getElementById("newsletterEmail").value = "";
-}
-
-function recommendTool() {
-  const query = document.getElementById("smartSearch").value.toLowerCase();
-  const recBox = document.getElementById("recommendation");
-  const currentLang = localStorage.getItem('nexora_lang') || 'en';
-  if (!query) {
-    recBox.style.display = "none";
-    return;
-  }
-  let suggestion = currentLang === 'ar' 
-    ? "نوصي بتجربة **ChatGPT** للمهام العامة، الكتابة والعصف الذهني، أو **Claude AI** لأبحاث المستندات العميقة."
-    : "We recommend trying **ChatGPT** for general tasks, writing, and brainstorming, or **Claude AI** for deep document research.";
-
-  if(query.includes('image') || query.includes('photo') || query.includes('art') || query.includes('صورة') || query.includes('رسم')) {
-    suggestion = currentLang === 'ar' ? "لإنشاء الصور والمفاهيم البصرية، **Midjourney** هو خيارك الأفضل!" : "For images and visual concepts, **Midjourney** is your best choice!";
-  } else if(query.includes('code') || query.includes('program') || query.includes('developer') || query.includes('كود') || query.includes('برمجة')) {
-    suggestion = currentLang === 'ar' ? "لأكواد البرمجة، **GitHub Copilot** أو **ChatGPT** هما الخياران المثاليان." : "For coding and programming, **GitHub Copilot** or **ChatGPT** are ideal choices.";
-  } else if(query.includes('design') || query.includes('presentation') || query.includes('تصميم')) {
-    suggestion = currentLang === 'ar' ? "للتصميم الجرافيكي والعروض التقديمية، ننصح بشدة باستخدام **Canva AI**." : "For graphic design and presentations, **Canva AI** is highly recommended.";
-  }
-  recBox.innerHTML = suggestion;
-  recBox.style.display = "block";
 }
 </script>
 </body>
