@@ -10,7 +10,6 @@
 <meta property="og:url" content="https://nexora-ai-p1x4.onrender.com/index.html">
 <meta property="og:title" content="Nexora AI - اكتشف أدوات الذكاء الاصطناعي">
 <meta property="og:description" content="منصتك المتكاملة لاستعراض وحفظ أفضل أدوات الذكاء الاصطناعي.">
-<meta property="og:image" content="a_wide_futuristic_dark_themed_website_app_landing.png">
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -60,8 +59,7 @@ section{max-width:1200px;margin:auto;padding:80px 25px}
 .tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .tool-card{background:#10101b;border:1px solid #242438;border-radius:22px;padding:25px;transition:.25s;display:flex;flex-direction:column;justify-content:space-between}
 .tool-card:hover{transform:translateY(-5px);border-color:#7047c7}
-.tool-icon{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;background:#fff;overflow:hidden;margin-bottom:20px;padding:6px}
-.tool-icon img{width:100%;height:100%;object-fit:contain}
+.tool-icon{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;background:#1a172e;border:1px solid #3a305e;overflow:hidden;margin-bottom:20px;font-size:24px}
 .tool-card h3{font-size:20px;margin-bottom:10px}
 .tool-card p{color:#858596;line-height:1.6;font-size:14px;min-height:70px}
 .category{display:inline-block;color:#b9a2ff;font-size:12px;margin-top:15px}
@@ -154,7 +152,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 <div class="trending-grid">
   <div class="trend-card">
     <span class="trend-badge" data-en="#1 Hot" data-ar="الأكثر طلباً #1">#1 Hot</span>
-    <div class="tool-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT"></div>
+    <div class="tool-icon">💬</div>
     <h3>ChatGPT</h3>
     <p data-en="The definitive AI assistant for writing, coding, brainstorming, and daily problem-solving." data-ar="مساعد الذكاء الاصطناعي الأول للكتابة، البرمجة، العصف الذهني وحل المشكلات اليومية.">The definitive AI assistant for writing, coding, brainstorming, and daily problem-solving.</p>
     <span class="category" data-en="Writing & Productivity" data-ar="الكتابة والإنتاجية">Writing & Productivity</span>
@@ -164,7 +162,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
   </div>
   <div class="trend-card">
     <span class="trend-badge" data-en="#2 Hot" data-ar="الأكثر طلباً #2">#2 Hot</span>
-    <div class="tool-icon"><img src="https://www.midjourney.com/favicon.ico" alt="Midjourney"></div>
+    <div class="tool-icon">🎨</div>
     <h3>Midjourney</h3>
     <p data-en="Creating unprecedented hyper-realistic cinematic images and visual concepts from prompts." data-ar="إنشاء صور سينمائية فائقة الواقعية ومفاهيم بصرية مذهلة من النصوص.">Creating unprecedented hyper-realistic cinematic images and visual concepts from prompts.</p>
     <span class="category" data-en="Images" data-ar="الصور">Images</span>
@@ -174,7 +172,7 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
   </div>
   <div class="trend-card">
     <span class="trend-badge" data-en="#3 Hot" data-ar="الأكثر طلباً #3">#3 Hot</span>
-    <div class="tool-icon"><img src="https://claude.ai/favicon.ico" alt="Claude AI"></div>
+    <div class="tool-icon">📄</div>
     <h3>Claude AI</h3>
     <p data-en="Dominating long-form research, data synthesis, document review, and deep insights." data-ar="الأفضل في الأبحاث المطولة، تحليل البيانات، مراجعة المستندات واستخلاص الرؤى العميقة.">Dominating long-form research, data synthesis, document review, and deep insights.</p>
     <span class="category" data-en="Documents" data-ar="المستندات">Documents</span>
@@ -409,7 +407,7 @@ const allToolsData = [
     name: "ChatGPT", 
     category: "Writing & Productivity", 
     categoryAr: "الكتابة والإنتاجية",
-    iconSrc: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg", 
+    icon: "💬", 
     descEn: "The definitive AI assistant for writing, coding, brainstorming, and daily problem-solving.", 
     descAr: "مساعد الذكاء الاصطناعي الأول للكتابة، البرمجة، العصف الذهني وحل المشكلات اليومية.",
     url: "https://chatgpt.com", 
@@ -420,7 +418,7 @@ const allToolsData = [
     name: "Claude AI", 
     category: "Documents", 
     categoryAr: "المستندات",
-    iconSrc: "https://claude.ai/favicon.ico", 
+    icon: "📄", 
     descEn: "Dominating long-form research, data synthesis, document review, and deep insights.", 
     descAr: "الأفضل في الأبحاث المطولة، تحليل البيانات، مراجعة المستندات واستخلاص الرؤى العميقة.",
     url: "https://claude.ai", 
@@ -431,7 +429,7 @@ const allToolsData = [
     name: "Midjourney", 
     category: "Images", 
     categoryAr: "الصور",
-    iconSrc: "https://www.midjourney.com/favicon.ico", 
+    icon: "🎨", 
     descEn: "Creating unprecedented hyper-realistic cinematic images and visual concepts from prompts.", 
     descAr: "إنشاء صور سينمائية فائقة الواقعية ومفاهيم بصرية مذهلة من النصوص.",
     url: "https://www.midjourney.com", 
@@ -442,7 +440,7 @@ const allToolsData = [
     name: "Canva AI", 
     category: "Design", 
     categoryAr: "التصميم",
-    iconSrc: "https://www.canva.com/favicon.ico", 
+    icon: "✨", 
     descEn: "Quick graphic design, automated templates, and AI-powered visual assets creation.", 
     descAr: "تصميم جرافيكي سريع، قوالب جاهزة، وإنشاء أصول بصرية مدعومة بالذكاء الاصطناعي.",
     url: "https://www.canva.com", 
@@ -453,7 +451,7 @@ const allToolsData = [
     name: "TopMediai", 
     category: "Audio", 
     categoryAr: "الصوت",
-    iconSrc: "https://www.topmediai.com/favicon.ico", 
+    icon: "🎵", 
     descEn: "AI voice generator, text-to-speech, voice cloning and audio tools for content creators.", 
     descAr: "مولد أصوات ذكي، تحويل النص إلى كلام، استنساخ الأصوات وأدوات صوتية لصناع المحتوى.",
     url: "https://www.topmediai.com", 
@@ -464,7 +462,7 @@ const allToolsData = [
     name: "Runway", 
     category: "Video", 
     categoryAr: "الفيديو",
-    iconSrc: "https://runwayml.com/favicon.ico", 
+    icon: "🎬", 
     descEn: "Generative video tools for creators, cinematic text-to-video, and advanced editing.", 
     descAr: "أدوات توليد الفيديو للمصممين، تحويل النص إلى فيديو سينمائي، وتعديل متقدم.",
     url: "https://runwayml.com", 
@@ -475,7 +473,7 @@ const allToolsData = [
     name: "GitHub Copilot", 
     category: "Programming", 
     categoryAr: "البرمجة",
-    iconSrc: "https://github.githubassets.com/favicons/favicon.png", 
+    icon: "💻", 
     descEn: "AI pair programmer that helps you write code faster with autocomplete suggestions.", 
     descAr: "مساعد برمجي ذكي يساهم في كتابة الكود بسرعة فائقة مع اقتراحات الإكمال التلقائي.",
     url: "https://github.com/features/copilot", 
@@ -486,7 +484,7 @@ const allToolsData = [
     name: "Business AI", 
     category: "Business", 
     categoryAr: "الأعمال",
-    iconSrc: "https://www.notion.so/front-static/favicon.ico", 
+    icon: "📊", 
     descEn: "Integrated workspace assistant for notes, project management, and automated summaries.", 
     descAr: "مساعد مساحة عمل متكامل للملاحظات، إدارة المشاريع، والملخصات التلقائية.",
     url: "https://www.notion.so", 
@@ -515,7 +513,7 @@ function renderTools(filter = 'all') {
     
     card.innerHTML = `
       <div>
-        <div class="tool-icon"><img src="${tool.iconSrc}" alt="${tool.name}"></div>
+        <div class="tool-icon">${tool.icon}</div>
         <h3>${tool.name}</h3>
         <p>${descText}</p>
         <span class="category">${catText}</span>
