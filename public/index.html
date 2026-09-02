@@ -95,6 +95,16 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
 .form-group{margin-bottom:15px}
 .form-group input,.form-group textarea,.form-group select{width:100%;padding:14px;border-radius:12px;background:#080811;border:1px solid #29293d;color:#fff;outline:none}
 .form-submit{width:100%;margin-top:10px}
+
+/* User Dropdown Profile Styles */
+.user-menu-container{position:relative;display:inline-block}
+.user-dropdown-btn{background:#151522;border:1px solid #303044;color:#a78bfa;padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:bold;display:flex;align-items:center;gap:6px}
+.user-dropdown-content{display:none;position:absolute;right:0;top:calc(100% + 8px);background:#11111d;border:1px solid #303044;border-radius:16px;width:240px;box-shadow:0 10px 30px rgba(0,0,0,.5);z-index:1100;padding:10px;text-align:left}
+.user-dropdown-content.show{display:block}
+.user-dropdown-item{padding:10px 14px;color:#bbb;font-size:14px;border-radius:10px;cursor:pointer;display:block;transition:.2s}
+.user-dropdown-item:hover{background:#1c1c2e;color:#fff}
+.user-dropdown-divider{height:1px;background:#202033;margin:6px 0}
+
 @media(max-width:900px){.tools-grid{grid-template-columns:repeat(2,1fr)}.trending-grid{grid-template-columns:1fr}.nav-links{display:none}}
 @media(max-width:650px){.navbar{padding:15px}.logo{font-size:22px}.nav-actions .login{display:none}.hero{padding-top:75px}.search-row{flex-direction:column}.search-row button{padding:15px}.tools-grid,.pricing-grid{grid-template-columns:1fr}section,.pricing-inner{padding:60px 18px}.newsletter-form{flex-direction:column}}
 </style>
@@ -350,6 +360,17 @@ footer{border-top:1px solid #202033;padding:60px 25px 35px;background:#05050d;te
             </a>
         </div>
     </div>
+</div>
+
+<!-- Favorites Modal -->
+<div class="modal" id="favoritesModal">
+  <div class="modal-box" style="max-width: 500px;">
+    <div class="modal-header">
+      <h2 data-en="Saved Favorites ⭐" data-en-ar="الأدوات المفضلة ⭐" id="favModalTitle">Saved Favorites ⭐</h2>
+      <button class="close" onclick="closeFavoritesModal()">×</button>
+    </div>
+    <div id="favoritesListContainer" style="max-height: 300px; overflow-y: auto; color: #ddd; font-size: 14px;"></div>
+  </div>
 </div>
 
 <div class="modal" id="reviewModal">
@@ -617,6 +638,7 @@ document.addEventListener('keydown', function(event) {
     closeModal();
     closeManualModal();
     closeReviewModal();
+    closeFavoritesModal();
   }
 });
 
@@ -687,12 +709,78 @@ function checkLoginState() {
   
   if (user && container) {
     const logoutText = currentLang === 'ar' ? 'تسجيل الخروج' : 'Log out';
+    const favText = currentLang === 'ar' ? '⭐ الأدوات المفضلة' : '⭐ My Favorites';
+    const statusText = currentLang === 'ar' ? '💎 الحساب المجاني (Free)' : '💎 Free Account';
+    
     container.innerHTML = `
       <button class="btn btn-dark" onclick="toggleLanguage()" id="languageButton">${currentLang === 'en' ? 'AR' : 'EN'}</button>
-      <span style="color: #a78bfa; font-size: 14px; margin: 0 8px; font-weight: bold;">👤 ${user.split('@')[0]}</span>
-      <button class="btn btn-dark" onclick="logoutUser()">${logoutText}</button>
+      <div class="user-menu-container">
+        <button class="user-dropdown-btn" onclick="toggleUserDropdown(event)">👤 ${user.split('@')[0]} ▼</button>
+        <div id="userDropdownMenu" class="user-dropdown-content">
+          <div style="padding: 10px 14px; font-size: 12px; color: #858596; word-break: break-all;">${user}</div>
+          <div class="user-dropdown-divider"></div>
+          <div class="user-dropdown-item" style="color: #a78bfa; font-weight: bold;">${statusText}</div>
+          <div class="user-dropdown-item" onclick="openFavoritesModal()">${favText}</div>
+          <div class="user-dropdown-divider"></div>
+          <div class="user-dropdown-item" style="color: #f87171;" onclick="logoutUser()">${logoutText}</div>
+        </div>
+      </div>
     `;
   }
+}
+
+function toggleUserDropdown(event) {
+  event.stopPropagation();
+  const dropdown = document.getElementById('userDropdownMenu');
+  if(dropdown) {
+    dropdown.classList.toggle('show');
+  }
+}
+
+window.onclick = function(event) {
+  if (!event.target.closest('.user-menu-container')) {
+    const dropdown = document.getElementById('userDropdownMenu');
+    if (dropdown && dropdown.classList.contains('show')) {
+      dropdown.classList.remove('show');
+    }
+  }
+}
+
+function openFavoritesModal() {
+  const container = document.getElementById('favoritesListContainer');
+  const bookmarks = JSON.parse(localStorage.getItem('nexora_bookmarks') || '[]');
+  const currentLang = localStorage.getItem('nexora_lang') || 'en';
+  
+  document.getElementById('favModalTitle').textContent = currentLang === 'ar' ? 'الأدوات المفضلة المحفوظة ⭐' : 'Saved Favorites ⭐';
+  
+  if(bookmarks.length === 0) {
+    container.innerHTML = `<p style="text-align: center; color: #858596; padding: 20px;">${currentLang === 'ar' ? 'لا توجد أدوات محفوظة في المفضلة بعد.' : 'No favorite tools saved yet.'}</p>`;
+  } else {
+    container.innerHTML = bookmarks.map((b, idx) => `
+      <div style="display: flex; justify-content: space-between; align-items: center; background: #080811; padding: 12px 15px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #252538;">
+        <div>
+          <strong style="display:block; color: #fff; margin-bottom: 3px;">${b.name}</strong>
+          <span style="font-size: 12px; color: #858596;">${b.category}</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <a href="${b.url}" target="_blank" style="background: #7c3aed; color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold;">Open</a>
+          <button onclick="removeBookmark(${idx})" style="background: #2a1520; color: #f87171; border: 1px solid #4a2030; padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer;">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+  document.getElementById('favoritesModal').style.display = 'flex';
+}
+
+function closeFavoritesModal() {
+  document.getElementById('favoritesModal').style.display = 'none';
+}
+
+function removeBookmark(index) {
+  let bookmarks = JSON.parse(localStorage.getItem('nexora_bookmarks') || '[]');
+  bookmarks.splice(index, 1);
+  localStorage.setItem('nexora_bookmarks', JSON.stringify(bookmarks));
+  openFavoritesModal();
 }
 
 function logoutUser() {
